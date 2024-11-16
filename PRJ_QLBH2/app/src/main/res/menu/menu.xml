@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navThemSP"
+        android:icon="@drawable/baseline_home_repair_service_24"
+        android:title="Thêm Sản Phẩm" />
+    <item
+        android:id="@+id/navSuaSP"
+        android:icon="@drawable/baseline_add_to_photos_24"
+        android:title="Sửa Sản Phẩm" />
+    <item
+        android:id="@+id/navDSSP"
+        android:icon="@drawable/baseline_assignment_24"
+        android:title="Danh Sach Sản Phẩm" />
+      <item
+        android:id="@+id/navXoaSP"
+        android:icon="@drawable/baseline_assignment_24"
+        android:title="Xóa Sản Phẩm" />
+
+    <item
+        android:id="@+id/navThoat"
+        android:icon="@drawable/xoa"
+        android:title="Thoát" />
+</menu>
