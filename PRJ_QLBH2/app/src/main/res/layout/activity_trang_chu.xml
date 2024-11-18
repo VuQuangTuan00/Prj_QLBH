@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="113dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="92dp"
             android:text="Home"
             android:textColor="#FFFFFF"
@@ -30,21 +30,21 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="43dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/menu"
+            app:srcCompat="@drawable/baseline_format_list_bulleted_24"
             tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/s"
@@ -141,259 +141,280 @@
             </LinearLayout>
         </HorizontalScrollView>
         <!--List item product -->
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="412dp"
-            android:layout_height="244dp"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewProductList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/item_img1"
+                <!-- Product 1 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/img1" />
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_name1"
+                    <ImageView
+                        android:id="@+id/item_img1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img1" />
+
+                    <TextView
+                        android:id="@+id/item_name1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Xoài cát hoài lộc"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="136.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
+
+                <!-- Product 2 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Xoài cát hoài lộc"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_price1"
+                    <ImageView
+                        android:id="@+id/item_img2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img2" />
+
+                    <TextView
+                        android:id="@+id/item_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Chuối sứ"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="23.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
+
+                <!-- Product 3 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="136.000đ/1kg"
-                    android:textColor="@color/white" />
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnMua1"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
+                    <ImageView
+                        android:id="@+id/item_img3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img3" />
+
+                    <TextView
+                        android:id="@+id/item_name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Sầu riêng thái"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="250.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
             </LinearLayout>
+        </HorizontalScrollView>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_img2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img2" />
-
-                <TextView
-                    android:id="@+id/item_name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Chuối sứ"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/item_price2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="23.000đ/1kg"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btnMua2"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_img3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img3" />
-
-                <TextView
-                    android:id="@+id/item_name3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Sầu riêng thái"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/item_price3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="250.000đ/1kg"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btnMua3"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="412dp"
-            android:layout_height="244dp"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewProductList2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewProductList">
 
             <LinearLayout
+                android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/item_img4"
+                <!-- Product 1 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                    android:src="@drawable/img4" />
+                    <ImageView
+                        android:id="@+id/item_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img1" />
 
-                <TextView
-                    android:id="@+id/item_name4"
+                    <TextView
+                        android:id="@+id/item_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Xoài cát hoài lộc"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="136.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
+
+                <!-- Product 2 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Cải thảo"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_price4"
+                    <ImageView
+                        android:id="@+id/item_img6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img2" />
+
+                    <TextView
+                        android:id="@+id/item_name6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Chuối sứ"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="23.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
+
+                <!-- Product 3 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="26.000đ/1kg"
-                    android:textColor="@color/white" />
+                    android:layout_margin="5dp"
+                    android:background="@drawable/product_background"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnMua4"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
+                    <ImageView
+                        android:id="@+id/item_img7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img3" />
+
+                    <TextView
+                        android:id="@+id/item_name7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Sầu riêng thái"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/item_price7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="250.000đ/1kg"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnMua7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btnmua_background"
+                        android:text="Mua" />
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_img5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img5" />
-
-                <TextView
-                    android:id="@+id/item_name5"
-                    android:layout_width="107dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Sữa tắm thái dương"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/item_price5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="37.000đ"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btnMua5"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/product_background"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img6" />
-
-                <TextView
-                    android:id="@+id/item_name6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Rau muống"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/item_price6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="17.000đ/1kg"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btnMua6"
-                    android:layout_width="106dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/btnmua_background"
-                    android:text="Mua" />
-            </LinearLayout>
-        </LinearLayout>
+        </HorizontalScrollView>
         <!-- thanh dieu khien -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -402,7 +423,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewProductList2"
             app:layout_constraintVertical_bias="0.431">
 
             <ImageView

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +15,7 @@ import com.example.prj_qlbh.R
 class DangNhap : AppCompatActivity() {
     private lateinit var edtTenNguoiDung : EditText
     private  lateinit var edtPassword: EditText
-    private lateinit var btnThoat: Button
-    private lateinit var btnDangKi: Button
+    private lateinit var btnDangKi: TextView
     private lateinit var btnDangNhap: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +26,7 @@ class DangNhap : AppCompatActivity() {
     }
 
     private fun setEvent() {
-        btnThoat.setOnClickListener(){
-            finish();
-        }
+
         btnDangNhap.setOnClickListener(){
             xuLyDangNhap();
              val intent = Intent(this,TrangChu::class.java)
@@ -43,8 +41,8 @@ class DangNhap : AppCompatActivity() {
     private fun setcontrol() {
         edtTenNguoiDung = findViewById(R.id.edtTenNguoiDung)
         edtPassword = findViewById(R.id.edtPassword)
-        btnThoat = findViewById(R.id.btnThoat)
-        btnDangKi = findViewById(R.id.btnDangKi)
+
+        btnDangKi = findViewById(R.id.tvDangKi)
         btnDangNhap = findViewById(R.id.btnDangNhap)
     }
 

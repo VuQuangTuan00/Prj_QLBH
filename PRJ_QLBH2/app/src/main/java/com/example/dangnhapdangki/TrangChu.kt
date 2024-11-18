@@ -21,6 +21,7 @@ class TrangChu : AppCompatActivity() {
     private var cartIcon:ImageView? = null
     private var favoriteIcon:ImageView? = null
     private var noticeIcon:ImageView? = null
+    private var chiTietSanPham:ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class TrangChu : AppCompatActivity() {
         cartIcon = findViewById(R.id.cart_icon)
         favoriteIcon = findViewById(R.id.favourite_icon)
         noticeIcon = findViewById(R.id.notice_icon)
+        chiTietSanPham = findViewById(R.id.item_img1)
     }
     private fun setEvent() {
         // Thiết lập sự kiện click cho menuIcon để mở NavigationView
@@ -54,7 +56,10 @@ class TrangChu : AppCompatActivity() {
             val intent = Intent(this, MainActivityGioHang::class.java)
             startActivity(intent)
         }
-
+        chiTietSanPham?.setOnClickListener {
+            val intent = Intent(this, ChiTietSanPham::class.java)
+            startActivity(intent)
+        }
         // Xử lý sự kiện khi chọn các item trong NavigationView
         navigationView?.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
