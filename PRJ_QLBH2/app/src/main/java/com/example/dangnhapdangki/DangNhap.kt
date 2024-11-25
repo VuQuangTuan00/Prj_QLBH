@@ -29,8 +29,7 @@ class DangNhap : AppCompatActivity() {
 
         btnDangNhap.setOnClickListener(){
             xuLyDangNhap();
-             val intent = Intent(this,TrangChu::class.java)
-             startActivity(intent);
+
         }
         btnDangKi.setOnClickListener(){
             val intent = Intent(this,DangKi::class.java)
@@ -55,6 +54,8 @@ class DangNhap : AppCompatActivity() {
             Toast.makeText(this,"vui lòng nhập tên người dùng",Toast.LENGTH_SHORT).show();
         }
         else{
+            val intent = Intent(this,TrangChu::class.java)
+            startActivity(intent);
             Toast.makeText(this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
         }
     }
