@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/background_gradient_rounded.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gradient màu nền -->
+    <gradient android:startColor="#414141" android:endColor="#414141"
+
+         />
+
+    <!-- Bo tròn các góc -->
+    <corners android:radius="14dp" />
+</shape>

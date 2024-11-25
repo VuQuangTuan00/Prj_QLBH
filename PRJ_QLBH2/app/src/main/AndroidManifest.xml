@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Dangnhapdangki"
+        tools:targetApi="31">
+        <activity
+            android:name="com.example.dangnhapdangki.ChiTietSanPham"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.DanhSachSanPham"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.UpdateProduct"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.DelProduct"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.AddProduct"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.MainActivityNapDiem"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.MainActivityGioHang"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.MainActivityDonHang"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.SmallActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.DatHang"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.TrangChu"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.DanhMucSanPham"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.DangNhap"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.dangnhapdangki.DangKi"
+            android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
