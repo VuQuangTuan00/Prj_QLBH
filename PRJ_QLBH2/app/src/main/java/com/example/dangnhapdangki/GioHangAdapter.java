@@ -50,7 +50,7 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
         try {
             StringBase64 stringBase64 = new StringBase64();
-            byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(stringBase64.base64);
+            byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(stringBase64.base64_anh2);
             Bitmap bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(bytes);
             iv_product.setImageBitmap(bitmap);
         }
