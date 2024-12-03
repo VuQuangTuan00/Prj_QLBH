@@ -4,12 +4,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.database.Cursor
 
-class DataBaseGioHang(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_NAME = "GioHangDB"
+        private const val DATABASE_NAME = "GioHangDB2"
         private const val DATABASE_VERSION = 1
         const val TABLE_NAME = "GioHang"
         const val COLUMN_ID = "id"
@@ -19,22 +19,27 @@ class DataBaseGioHang(context: Context) :
         const val COLUMN_GIA = "gia"
         const val COLUMN_SOLUONG = "soLuong"
         const val COLUMN_HINH = "hinh"
+        const val COLUMN_DACHON = "daChon"
     }
 
-    override fun onCreate(db: SQLiteDatabase?) {
-        val createTable = "CREATE TABLE $TABLE_NAME (" +
-                "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "$COLUMN_MASP TEXT, " +
-                "$COLUMN_TENSP TEXT, " +
-                "$COLUMN_LOAISP TEXT, " +
-                "$COLUMN_GIA REAL, " +
-                "$COLUMN_SOLUONG INTEGER, " +
-                "$COLUMN_HINH TEXT)"
-        db?.execSQL(createTable)
+    override fun onCreate(db: SQLiteDatabase) {
+        val createTable = """
+            CREATE TABLE $TABLE_NAME (
+                $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_MASP TEXT,
+                $COLUMN_TENSP TEXT,
+                $COLUMN_LOAISP TEXT,
+                $COLUMN_GIA REAL,
+                $COLUMN_SOLUONG INTEGER,
+                $COLUMN_HINH TEXT,
+                $COLUMN_DACHON INTEGER
+            )
+        """.trimIndent()
+        db.execSQL(createTable)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
@@ -47,6 +52,7 @@ class DataBaseGioHang(context: Context) :
             put(COLUMN_GIA, gioHang.gia)
             put(COLUMN_SOLUONG, gioHang.soLuong)
             put(COLUMN_HINH, gioHang.hinh)
+            put(COLUMN_DACHON, gioHang.daChon)
         }
         return db.insert(TABLE_NAME, null, values)
     }
@@ -59,6 +65,7 @@ class DataBaseGioHang(context: Context) :
             put(COLUMN_GIA, gioHang.gia)
             put(COLUMN_SOLUONG, gioHang.soLuong)
             put(COLUMN_HINH, gioHang.hinh)
+            put(COLUMN_DACHON, gioHang.daChon)
         }
         return db.update(TABLE_NAME, values, "$COLUMN_MASP = ?", arrayOf(maSP))
     }
@@ -69,23 +76,25 @@ class DataBaseGioHang(context: Context) :
     }
 
     fun getAllGioHang(): List<GioHang> {
-        val db = readableDatabase
-        val cursor = db.query(TABLE_NAME, null, null, null, null, null, null)
         val gioHangList = mutableListOf<GioHang>()
-        with(cursor) {
-            while (moveToNext()) {
+        val db = readableDatabase
+        val cursor: Cursor = db.query(TABLE_NAME, null, null, null, null, null, null)
+
+        cursor.use {
+            while (it.moveToNext()) {
                 val gioHang = GioHang(
-                    getString(getColumnIndexOrThrow(COLUMN_MASP)),
-                    getString(getColumnIndexOrThrow(COLUMN_TENSP)),
-                    getString(getColumnIndexOrThrow(COLUMN_LOAISP)),
-                    getDouble(getColumnIndexOrThrow(COLUMN_GIA)),
-                    getInt(getColumnIndexOrThrow(COLUMN_SOLUONG)),
-                    getString(getColumnIndexOrThrow(COLUMN_HINH)) // Đảm bảo lấy đúng giá trị hình ảnh
+                    it.getString(it.getColumnIndexOrThrow(COLUMN_MASP)),
+                    it.getString(it.getColumnIndexOrThrow(COLUMN_TENSP)),
+                    it.getString(it.getColumnIndexOrThrow(COLUMN_LOAISP)),
+                    it.getDouble(it.getColumnIndexOrThrow(COLUMN_GIA)),
+                    it.getInt(it.getColumnIndexOrThrow(COLUMN_SOLUONG)),
+                    it.getString(it.getColumnIndexOrThrow(COLUMN_HINH)),
+                    it.getInt(it.getColumnIndexOrThrow(COLUMN_DACHON))
                 )
                 gioHangList.add(gioHang)
             }
         }
-        cursor.close()
+
         return gioHangList
     }
 }

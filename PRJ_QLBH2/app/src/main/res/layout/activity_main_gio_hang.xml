@@ -60,7 +60,7 @@
             android:layout_gravity="right"
             android:background="@drawable/btn_trong"
             android:drawableLeft="@drawable/icon_del_giohang"
-            android:text="  Xóa hết sản phẩm"
+            android:text="  Xóa sản phẩm"
             android:textColor="#fff"
             android:textSize="12dp">
         </Button>

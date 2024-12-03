@@ -48,9 +48,9 @@ class MainActivityGioHang : AppCompatActivity() {
         }
     }
     fun khoiTao() {
-        dsGioHang.add(GioHang("001", "Dầu ăn Simply đậu nành 5L", "Dầu ăn", 136000 * 1.0, 1,""));
+        dsGioHang.add(GioHang("001", "Dầu ăn Simply đậu nành 5L", "Dầu ăn", 136000 * 1.0, 1,"",0));
         dsGioHang.add(GioHang("002", "Snack vị tảo biển Hàn Quôc" +
-                "nướng Lays gói 152g", "Snack", 16000 * 1.0, 1,""));
+                "nướng Lays gói 152g", "Snack", 16000 * 1.0, 1,"",0));
     }
 
     private fun loadGioHang() {
