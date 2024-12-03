@@ -193,6 +193,7 @@
                 android:paddingLeft="10dp"
                 android:text="Đặt hàng"
                 android:textColor="#4A2B29"
+                android:layout_marginBottom="50dp"
                 android:textSize="16dp"></Button>
 
         </LinearLayout>

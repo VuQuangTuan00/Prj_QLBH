@@ -13,8 +13,10 @@ class MainActivityGioHang : AppCompatActivity() {
     private lateinit var btnDatHang: Button
     private lateinit var imgBack: ImageView
 
+    private val dbGioHang: DataBaseGioHang by lazy { DataBaseGioHang(this) }
     private val dsGioHang =  ArrayList<GioHang>()
     private lateinit var gioHangAdapter: GioHangAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,8 +48,15 @@ class MainActivityGioHang : AppCompatActivity() {
         }
     }
     fun khoiTao() {
-        dsGioHang.add(GioHang("001", "Dầu ăn Simply đậu nành 5L", "Dầu ăn", 136000 * 1.0, 1));
+        dsGioHang.add(GioHang("001", "Dầu ăn Simply đậu nành 5L", "Dầu ăn", 136000 * 1.0, 1,""));
         dsGioHang.add(GioHang("002", "Snack vị tảo biển Hàn Quôc" +
-                "nướng Lays gói 152g", "Snack", 16000 * 1.0, 1));
+                "nướng Lays gói 152g", "Snack", 16000 * 1.0, 1,""));
+    }
+
+    private fun loadGioHang() {
+        // Lấy danh sách giỏ hàng từ cơ sở dữ liệu
+        dsGioHang.clear()
+        dsGioHang.addAll(dbGioHang.getAllGioHang())
+        gioHangAdapter.notifyDataSetChanged()
     }
 }
