@@ -19,7 +19,7 @@ class DatHang : AppCompatActivity() {
         setContentView(R.layout.activity_dat_hang)
 
         // Mở SmallActivity khi nhấn nút
-        findViewById<TextView>(R.id.open_small_activity_tv).setOnClickListener {
+        findViewById<TextView>(R.id.tvPhuongThucThanhToan).setOnClickListener {
             startActivity(Intent(this, SmallActivity::class.java))
         }
 

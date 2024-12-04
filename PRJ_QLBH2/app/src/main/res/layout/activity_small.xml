@@ -8,6 +8,7 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/tvChuyenKhoan"
         android:textAlignment="textStart"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         android:textColor="#333333"
         android:gravity="center"/>
     <TextView
+        android:id="@+id/tvTienMa"
         android:textAlignment="textStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ class MainActivityDatHang : AppCompatActivity() {
     private lateinit var tvNapDiem: TextView
     private lateinit var ivBackDH: ImageView
     private lateinit var btnDatHang: Button
+    private lateinit var tvPhuongThucThanhToan: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +25,7 @@ class MainActivityDatHang : AppCompatActivity() {
         setContentView(R.layout.dathang)
 
         // Mở SmallActivity khi nhấn nút
-        findViewById<TextView>(R.id.open_small_activity_tv).setOnClickListener {
+        tvPhuongThucThanhToan.setOnClickListener {
             startActivity(Intent(this, SmallActivity::class.java))
         }
 
@@ -32,10 +33,20 @@ class MainActivityDatHang : AppCompatActivity() {
         getEvent()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Nhận dữ liệu từ SmallActivity
+            val result = data?.getStringExtra("phuongThucThanhToan") ?: ""
+            tvPhuongThucThanhToan.text = result // Cập nhật giá trị
+        }
+    }
+
     fun getControl() {
         tvNapDiem = findViewById(R.id.tvNapDiem)
         ivBackDH = findViewById(R.id.ivBackDH)
         btnDatHang = findViewById(R.id.btnDatHang)
+        tvPhuongThucThanhToan = findViewById(R.id.tvPhuongThucThanhToan)
     }
 
     fun getEvent() {
