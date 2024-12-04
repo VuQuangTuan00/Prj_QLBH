@@ -7,34 +7,34 @@ public class ChuyenDoiHinhAnh {
     public ChuyenDoiHinhAnh() {
     }
 
-    // chuyen Byte[] Sang Chuoi
     public String chuyenByteSangChuoi(byte[] byteArray) {
-        // Kiểm tra kích thước của byte[] trước khi mã hóa
-        if (byteArray.length > 1048576) {  // 1MB là giới hạn ví dụ
-            // Nếu kích thước byteArray quá lớn, trả về null hoặc thông báo lỗi
-            return null;
+        if (byteArray == null || byteArray.length == 0) {
+            throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+        }
+        if (byteArray.length > 1048576) {  // 1MB
+            throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
         }
 
         return android.util.Base64.encodeToString(byteArray, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP | android.util.Base64.URL_SAFE);
     }
 
-
     public byte[] chuyenStringSangByte(String str) {
-        // Kiểm tra chiều dài của chuỗi Base64 trước khi giải mã
-        if (str.length() > 1048576) {  // 1MB là giới hạn ví dụ
-            // Nếu chuỗi quá lớn, trả về null hoặc thông báo lỗi
-            return null;
+        if (str == null || str.isEmpty()) {
+            throw new IllegalArgumentException("Chuỗi Base64 không hợp lệ.");
+        }
+        if (str.length() > 1048576) {  // 1MB
+            throw new IllegalArgumentException("Chiều dài chuỗi Base64 vượt quá giới hạn cho phép.");
         }
 
         return android.util.Base64.decode(str, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP | android.util.Base64.URL_SAFE);
     }
 
-
     public Bitmap chuyenByteSangBitMap(byte[] byteArray) {
-        // Kiểm tra kích thước của byte[] trước khi giải mã ảnh
-        if (byteArray.length > 1048576) {  // 1MB là giới hạn ví dụ
-            // Nếu ảnh quá lớn, trả về null hoặc ảnh mặc định
-            return null;
+        if (byteArray == null || byteArray.length == 0) {
+            throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+        }
+        if (byteArray.length > 1048576) {  // 1MB
+            throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
         }
 
         // Kiểm tra kích thước ảnh trước khi giải mã
@@ -47,12 +47,14 @@ public class ChuyenDoiHinhAnh {
         int maxHeight = 1024;
 
         if (options.outWidth > maxWidth || options.outHeight > maxHeight) {
-            // Nếu ảnh quá lớn, không giải mã và trả về null
-            return null;
+            // Tính toán hệ số nén để giảm kích thước ảnh
+            int scaleFactor = Math.max(options.outWidth / maxWidth, options.outHeight / maxHeight);
+            options.inSampleSize = scaleFactor;
         }
 
         // Giải mã ảnh nếu kích thước hợp lệ
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, options);
     }
+
 }
