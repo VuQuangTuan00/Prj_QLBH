@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.prj_qlbh.R
 
+
 class MainActivityGioHang : AppCompatActivity() {
     private lateinit var lvDanhSachGioHang: ListView
     private lateinit var btnDatHang: Button
@@ -60,7 +61,7 @@ class MainActivityGioHang : AppCompatActivity() {
 
         btnDatHang.setOnClickListener {
             // Tạo Intent để chuyển từ MainActivity sang SecondActivity
-            val intent = Intent(this, DatHang::class.java)
+            val intent = Intent(this, MainActivityDatHang::class.java)
             startActivity(intent) // Khởi chạy Intent
         }
 

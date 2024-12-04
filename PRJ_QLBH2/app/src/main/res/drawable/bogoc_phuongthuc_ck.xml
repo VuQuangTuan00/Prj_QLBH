@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="#E999B0" /> <!-- Màu nền của Button -->
-            <corners android:radius="30dp" /> <!-- Độ cong của góc (ở đây là 10dp, bạn có thể điều chỉnh theo nhu cầu) -->
+            <solid android:color="#EDE3E3" /> <!-- Màu nền của Button -->
+            <corners android:radius="10dp" /> <!-- Độ cong của góc (ở đây là 10dp, bạn có thể điều chỉnh theo nhu cầu) -->
         </shape>
     </item>
 </layer-list>
