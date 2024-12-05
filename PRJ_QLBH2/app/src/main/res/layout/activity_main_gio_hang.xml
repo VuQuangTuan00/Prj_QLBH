@@ -29,14 +29,25 @@
                 android:background="@drawable/back" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
+
                 android:text="Giỏ hàng"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvDonHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đơn hàng"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp" />
 
 
         </LinearLayout>

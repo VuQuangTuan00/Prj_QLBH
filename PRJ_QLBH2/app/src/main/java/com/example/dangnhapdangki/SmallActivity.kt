@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.prj_qlbh.R
@@ -17,6 +19,8 @@ class SmallActivity : AppCompatActivity() {
     private lateinit var tvOrderStatus: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var btnClose: Button
+
+    private val dbDonHang: DataBaseDonHang by lazy { DataBaseDonHang(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +67,30 @@ class SmallActivity : AppCompatActivity() {
         // Giả lập việc kiểm tra đơn hàng (chờ đợi 3 giây)
         Handler().postDelayed({
             // Sau khi chờ đợi, kiểm tra đơn hàng thành công
-            tvOrderStatus.text = "Đơn hàng đã được đặt thành công!"
             progressBar.visibility = ProgressBar.INVISIBLE // Ẩn ProgressBar
-        }, 3000) // Giả lập thời gian chờ đợi 3 giây
+
+            if (dbDonHang.isOrderInsertedByDate(
+                    MainActivityDatHang.maKH,
+                    MainActivityDatHang.idNgay
+                )
+            ) {
+                tvOrderStatus.text = "Đơn hàng đã được đặt thành công!"
+            }
+            else{
+                tvOrderStatus.text = "Đơn hàng chưa được đặt thành công!"
+            }
+            btnClose.visibility = View.GONE
+
+            // Delay thêm 1 giây trước khi chuyển trang
+            Handler().postDelayed({
+                // Đảm bảo đóng SmallActivity trước khi chuyển trang
+                finish() // Đóng SmallActivity
+                val intent = Intent(this, MainActivityDonHang::class.java)
+                startActivity(intent)
+            }, 1000) // Chờ 1 giây trước khi chuyển trang
+
+        }, 1100) // Giả lập thời gian chờ đợi 2 giây
     }
+
+
 }

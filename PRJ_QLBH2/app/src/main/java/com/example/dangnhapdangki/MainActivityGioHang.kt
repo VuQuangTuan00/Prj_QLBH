@@ -22,6 +22,7 @@ class MainActivityGioHang : AppCompatActivity() {
     private lateinit var tvTienHang: TextView
     private lateinit var tvTongTien: TextView
     private lateinit var tvTongDonHang: TextView
+    private lateinit var tvDonHang: TextView
 
     private  var maKH: String = "001"
 
@@ -46,6 +47,7 @@ class MainActivityGioHang : AppCompatActivity() {
         tvTienHang = findViewById(R.id.tvTienHang)
         tvTongTien = findViewById(R.id.tvTongTien)
         tvTongDonHang = findViewById(R.id.tvTongDonHang)
+        tvDonHang = findViewById(R.id.tvDonHang)
     }
 
     private fun setEvent() {
@@ -76,6 +78,11 @@ class MainActivityGioHang : AppCompatActivity() {
 
         imgBack.setOnClickListener {
             onBackPressed()
+        }
+
+        tvDonHang.setOnClickListener {
+            val intent = Intent(this, MainActivityDonHang::class.java)
+            startActivity(intent) // Khởi chạy Intent
         }
 
         btn_del_giohang.setOnClickListener {

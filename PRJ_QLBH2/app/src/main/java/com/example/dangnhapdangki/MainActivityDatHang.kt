@@ -19,6 +19,9 @@ import com.example.dangnhapdangki.MainActivityNapDiem
 import com.example.dangnhapdangki.SmallActivity
 import com.example.prj_qlbh.R
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivityDatHang : AppCompatActivity() {
     private lateinit var tvNapDiem: TextView
@@ -47,6 +50,11 @@ class MainActivityDatHang : AppCompatActivity() {
 
     private lateinit var handler: Handler
     private lateinit var updateRunnable: Runnable
+
+    companion object {
+        var idNgay = String()
+        var maKH: String = "001" //MaKhachHang
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,11 +152,6 @@ class MainActivityDatHang : AppCompatActivity() {
         }
 
 
-        var diaChi = ""
-        dsGioHang.clear()
-        dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
-        diaChi =
-            "" + edtTen.text + " - " + edtSDT.text + " - " + edtSoDuong.text + ", " + edtQuanXa.text + ", " + edtQuanHuyen.text + ", " + edtTinhTP.text
 
         btnDatHang.setOnClickListener {
             // Hiển thị hộp thoại xác nhận trước khi thanh toán
@@ -156,13 +159,68 @@ class MainActivityDatHang : AppCompatActivity() {
                 .setTitle("Xác nhận thanh toán")
                 .setMessage("Bạn có chắc chắn muốn thanh toán với số điểm hiện có không?")
                 .setPositiveButton("Có") { _, _ ->
-                    // Nếu người dùng chọn "Có", tiến hành thanh toán
-                    if (dbNapDiem.canPayWithDiem(maKH, totalPrice.toInt())) {
-                        // Giảm điểm từ tài khoản khách hàng
-                        val newDiem = dbNapDiem.subtractDiem(maKH, totalPrice)
+                    // Kiểm tra phương thức thanh toán
+                    if (tvPhuongThucThanhToan.text == "Chuyển Khoản") {
+                        // Nếu chọn phương thức Chuyển Khoản, kiểm tra và trừ điểm
+                        if (dbNapDiem.canPayWithDiem(maKH, totalPrice.toInt())) {
+                            // Giảm điểm từ tài khoản khách hàng
+                            val newDiem = dbNapDiem.subtractDiem(maKH, totalPrice)
+
+                            val currentDate = getCurrentDateTime()
+                            dsGioHang.clear()
+                            dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
+
+                            idNgay = currentDate
+                            Toast.makeText(
+                                this,
+                                "Thanh toán thành công! Điểm còn lại: $newDiem",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            // Thêm các sản phẩm trong giỏ hàng vào bảng đơn hàng
+                            val diaChi =
+                                "" + edtTen.text + " - " + edtSDT.text + " - " + edtSoDuong.text + ", " + edtQuanXa.text + ", " + edtQuanHuyen.text + ", " + edtTinhTP.text
+                            val donHangList = mutableListOf<DonHang>()
+
+                            // Duyệt qua giỏ hàng để tạo danh sách đơn hàng
+                            for (gioHang in dsGioHang) {
+                                val donHang = DonHang(
+                                    gioHang.maSP,
+                                    gioHang.tenSP,
+                                    gioHang.loaiSP,
+                                    diaChi,
+                                    currentDate,
+                                    "Đã thanh toán (" + tvPhuongThucThanhToan.text + ")",
+                                    gioHang.gia,
+                                    gioHang.soLuong,
+                                    gioHang.hinh,
+                                    gioHang.maKH
+                                )
+                                maKH = gioHang.maKH
+                                donHangList.add(donHang)
+                            }
+
+                            // Chèn danh sách đơn hàng vào cơ sở dữ liệu
+                            val insertedIds = dbDonHang.insertDonHangList(donHangList)
+
+                            // Kiểm tra kết quả và chuyển sang SmallActivity nếu đơn hàng đã được tạo
+                            val intent = Intent(this, SmallActivity::class.java)
+                            startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
+
+                        } else {
+                            // Nếu không đủ điểm, thông báo lỗi
+                            Toast.makeText(this, "Không đủ điểm để thanh toán!", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        // Nếu chọn phương thức Tiền Mặt, không trừ điểm
+                        val currentDate = getCurrentDateTime()
+                        dsGioHang.clear()
+                        dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
+
+                        idNgay = currentDate
                         Toast.makeText(
                             this,
-                            "Thanh toán thành công! Điểm còn lại: $newDiem",
+                            "Thanh toán thành công! Phương thức: Tiền Mặt",
                             Toast.LENGTH_SHORT
                         ).show()
 
@@ -178,13 +236,14 @@ class MainActivityDatHang : AppCompatActivity() {
                                 gioHang.tenSP,
                                 gioHang.loaiSP,
                                 diaChi,
-                                "",
+                                currentDate,
                                 "Đã thanh toán (" + tvPhuongThucThanhToan.text + ")",
                                 gioHang.gia,
                                 gioHang.soLuong,
                                 gioHang.hinh,
                                 gioHang.maKH
                             )
+                            maKH = gioHang.maKH
                             donHangList.add(donHang)
                         }
 
@@ -192,20 +251,9 @@ class MainActivityDatHang : AppCompatActivity() {
                         val insertedIds = dbDonHang.insertDonHangList(donHangList)
 
                         // Kiểm tra kết quả và chuyển sang SmallActivity nếu đơn hàng đã được tạo
-                        if (dbDonHang.isOrderInserted(maKH)) {
-                            val intent = Intent(this, SmallActivity::class.java)
-                            startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "Đặt hàng thất bại. Vui lòng thử lại!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        // Nếu không đủ điểm, thông báo lỗi
-                        Toast.makeText(this, "Không đủ điểm để thanh toán!", Toast.LENGTH_SHORT)
-                            .show()
+                        finish() // Đóng SmallActivity
+                        val intent = Intent(this, SmallActivity::class.java)
+                        startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
                     }
                 }
                 .setNegativeButton("Không") { dialogInterface, _ ->
@@ -216,7 +264,16 @@ class MainActivityDatHang : AppCompatActivity() {
             // Hiển thị hộp thoại xác nhận
             dialog.show()
         }
+
+
     }
+
+    fun getCurrentDateTime(): String {
+        val calendar = Calendar.getInstance()
+        val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Định dạng ngày và giờ
+        return dateTimeFormat.format(calendar.time) // Trả về ngày và giờ hiện tại
+    }
+
 
     private fun updateDiemHienTai() {
         try {

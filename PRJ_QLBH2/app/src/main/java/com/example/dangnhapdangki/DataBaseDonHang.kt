@@ -110,6 +110,22 @@ class DataBaseDonHang(context: Context) :
         return donHangList
     }
 
+    fun deleteDonHangByDateAndMaSPAndMaKH(donHang: DonHang): Int {
+        val db = writableDatabase
+
+        // Điều kiện xóa: ngày, mã sản phẩm và mã khách hàng
+        val selection = "$COLUMN_THOIGIAN = ? AND $COLUMN_MASP = ? AND $COLUMN_MAKH = ?"
+        val selectionArgs = arrayOf(
+            donHang.thoiGian, // Ngày đặt hàng
+            donHang.maSP,     // Mã sản phẩm
+            donHang.maKH ?: "" // Mã khách hàng (nếu null, thay bằng chuỗi rỗng)
+        )
+
+        // Thực hiện xóa và trả về số dòng bị ảnh hưởng
+        return db.delete(TABLE_NAME, selection, selectionArgs)
+    }
+
+
 
     // Xóa tất cả đơn hàng theo mã khách hàng
     fun deleteDonHangByMaKH(maKH: String): Int {
@@ -193,15 +209,24 @@ class DataBaseDonHang(context: Context) :
         return exists
     }
 
-    fun isOrderInserted(maKH: String): Boolean {
+    // Hàm kiểm tra xem khách hàng đã đặt đơn hàng trong một ngày cụ thể
+    fun isOrderInsertedByDate(maKH: String, date: String): Boolean {
         val db = readableDatabase
-        val selection = "$COLUMN_MAKH = ?"
-        val selectionArgs = arrayOf(maKH)
+        val selection = "$COLUMN_MAKH = ? AND $COLUMN_THOIGIAN = ?"
+        val selectionArgs = arrayOf(maKH, date)
 
         val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null)
-        val result = cursor.count > 0  // Kiểm tra nếu có đơn hàng nào của khách hàng
+        val result = cursor.count > 0  // Kiểm tra nếu có đơn hàng nào của khách hàng vào ngày đó
         cursor.close()
         return result
     }
+
+
+    // Xóa tất cả đơn hàng trong cơ sở dữ liệu
+    fun deleteAllDonHang(): Int {
+        val db = writableDatabase
+        return db.delete(TABLE_NAME, null, null)  // Xóa tất cả bản ghi trong bảng DonHang
+    }
+
 
 }
