@@ -44,9 +44,6 @@
             android:name="com.example.dangnhapdangki.SmallActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.DatHang"
-            android:exported="false" />
-        <activity
             android:name="com.example.dangnhapdangki.TrangChu"
             android:exported="false" />
         <activity

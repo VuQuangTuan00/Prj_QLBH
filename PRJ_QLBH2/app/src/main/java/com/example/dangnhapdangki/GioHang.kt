@@ -7,10 +7,12 @@ data class GioHang(
     var gia: Double,
     var soLuong: Int,
     var hinh: String,
-    var daChon: Int
+    var daChon: Int,
+    var maKH: String
+
 
 ) {
     override fun toString(): String {
-        return "GioHang(maSP='$maSP', tenSP='$tenSP', loaiSP='$loaiSP', gia=$gia, soLuong=$soLuong)"
+        return "GioHang(maSP='$maSP', tenSP='$tenSP', loaiSP='$loaiSP', gia=$gia, soLuong=$soLuong, maKH=$maKH)"
     }
 }

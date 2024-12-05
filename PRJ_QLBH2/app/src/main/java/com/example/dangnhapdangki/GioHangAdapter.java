@@ -26,14 +26,16 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
     private final ArrayList<GioHang> data;
     private final int resource;
     private MainActivityGioHang mainActivityGioHang;
+    private String maKH;
 
-    public GioHangAdapter(@NonNull Context context, int resource, ArrayList<GioHang> data, MainActivityGioHang mainActivityGioHang) {
+    public GioHangAdapter(@NonNull Context context, int resource, ArrayList<GioHang> data, MainActivityGioHang mainActivityGioHang, String maKH) {
         super(context, resource, data);
 
         this.context = context;
         this.data = data;
         this.resource = resource;
         this.mainActivityGioHang = mainActivityGioHang;
+        this.maKH = maKH;
 
     }
 
@@ -64,13 +66,13 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
             public void onClick(View v) {
                 if (gioHang.getDaChon() == 0) {
                     DataBaseGioHang db = new DataBaseGioHang(context);
-                    db.updateDaChon(gioHang.getMaSP(), 1);
+                    db.updateDaChon(gioHang.getMaSP(), maKH, 1);
                     linearLayoutGioHang.setBackgroundResource(R.drawable.botron_giohang2);
                     gioHang.setDaChon(1);
                     notifyDataSetChanged();
                 } else {
                     DataBaseGioHang db = new DataBaseGioHang(context);
-                    db.updateDaChon(gioHang.getMaSP(), 0);
+                    db.updateDaChon(gioHang.getMaSP(), maKH, 0);
                     linearLayoutGioHang.setBackgroundResource(R.drawable.botron_giohang2);
                     gioHang.setDaChon(0);
                     notifyDataSetChanged();
@@ -97,7 +99,7 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
                     // Cập nhật cơ sở dữ liệu
                     DataBaseGioHang db = new DataBaseGioHang(context);
-                    db.updateSoLuong(gioHang.getMaSP(), newSoLuong);
+                    db.updateSoLuong(gioHang.getMaSP(),maKH, newSoLuong);
 
                     // Cập nhật lại giao diện
                     notifyDataSetChanged();
@@ -119,7 +121,7 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
                 // Cập nhật cơ sở dữ liệu
                 DataBaseGioHang db = new DataBaseGioHang(context);
-                db.updateSoLuong(gioHang.getMaSP(), newSoLuong);
+                db.updateSoLuong(gioHang.getMaSP(),maKH, newSoLuong);
 
                 // Cập nhật lại giao diện
                 notifyDataSetChanged();

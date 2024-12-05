@@ -95,6 +95,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtTen"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -125,6 +126,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -168,6 +170,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtTinhTP"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -198,6 +201,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtQuanHuyen"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -223,6 +227,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtQuanXa"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -267,7 +272,7 @@
                             android:textSize="12dp" />
 
                         <EditText
-
+                            android:id="@+id/edtSoDuong"
 
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
@@ -301,8 +306,8 @@
             android:padding="10dp"
             android:textColor="#fff"
             android:textColorHint="#BCA4A4"
-            android:visibility="visible"
-            android:textSize="12dp">
+            android:textSize="12dp"
+            android:visibility="visible">
 
         </TextView>
 
@@ -351,15 +356,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvDiemCanThanhToan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số điểm cần phải thanh toán:  100,000"
                 android:textColor="#C39494"
                 android:textSize="15dp" />
+
             <TextView
-                android:layout_marginTop="10dp"
+                android:id="@+id/tvDiemHienCo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Điểm hiện có:  100,000"
                 android:textColor="#fff"
                 android:textSize="15dp" />

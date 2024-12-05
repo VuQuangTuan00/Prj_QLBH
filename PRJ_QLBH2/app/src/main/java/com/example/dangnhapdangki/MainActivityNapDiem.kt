@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.prj_qlbh.R
@@ -15,6 +16,8 @@ class MainActivityNapDiem : AppCompatActivity() {
     private lateinit var tvDiemHienTai: TextView
     private lateinit var edtNapDiem: EditText
     private lateinit var dbNapDiem: DataBaseNapDiem
+
+    private  var maKH: String = "001" //MaKhachHang
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +43,16 @@ class MainActivityNapDiem : AppCompatActivity() {
         findViewById<Button>(R.id.btnNapDiem).setOnClickListener {
             val napDiem = edtNapDiem.text.toString().toIntOrNull() ?: 0
             if (napDiem > 0) {
-                dbNapDiem.addDiem(napDiem)  // Thêm điểm vào cơ sở dữ liệu
+                dbNapDiem.addDiem(maKH, napDiem)  // Thêm điểm vào cơ sở dữ liệu
                 updateDiemHienTai()  // Cập nhật lại giao diện
+                Toast.makeText(this, "Đã nạp $napDiem điểm!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Điểm nhập vào không hợp lệ", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
     }
 
     private fun setControl() {
@@ -53,7 +62,7 @@ class MainActivityNapDiem : AppCompatActivity() {
     }
 
     private fun updateDiemHienTai() {
-        val currentDiem = dbNapDiem.getDiem()  // Lấy số điểm hiện tại từ cơ sở dữ liệu
+        val currentDiem = dbNapDiem.getDiem(maKH)  // Lấy số điểm hiện tại từ cơ sở dữ liệu
         tvDiemHienTai.text = "$currentDiem điểm"  // Cập nhật TextView với điểm hiện tại
     }
 }

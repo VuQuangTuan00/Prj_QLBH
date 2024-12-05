@@ -1,5 +1,6 @@
 package com.example.dangnhapdangki
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -21,6 +22,8 @@ class MainActivityGioHang : AppCompatActivity() {
     private lateinit var tvTienHang: TextView
     private lateinit var tvTongTien: TextView
     private lateinit var tvTongDonHang: TextView
+
+    private  var maKH: String = "001"
 
     private val dbGioHang: DataBaseGioHang by lazy { DataBaseGioHang(this) }
     private val dsGioHang = ArrayList<GioHang>()
@@ -48,21 +51,27 @@ class MainActivityGioHang : AppCompatActivity() {
     private fun setEvent() {
         // Khởi tạo adapter trước khi sử dụng
 
-        gioHangAdapter = GioHangAdapter(this, R.layout.giohang_adapter, dsGioHang, this)
+        gioHangAdapter = GioHangAdapter(this, R.layout.giohang_adapter, dsGioHang, this,maKH)
         lvDanhSachGioHang.adapter = gioHangAdapter
 
         //dbGioHang.deleteAllGioHang()
 
-        dbGioHang.updateAllDaChonToZero()
+        dbGioHang.updateAllDaChonToZero(maKH)
 
         tingTongTien()
-        //khoiTao() // Thêm dữ liệu vào danh sách
+        khoiTao() // Thêm dữ liệu vào danh sách
         loadGioHang()
 
         btnDatHang.setOnClickListener {
-            // Tạo Intent để chuyển từ MainActivity sang SecondActivity
-            val intent = Intent(this, MainActivityDatHang::class.java)
-            startActivity(intent) // Khởi chạy Intent
+            if (dbGioHang.isAnyProductSelected(maKH)) {
+                // Tạo Intent để chuyển từ MainActivity sang SecondActivity
+                val intent = Intent(this, MainActivityDatHang::class.java)
+                startActivity(intent) // Khởi chạy Intent
+            }
+            else{
+                Toast.makeText(this, "Vui lòng chọn sản phẩm để đặt hàng !", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
         imgBack.setOnClickListener {
@@ -71,14 +80,14 @@ class MainActivityGioHang : AppCompatActivity() {
 
         btn_del_giohang.setOnClickListener {
             // Kiểm tra xem có sản phẩm nào đã được chọn không
-            if (dbGioHang.isAnyProductSelected()) {
+            if (dbGioHang.isAnyProductSelected(maKH)) {
                 // Nếu có ít nhất một sản phẩm đã chọn, yêu cầu xác nhận xóa
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Bạn có chắc chắn muốn xóa tất cả sản phẩm đã chọn?")
                     .setCancelable(false)
                     .setPositiveButton("Có") { dialog, id ->
                         // Nếu người dùng chọn "Có", thực hiện xóa sản phẩm đã chọn
-                        dbGioHang.deleteGioHangDaChon()
+                        dbGioHang.deleteGioHangDaChon(maKH)
                         loadGioHang() // Cập nhật lại giỏ hàng
                     }
                     .setNegativeButton("Không") { dialog, id ->
@@ -108,7 +117,8 @@ class MainActivityGioHang : AppCompatActivity() {
             136000 * 1.0,
             1,
             stringBase64.base64_anh2,
-            0
+            0,
+            maKH
         )
         val gioHang2 = GioHang(
             "002",
@@ -117,7 +127,8 @@ class MainActivityGioHang : AppCompatActivity() {
             16000 * 1.0,
             1,
             stringBase64.base64_anh1,
-            0
+            0,
+            maKH
         )
 
         // Insert into the database
@@ -131,13 +142,13 @@ class MainActivityGioHang : AppCompatActivity() {
     private fun loadGioHang() {
         // Lấy danh sách giỏ hàng từ cơ sở dữ liệu
         dsGioHang.clear()
-        dsGioHang.addAll(dbGioHang.getAllGioHang())
+        dsGioHang.addAll(dbGioHang.getAllGioHang(maKH))
         gioHangAdapter.notifyDataSetChanged()
     }
 
 
     fun tingTongTien() {
-        val totalPrice = dbGioHang.getTotalPriceOfSelectedProducts()
+        val totalPrice = dbGioHang.getTotalPriceOfSelectedProducts(maKH)
         val formattedPrice =
             String.format("%,.2f", totalPrice) // Định dạng với dấu phân cách và 2 chữ số thập phân
 
