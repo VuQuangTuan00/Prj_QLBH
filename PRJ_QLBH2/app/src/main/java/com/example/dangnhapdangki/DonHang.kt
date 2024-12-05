@@ -5,6 +5,8 @@ public class DonHang {
     private double gia;
     private int soLuong;
 
+    private  String maKH;
+
     @Override
     public String toString() {
         return "DonHang{" +
