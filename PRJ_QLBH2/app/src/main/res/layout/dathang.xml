@@ -126,6 +126,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:inputType="number"
                             android:id="@+id/edtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
