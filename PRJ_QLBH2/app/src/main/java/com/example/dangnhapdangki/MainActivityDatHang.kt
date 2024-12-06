@@ -343,7 +343,7 @@ class MainActivityDatHang : AppCompatActivity() {
                 edtQuanHuyen.requestFocus()
                 return null
             }
-            
+
             edtQuanXa.text.isNullOrEmpty() -> {
                 edtQuanXa.error = "Vui lòng nhập xã/phường"
                 edtQuanXa.requestFocus()

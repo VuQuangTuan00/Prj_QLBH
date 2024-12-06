@@ -123,7 +123,7 @@ class MainActivityGioHang : AppCompatActivity() {
             "Dầu ăn",
             136000 * 1.0,
             1,
-            stringBase64.base64_anh2,
+            stringBase64.base64_anh4,
             0,
             maKH
         )
@@ -133,7 +133,7 @@ class MainActivityGioHang : AppCompatActivity() {
             "Snack",
             16000 * 1.0,
             1,
-            stringBase64.base64_anh1,
+            stringBase64.base64_anh3,
             0,
             maKH
         )
