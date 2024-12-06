@@ -138,10 +138,21 @@ class MainActivityGioHang : AppCompatActivity() {
             maKH
         )
 
+        val gioHang3 = GioHang(
+            "003",
+            "Snack vị bí đỏ Hàn Quôc nướng Lays gói 500g",
+            "Snack",
+            16000 * 1.0,
+            1,
+            stringBase64.base64_anh5,
+            0,
+            maKH
+        )
+
         // Insert into the database
         dbGioHang.insertGioHang(gioHang1)
         dbGioHang.insertGioHang(gioHang2)
-
+        dbGioHang.insertGioHang(gioHang3)
         // Load updated data from the database
         loadGioHang()
     }
