@@ -102,11 +102,18 @@ class MainActivityDatHang : AppCompatActivity() {
         // Lấy tổng số điểm cần thanh toán từ cơ sở dữ liệu
         val totalPrice = dbGioHang.getTotalPriceOfSelectedProducts(maKH)
 
-        // Định dạng số điểm theo kiểu có dấu phẩy
-        val formattedPrice = String.format("%,.2f", totalPrice)
+        // Kiểm tra và định dạng số điểm
+        val formattedPrice = if (totalPrice % 1 == 0.0) {
+            // Nếu là số nguyên, chỉ hiển thị phần nguyên
+            String.format("%,.0f", totalPrice)
+        } else {
+            // Giữ nguyên định dạng với 2 chữ số thập phân
+            String.format("%,.2f", totalPrice)
+        }
 
         // Hiển thị số điểm cần thanh toán trên TextView
         tvDiemCanThanhToan.text = "Số điểm cần phải thanh toán: $formattedPrice điểm"
+
 
         handler = Handler(mainLooper)
         updateRunnable = object : Runnable {
@@ -154,8 +161,7 @@ class MainActivityDatHang : AppCompatActivity() {
 
 
         btnDatHang.setOnClickListener {
-            if (validateAndGetInput() != null)
-            {
+            if (validateAndGetInput() != null) {
                 if (tvPhuongThucThanhToan.text == "Chuyển Khoản" || tvPhuongThucThanhToan.text == "Tiền Mặt") {
 
 
@@ -279,8 +285,7 @@ class MainActivityDatHang : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
-            else{
+            } else {
 
             }
 
@@ -349,7 +354,6 @@ class MainActivityDatHang : AppCompatActivity() {
                 edtQuanXa.requestFocus()
                 return null
             }
-
 
 
             edtSoDuong.text.isNullOrEmpty() -> {
