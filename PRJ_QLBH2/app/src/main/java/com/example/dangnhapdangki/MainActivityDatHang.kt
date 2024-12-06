@@ -154,18 +154,72 @@ class MainActivityDatHang : AppCompatActivity() {
 
 
         btnDatHang.setOnClickListener {
-            // Hiển thị hộp thoại xác nhận trước khi thanh toán
-            val dialog = AlertDialog.Builder(this)
-                .setTitle("Xác nhận thanh toán")
-                .setMessage("Bạn có chắc chắn muốn thanh toán với số điểm hiện có không?")
-                .setPositiveButton("Có") { _, _ ->
-                    // Kiểm tra phương thức thanh toán
-                    if (tvPhuongThucThanhToan.text == "Chuyển Khoản") {
-                        // Nếu chọn phương thức Chuyển Khoản, kiểm tra và trừ điểm
-                        if (dbNapDiem.canPayWithDiem(maKH, totalPrice.toInt())) {
-                            // Giảm điểm từ tài khoản khách hàng
-                            val newDiem = dbNapDiem.subtractDiem(maKH, totalPrice)
+            if(tvPhuongThucThanhToan.text == "Chuyển Khoản" || tvPhuongThucThanhToan.text == "Tiền Mặt") {
 
+
+                // Hiển thị hộp thoại xác nhận trước khi thanh toán
+                val dialog = AlertDialog.Builder(this)
+                    .setTitle("Xác nhận thanh toán")
+                    .setMessage("Bạn có chắc chắn muốn thanh toán với số điểm hiện có không?")
+                    .setPositiveButton("Có") { _, _ ->
+                        // Kiểm tra phương thức thanh toán
+                        if (tvPhuongThucThanhToan.text == "Chuyển Khoản") {
+                            // Nếu chọn phương thức Chuyển Khoản, kiểm tra và trừ điểm
+                            if (dbNapDiem.canPayWithDiem(maKH, totalPrice.toInt())) {
+                                // Giảm điểm từ tài khoản khách hàng
+                                val newDiem = dbNapDiem.subtractDiem(maKH, totalPrice)
+
+                                val currentDate = getCurrentDateTime()
+                                dsGioHang.clear()
+                                dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
+
+                                idNgay = currentDate
+                                Toast.makeText(
+                                    this,
+                                    "Thanh toán thành công! Điểm còn lại: $newDiem",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                // Thêm các sản phẩm trong giỏ hàng vào bảng đơn hàng
+                                val diaChi =
+                                    "" + edtTen.text + " - " + edtSDT.text + " - " + edtSoDuong.text + ", " + edtQuanXa.text + ", " + edtQuanHuyen.text + ", " + edtTinhTP.text
+                                val donHangList = mutableListOf<DonHang>()
+
+                                // Duyệt qua giỏ hàng để tạo danh sách đơn hàng
+                                for (gioHang in dsGioHang) {
+                                    val donHang = DonHang(
+                                        gioHang.maSP,
+                                        gioHang.tenSP,
+                                        gioHang.loaiSP,
+                                        diaChi,
+                                        currentDate,
+                                        "Đã thanh toán (" + tvPhuongThucThanhToan.text + ")",
+                                        gioHang.gia,
+                                        gioHang.soLuong,
+                                        gioHang.hinh,
+                                        gioHang.maKH
+                                    )
+                                    maKH = gioHang.maKH
+                                    donHangList.add(donHang)
+                                }
+
+                                // Chèn danh sách đơn hàng vào cơ sở dữ liệu
+                                val insertedIds = dbDonHang.insertDonHangList(donHangList)
+
+                                // Kiểm tra kết quả và chuyển sang SmallActivity nếu đơn hàng đã được tạo
+                                val intent = Intent(this, SmallActivity::class.java)
+                                startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
+
+                            } else {
+                                // Nếu không đủ điểm, thông báo lỗi
+                                Toast.makeText(
+                                    this,
+                                    "Không đủ điểm để thanh toán!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else {
+                            // Nếu chọn phương thức Tiền Mặt, không trừ điểm
                             val currentDate = getCurrentDateTime()
                             dsGioHang.clear()
                             dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
@@ -173,7 +227,7 @@ class MainActivityDatHang : AppCompatActivity() {
                             idNgay = currentDate
                             Toast.makeText(
                                 this,
-                                "Thanh toán thành công! Điểm còn lại: $newDiem",
+                                "Thanh toán thành công! Phương thức: Tiền Mặt",
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -204,65 +258,26 @@ class MainActivityDatHang : AppCompatActivity() {
                             val insertedIds = dbDonHang.insertDonHangList(donHangList)
 
                             // Kiểm tra kết quả và chuyển sang SmallActivity nếu đơn hàng đã được tạo
+                            finish() // Đóng SmallActivity
                             val intent = Intent(this, SmallActivity::class.java)
                             startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
-
-                        } else {
-                            // Nếu không đủ điểm, thông báo lỗi
-                            Toast.makeText(this, "Không đủ điểm để thanh toán!", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        // Nếu chọn phương thức Tiền Mặt, không trừ điểm
-                        val currentDate = getCurrentDateTime()
-                        dsGioHang.clear()
-                        dsGioHang.addAll(dbGioHang.getSelectedGioHang(maKH))
-
-                        idNgay = currentDate
-                        Toast.makeText(
-                            this,
-                            "Thanh toán thành công! Phương thức: Tiền Mặt",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        // Thêm các sản phẩm trong giỏ hàng vào bảng đơn hàng
-                        val diaChi =
-                            "" + edtTen.text + " - " + edtSDT.text + " - " + edtSoDuong.text + ", " + edtQuanXa.text + ", " + edtQuanHuyen.text + ", " + edtTinhTP.text
-                        val donHangList = mutableListOf<DonHang>()
-
-                        // Duyệt qua giỏ hàng để tạo danh sách đơn hàng
-                        for (gioHang in dsGioHang) {
-                            val donHang = DonHang(
-                                gioHang.maSP,
-                                gioHang.tenSP,
-                                gioHang.loaiSP,
-                                diaChi,
-                                currentDate,
-                                "Đã thanh toán (" + tvPhuongThucThanhToan.text + ")",
-                                gioHang.gia,
-                                gioHang.soLuong,
-                                gioHang.hinh,
-                                gioHang.maKH
-                            )
-                            maKH = gioHang.maKH
-                            donHangList.add(donHang)
-                        }
-
-                        // Chèn danh sách đơn hàng vào cơ sở dữ liệu
-                        val insertedIds = dbDonHang.insertDonHangList(donHangList)
-
-                        // Kiểm tra kết quả và chuyển sang SmallActivity nếu đơn hàng đã được tạo
-                        finish() // Đóng SmallActivity
-                        val intent = Intent(this, SmallActivity::class.java)
-                        startActivity(intent)  // Khởi chạy SmallActivity để kiểm tra trạng thái đơn hàng
                     }
-                }
-                .setNegativeButton("Không") { dialogInterface, _ ->
-                    // Nếu người dùng chọn "Không", đóng hộp thoại
-                    dialogInterface.dismiss()
-                }
+                    .setNegativeButton("Không") { dialogInterface, _ ->
+                        // Nếu người dùng chọn "Không", đóng hộp thoại
+                        dialogInterface.dismiss()
+                    }
 
-            // Hiển thị hộp thoại xác nhận
-            dialog.show()
+                // Hiển thị hộp thoại xác nhận
+                dialog.show()
+            }
+            else{
+                Toast.makeText(
+                    this,
+                    "Chọn phương thức thanh toán thành công!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
 
