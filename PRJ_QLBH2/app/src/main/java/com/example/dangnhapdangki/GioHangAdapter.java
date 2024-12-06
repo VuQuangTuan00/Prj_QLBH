@@ -150,12 +150,25 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
         try {
             double totalPrice = gioHang.getGia();
-            DecimalFormat df = new DecimalFormat("#,###,###.00");  // Định dạng với dấu phân cách và 2 chữ số thập phân
-            String formattedPrice = df.format(totalPrice);
+
+            // Kiểm tra nếu totalPrice là số nguyên
+            String formattedPrice;
+            if (totalPrice % 1 == 0) {
+                // Nếu không có phần thập phân đáng kể, chỉ định dạng phần nguyên
+                DecimalFormat df = new DecimalFormat("#,###,###");
+                formattedPrice = df.format(totalPrice);
+            } else {
+                // Giữ nguyên định dạng 2 chữ số thập phân
+                DecimalFormat df = new DecimalFormat("#,###,###.00");
+                formattedPrice = df.format(totalPrice);
+            }
+
             tvGia.setText(formattedPrice + "đ");
         } catch (Exception e) {
-
+            // Xử lý ngoại lệ nếu cần
+            e.printStackTrace();
         }
+
 
 
         tvTen.setText(gioHang.getTenSP());

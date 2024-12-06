@@ -167,14 +167,20 @@ class MainActivityGioHang : AppCompatActivity() {
 
     fun tingTongTien() {
         val totalPrice = dbGioHang.getTotalPriceOfSelectedProducts(maKH)
-        val formattedPrice =
-            String.format("%,.2f", totalPrice) // Định dạng với dấu phân cách và 2 chữ số thập phân
 
-// Cập nhật giao diện
+        // Kiểm tra và định dạng giá trị
+        val formattedPrice = if (totalPrice % 1 == 0.0) {
+            // Nếu không có số thập phân đáng kể, chỉ giữ phần nguyên
+            String.format("%,.0f", totalPrice)
+        } else {
+            // Giữ nguyên định dạng 2 chữ số thập phân
+            String.format("%,.2f", totalPrice)
+        }
+
+        // Cập nhật giao diện
         tvTongTien.text = "$formattedPrice đ"
         tvTienHang.text = "$formattedPrice đ"
         tvTongDonHang.text = "$formattedPrice đ"
-
-
     }
+
 }
