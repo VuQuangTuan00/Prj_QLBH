@@ -12,7 +12,7 @@ class DonViDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "bachhoa.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
         const val TABLE_DONVI = "DonVi"
         const val COLUMN_ID_DONVI = "idDonVi_sp"
         const val COLUMN_NAME = "tenDonVi_sp"

@@ -15,7 +15,7 @@ class SanPhamDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "bachhoa.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
         const val TABLE_SANPHAM = "SanPham"
         const val COLUMN_ID = "id"
         const val COLUMN_IMG_SP = "hinh_anh"
@@ -28,30 +28,30 @@ class SanPhamDBHelper(context: Context) :
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-//        // Tạo bảng SanPham
-//        val createSanPhamTableQuery = """
-//           CREATE TABLE SanPham (
-//    id INTEGER PRIMARY KEY AUTOINCREMENT,
-//    hinh_anh INTEGER NOT NULL,
-//    ten TEXT NOT NULL,
-//    gia REAL NOT NULL,
-//    soLuong INTEGER NOT NULL,
-//    idLoai_sp INTEGER NOT NULL,
-//    idDonVi_sp INTEGER NOT NULL,
-//    thongTin TEXT NOT NULL,
-//    FOREIGN KEY (idLoai_sp) REFERENCES LoaiSanPham(idLoai_sp),
-//    FOREIGN KEY (idDonVi_sp) REFERENCES DonVi(idDonVi_sp)
-//)
-//        """.trimIndent()
-//
-//
-//        try {
-//            db?.execSQL(createSanPhamTableQuery)
-//            insertSampleProducts()
-//            Log.d("SanPhamDBHelper", "Database created successfully")
-//        } catch (e: Exception) {
-//            Log.e("SanPhamDBHelper", "Error creating database", e)
-//        }
+        // Tạo bảng SanPham
+        val createSanPhamTableQuery = """
+           CREATE TABLE SanPham (
+    $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    $COLUMN_IMG_SP TEXT NOT NULL,
+    $COLUMN_NAME TEXT NOT NULL,
+    $COLUMN_PRICE REAL NOT NULL,
+    $COLUMN_QUANTITY INTEGER NOT NULL,
+    $COLUMN_IDLOAI_SP INTEGER NOT NULL,
+    $COLUMN_IDDONVI INTEGER NOT NULL,
+    $COLUMN_THONGTIN TEXT NOT NULL,
+    FOREIGN KEY (idLoai_sp) REFERENCES LoaiSanPham(idLoai_sp),
+    FOREIGN KEY (idDonVi_sp) REFERENCES DonVi(idDonVi_sp)
+)
+        """.trimIndent()
+
+
+        try {
+            db?.execSQL(createSanPhamTableQuery)
+            insertSampleProducts()
+            Log.d("SanPhamDBHelper", "Database created successfully")
+        } catch (e: Exception) {
+            Log.e("SanPhamDBHelper", "Error creating database", e)
+        }
     }
     fun insertSampleProducts() {
         val db = writableDatabase
@@ -81,9 +81,9 @@ class SanPhamDBHelper(context: Context) :
         db.close()
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-//        // Đảm bảo các bảng được xóa và tạo lại khi nâng cấp cơ sở dữ liệu
-//        db?.execSQL("DROP TABLE IF EXISTS $TABLE_SANPHAM")
-//        onCreate(db)
+        // Đảm bảo các bảng được xóa và tạo lại khi nâng cấp cơ sở dữ liệu
+        db?.execSQL("DROP TABLE IF EXISTS $TABLE_SANPHAM")
+        onCreate(db)
     }
 
     fun addProduct(

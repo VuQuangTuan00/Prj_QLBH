@@ -16,7 +16,7 @@ class LoaiSanPhamDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "bachhoa.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
         const val TABLE_LOAI_SANPHAM = "LoaiSanPham"
         const val COLUMN_ID_LOAI_SANPHAM = "idLoai_sp"
         const val COLUMN_NAME = "tenLoai_sp"
