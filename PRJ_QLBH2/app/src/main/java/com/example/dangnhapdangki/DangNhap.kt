@@ -29,8 +29,6 @@ class DangNhap : AppCompatActivity() {
 
         btnDangNhap.setOnClickListener(){
             xuLyDangNhap();
-             val intent = Intent(this,TrangChu::class.java)
-             startActivity(intent);
         }
         btnDangKi.setOnClickListener(){
             val intent = Intent(this,DangKi::class.java)
@@ -41,20 +39,19 @@ class DangNhap : AppCompatActivity() {
     private fun setcontrol() {
         edtTenNguoiDung = findViewById(R.id.edtTenNguoiDung)
         edtPassword = findViewById(R.id.edtPassword)
-
         btnDangKi = findViewById(R.id.tvDangKi)
         btnDangNhap = findViewById(R.id.btnDangNhap)
     }
-
     private fun xuLyDangNhap(){
         val tenNguoiDung = edtTenNguoiDung.text.toString();
         val matKhau = edtPassword.text.toString();
-
         //kiểm tra tồn tại
         if (tenNguoiDung.isEmpty() || matKhau.isEmpty()){
             Toast.makeText(this,"vui lòng nhập tên người dùng",Toast.LENGTH_SHORT).show();
         }
         else{
+            val intent = Intent(this,TrangChu::class.java)
+            startActivity(intent);
             Toast.makeText(this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
         }
     }

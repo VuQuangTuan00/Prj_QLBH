@@ -22,7 +22,7 @@
         />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/img_sanPham"
         android:layout_width="185dp"
         android:layout_height="145dp"
         android:layout_marginTop="16dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/edt_tenSanPham"
         android:layout_width="321dp"
         android:layout_height="44dp"
         android:drawablePadding="10dp"
@@ -59,13 +59,13 @@
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/img_sanPham"
         app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/img_sanPham"
+        app:layout_constraintTop_toBottomOf="@+id/img_sanPham" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/edt_soLuong"
         android:layout_width="321dp"
         android:layout_height="44dp"
         android:drawablePadding="10dp"
@@ -77,13 +77,13 @@
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tenSanPham"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/edt_tenSanPham"
+        app:layout_constraintTop_toBottomOf="@+id/edt_tenSanPham" />
 
     <EditText
-        android:id="@+id/editTextText4"
+        android:id="@+id/edt_gia"
         android:layout_width="321dp"
         android:layout_height="44dp"
         android:drawablePadding="10dp"
@@ -95,13 +95,13 @@
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText3"
+        app:layout_constraintEnd_toEndOf="@+id/edt_soLuong"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextText3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintStart_toStartOf="@+id/edt_soLuong"
+        app:layout_constraintTop_toBottomOf="@+id/edt_soLuong" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/edt_thongTin"
         android:layout_width="318dp"
         android:layout_height="197dp"
         android:layout_marginTop="24dp"
@@ -113,13 +113,13 @@
         android:padding="10dp"
         android:textColorHint="@color/white_transparent"
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText4"
+        app:layout_constraintEnd_toEndOf="@+id/edt_gia"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextText4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
+        app:layout_constraintStart_toStartOf="@+id/edt_gia"
+        app:layout_constraintTop_toBottomOf="@+id/edt_gia" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnUpdate"
         android:layout_width="210dp"
         android:layout_height="43dp"
         android:layout_marginTop="16dp"
@@ -127,9 +127,9 @@
         android:text="SỬA SẢN PHẨM"
         android:textColor="#4A2B29"
         app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/edt_thongTin"
         app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintStart_toStartOf="@+id/edt_thongTin"
+        app:layout_constraintTop_toBottomOf="@+id/edt_thongTin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
