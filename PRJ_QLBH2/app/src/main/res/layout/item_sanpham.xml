@@ -11,7 +11,7 @@
     app:cardElevation="4dp"
     app:cardBackgroundColor="@android:color/white"
     android:layout_gravity="center_horizontal"
-    tools:context=".Activity.MainActivity">
+    tools:context="com.example.dangnhapdangki.TrangChu">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/img_4" />
+            tools:srcCompat="@drawable/img3" />
         <TextView
             android:id="@+id/tvTenSp"
             android:paddingLeft="10dp"
@@ -59,12 +59,14 @@
             android:textSize="11sp"
             android:textColor="@color/black"
             />
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btnMua_sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#583732"
             android:text="Mua"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             app:cornerRadius="0dp"
             />
     </LinearLayout>

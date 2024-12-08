@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/img_sanPham"
         android:layout_width="185dp"
         android:layout_height="145dp"
         android:layout_marginTop="16dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/edt_tenSanPham"
         android:layout_width="321dp"
         android:layout_height="44dp"
         android:drawablePadding="10dp"
@@ -59,13 +59,13 @@
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/img_sanPham"
         app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/img_sanPham"
+        app:layout_constraintTop_toBottomOf="@+id/img_sanPham" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -73,9 +73,9 @@
         android:text="XÓA SẢN PHẨM"
         android:textColor="#4A2B29"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="@+id/edt_tenSanPham"
         app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/edt_tenSanPham"
+        app:layout_constraintTop_toBottomOf="@+id/edt_tenSanPham" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

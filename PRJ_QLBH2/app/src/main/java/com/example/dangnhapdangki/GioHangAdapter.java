@@ -21,13 +21,10 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
     public GioHangAdapter(@NonNull Context context, int resource, ArrayList<GioHang> data) {
         super(context, resource, data);
-
         this.context = context;
         this.data = data;
         this.resource = resource;
-
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

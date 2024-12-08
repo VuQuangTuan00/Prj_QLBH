@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
-import com.example.demo_recycleview.R
-import com.example.demo_recycleview.databinding.ItemSanphamBinding
+import com.example.prj_qlbh.databinding.ItemSanphamBinding
 
 
 class AdapterSanPham(
@@ -20,6 +19,9 @@ class AdapterSanPham(
 ) :
     RecyclerView.Adapter<AdapterSanPham.SanPhamViewHolder>() {
     private lateinit var binding: ItemSanphamBinding
+    var SuKienChuyenTrangChiTiet: SuKienChuyenTrangChiTiet? = null
+
+
     inner class SanPhamViewHolder(val binding: ItemSanphamBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -43,10 +45,12 @@ class AdapterSanPham(
             spannable.setSpan(RelativeSizeSpan(0.5f), indexSlash + 2, giaText.length, 0) // 0.8f để làm chữ nhỏ đi 80% so với chữ trước "/"
         }
         if (curLoaiSP != null && curDonVi != null){
-            holder.binding.imgSanPham.setImageResource(curDSSP.img_sp)
             holder.binding.tvTenSp.text = curDSSP.ten_sp
             holder.binding.tvGia.text = spannable
             holder.binding.tvLoaiSp.text = curDSSP.idLoai_sp.tenLoai_sp
+        }
+        holder.itemView.setOnClickListener {
+            SuKienChuyenTrangChiTiet?.chuyenTrang(it ,curDSSP)
         }
     }
     override fun getItemCount(): Int {
@@ -56,4 +60,8 @@ class AdapterSanPham(
             0
         }
     }
+}
+
+interface SuKienChuyenTrangChiTiet {
+    fun chuyenTrang(view: View? , sanPham:SanPham)
 }

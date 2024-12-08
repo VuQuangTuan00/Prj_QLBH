@@ -6,39 +6,40 @@
     android:layout_height="match_parent"
     android:background="#201520">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="113dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="92dp"
         android:text="Danh sách sản phẩm"
         android:textColor="#FFFFFF"
         android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/img_sanPham"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toEndOf="@+id/backHome"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/backHome"
         android:layout_width="30dp"
         android:layout_height="35dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@drawable/back" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/img_sanPham"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/s"
@@ -163,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Xoài cát hoài lộc"
+                android:text="Cải thảo"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -195,14 +196,14 @@
                 android:id="@+id/item_chuoi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img3" />
+                android:src="@drawable/img1" />
 
             <TextView
                 android:id="@+id/item_name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Chuối sứ"
+                android:text="Xoài"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -241,7 +242,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Sầu riêng thái"
+                android:text="Rau muống"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -290,7 +291,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Cải thảo"
+                android:text="Sữa tắm"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -299,7 +300,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="26.000đ/1kg"
+                android:text="26.000đ/1 chai"
                 android:textColor="@color/white" />
 
             <Button
@@ -329,7 +330,7 @@
                 android:layout_width="107dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Sữa tắm thái dương"
+                android:text="Sầu riêng"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -369,7 +370,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Rau muống"
+                android:text="Chuối"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
 
@@ -418,7 +419,7 @@
                 android:layout_width="68dp"
                 android:layout_height="51dp"
                 android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/cart" />
+                android:drawableStart="@drawable/icon_cart" />
 
             <TextView
                 android:id="@+id/favourite_icon3"

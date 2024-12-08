@@ -1,11 +1,12 @@
 package com.example.demo_recycleview.Adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_recycleview.Model.LoaiSanPham
-import com.example.demo_recycleview.R
-import com.example.demo_recycleview.databinding.LayoutItemLoaispBinding
+import com.example.prj_qlbh.R
+import com.example.prj_qlbh.databinding.LayoutItemLoaispBinding
 
 class AdapterLoaiSanPham(
     var dsLoaiSP: ArrayList<LoaiSanPham>
@@ -17,8 +18,7 @@ class AdapterLoaiSanPham(
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoaiSanPhamViewHolder {
-        binding =
-            LayoutItemLoaispBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = LayoutItemLoaispBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoaiSanPhamViewHolder(binding)
     }
 
@@ -30,7 +30,7 @@ class AdapterLoaiSanPham(
         }
     }
 
-    override fun onBindViewHolder(holder: LoaiSanPhamViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LoaiSanPhamViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.binding.tvLoaiSP.text = dsLoaiSP[position].tenLoai_sp
         holder.binding.root.setOnClickListener {
             lastSelectedPosition = selectedPosition

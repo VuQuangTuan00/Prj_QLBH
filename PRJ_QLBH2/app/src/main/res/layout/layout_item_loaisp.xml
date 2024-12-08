@@ -14,7 +14,4 @@
     android:textColor="@color/white"
     android:background="@drawable/editext_bg"
    >
-
-
-
 </TextView>

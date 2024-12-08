@@ -2,98 +2,118 @@ package com.example.dangnhapdangki
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dangnhapdangki.Database.DonViDBHelper
+import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
+import com.example.demo_recycleview.Adapter.AdapterLoaiSanPham
+import com.example.demo_recycleview.Adapter.AdapterSanPham
+import com.example.demo_recycleview.Adapter.SuKienChuyenTrangChiTiet
+import com.example.demo_recycleview.Model.DonVi
+import com.example.demo_recycleview.Model.LoaiSanPham
+import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
+import com.example.prj_qlbh.databinding.ActivityTrangChuBinding
 import com.google.android.material.navigation.NavigationView
 
-class TrangChu : AppCompatActivity() {
-    // Khai báo biến dưới dạng var
-    private var drawerLayout: DrawerLayout? = null
-    private var menuIcon: ImageView? = null
-    private var navigationView: NavigationView? = null
+class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
-    private var homeIcon:ImageView? = null
-    private var cartIcon:ImageView? = null
-    private var favoriteIcon:ImageView? = null
-    private var noticeIcon:ImageView? = null
-    private var chiTietSanPham:ImageView? = null
+    private lateinit var binding: ActivityTrangChuBinding
+    private lateinit var dsSP: ArrayList<SanPham>
+    private lateinit var dsLoaiSP: ArrayList<LoaiSanPham>
+    private lateinit var dsDonViSP: ArrayList<DonVi>
+    private lateinit var dbDonViHelper: DonViDBHelper
+    private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
+    private var adapterSanPham: AdapterSanPham? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trang_chu)
         setControl()
+
+        dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
+        dbDonViHelper = DonViDBHelper(this)
+
+        // Lấy dữ liệu từ cơ sở dữ liệu
+        dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
+        dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
+
+        // Kiểm tra dữ liệu và cấu hình RecyclerView nếu có dữ liệu
+
+        if (dsLoaiSP.isNotEmpty()) {
+            setupLoaiSanPhamRecyclerView()
+        } else {
+            Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
+        }
+
+        // Nếu cần hiển thị sản phẩm, bạn có thể bổ sung vào đây
+        // setupSanPhamRecyclerView()
+
         setEvent()
     }
 
     private fun setControl() {
-        drawerLayout = findViewById(R.id.drawerLayout)
-        menuIcon = findViewById(R.id.imageView)
-        navigationView = findViewById(R.id.navView)
-        cartIcon = findViewById(R.id.cart_icon)
-        favoriteIcon = findViewById(R.id.favourite_icon)
-        noticeIcon = findViewById(R.id.notice_icon)
-        chiTietSanPham = findViewById(R.id.item_img1)
+        binding = ActivityTrangChuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
+
     private fun setEvent() {
-        // Thiết lập sự kiện click cho menuIcon để mở NavigationView
-        menuIcon?.setOnClickListener {
-            drawerLayout?.openDrawer(navigationView!!)
+        binding.bugerNav?.setOnClickListener {
+            binding.drawerLayout?.openDrawer(binding.navView!!)
         }
-        cartIcon?.setOnClickListener {
-            val intent = Intent(this, MainActivityGioHang::class.java)
-            startActivity(intent)
-        }
-        favoriteIcon?.setOnClickListener {
-            val intent = Intent(this, MainActivityGioHang::class.java)
-            startActivity(intent)
-        }
-        noticeIcon?.setOnClickListener {
-            val intent = Intent(this, MainActivityGioHang::class.java)
-            startActivity(intent)
-        }
-        chiTietSanPham?.setOnClickListener {
-            val intent = Intent(this, ChiTietSanPham::class.java)
-            startActivity(intent)
-        }
-        // Xử lý sự kiện khi chọn các item trong NavigationView
-        navigationView?.setNavigationItemSelectedListener { item ->
+
+        binding.navView?.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navThoat -> {
                     finish()
                     true
                 }
-
                 R.id.navThemSP -> {
                     val intent = Intent(this, AddProduct::class.java)
                     startActivity(intent)
                     true
                 }
-
                 R.id.navXoaSP -> {
                     val intent = Intent(this, DelProduct::class.java)
                     startActivity(intent)
                     true
                 }
-
                 R.id.navSuaSP -> {
                     val intent = Intent(this, UpdateProduct::class.java)
                     startActivity(intent)
                     true
                 }
-
                 R.id.navDSSP -> {
                     val intent = Intent(this, DanhSachSanPham::class.java)
                     startActivity(intent)
                     true
                 }
-
                 else -> false
             }
         }
+    }
+
+    private fun setupLoaiSanPhamRecyclerView() {
+        if (dsLoaiSP.isNotEmpty()) {
+            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP)
+            binding.rvLoaiSanPham.apply {
+                adapter = adapterLSP
+                layoutManager = LinearLayoutManager(
+                    this@TrangChu,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            }
+        } else {
+            Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun chuyenTrang(view: View?, sanPham: SanPham) {
+        val intent = Intent(this, ChiTietSanPham::class.java)
+        intent.putExtra("sanPham", sanPham)
+        startActivity(intent)
     }
 }
