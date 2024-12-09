@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle

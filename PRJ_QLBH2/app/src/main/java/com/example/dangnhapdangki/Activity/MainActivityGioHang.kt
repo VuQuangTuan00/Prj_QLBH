@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 
 import android.content.Intent
@@ -11,6 +11,10 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dangnhapdangki.Database.DataBaseGioHang
+import com.example.dangnhapdangki.Model.GioHang
+import com.example.dangnhapdangki.Adapter.GioHangAdapter
+import com.example.dangnhapdangki.StringBase64
 import com.example.prj_qlbh.R
 
 
@@ -53,7 +57,13 @@ class MainActivityGioHang : AppCompatActivity() {
     private fun setEvent() {
         // Khởi tạo adapter trước khi sử dụng
 
-        gioHangAdapter = GioHangAdapter(this, R.layout.giohang_adapter, dsGioHang, this,maKH)
+        gioHangAdapter = GioHangAdapter(
+            this,
+            R.layout.giohang_adapter,
+            dsGioHang,
+            this,
+            maKH
+        )
         lvDanhSachGioHang.adapter = gioHangAdapter
 
         //dbGioHang.deleteAllGioHang()

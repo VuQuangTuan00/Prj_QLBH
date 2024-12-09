@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#201520"
     android:orientation="vertical"
-    tools:context="com.example.dangnhapdangki.MainActivityGioHang">
+    tools:context="com.example.dangnhapdangki.Activity.MainActivityGioHang">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,8 +1,7 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -32,7 +31,7 @@ class DangKi : AppCompatActivity() {
             xuLyDangKy();
         }
         tvDangNhap.setOnClickListener(){
-            val intent = Intent(this,DangNhap::class.java)
+            val intent = Intent(this, DangNhap::class.java)
             startActivity(intent);
         }
     }
@@ -63,7 +62,7 @@ class DangKi : AppCompatActivity() {
             return;
         }
         //nếu đúng
-        var intent = Intent(this,DangNhap::class.java);
+        var intent = Intent(this, DangNhap::class.java);
         startActivity(intent);
         Toast.makeText(this,"Đăng kí thành công !",Toast.LENGTH_SHORT).show();
 

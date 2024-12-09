@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Database
 
 import android.content.ContentValues
 import android.content.Context

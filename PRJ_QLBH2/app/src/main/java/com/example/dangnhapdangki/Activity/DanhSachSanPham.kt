@@ -1,6 +1,5 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,8 +14,6 @@ import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
 import com.example.demo_recycleview.Adapter.AdapterLoaiSanPham
-import com.example.demo_recycleview.Adapter.AdapterSanPham
-import com.example.demo_recycleview.Adapter.SuKienChuyenTrangChiTiet
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
@@ -111,7 +108,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
         val intent = Intent(this, UpdateProduct::class.java)
         intent.putExtra("sanPham", sanPham)
-        startActivityForResult(intent,REQUEST_CODE_UPDATE_PRODUCT)
+        startActivityForResult(intent, REQUEST_CODE_UPDATE_PRODUCT)
     }
 
 

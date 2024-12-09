@@ -1,8 +1,7 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +17,6 @@ import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ActivityTrangChuBinding
-import com.google.android.material.navigation.NavigationView
 
 class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 

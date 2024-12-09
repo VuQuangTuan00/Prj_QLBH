@@ -9,9 +9,11 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dangnhapdangki.Activity.MainActivityDatHang
+import com.example.dangnhapdangki.Activity.MainActivityDonHang
+import com.example.dangnhapdangki.Database.DataBaseDonHang
 import com.example.prj_qlbh.R
 
 class SmallActivity : AppCompatActivity() {

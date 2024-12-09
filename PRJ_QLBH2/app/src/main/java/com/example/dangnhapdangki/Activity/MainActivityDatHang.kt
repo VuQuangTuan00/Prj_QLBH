@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 
 import android.content.Intent
@@ -14,8 +14,11 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dangnhapdangki.MainActivityDonHang
-import com.example.dangnhapdangki.MainActivityNapDiem
+import com.example.dangnhapdangki.Database.DataBaseDonHang
+import com.example.dangnhapdangki.Database.DataBaseGioHang
+import com.example.dangnhapdangki.Database.DataBaseNapDiem
+import com.example.dangnhapdangki.Model.DonHang
+import com.example.dangnhapdangki.Model.GioHang
 import com.example.dangnhapdangki.SmallActivity
 import com.example.prj_qlbh.R
 import java.text.DecimalFormat

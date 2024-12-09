@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki;
+package com.example.dangnhapdangki.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,11 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.dangnhapdangki.ChuyenDoiHinhAnh;
+import com.example.dangnhapdangki.Database.DataBaseDonHang;
+import com.example.dangnhapdangki.Model.DonHang;
 import com.example.prj_qlbh.R;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class DonHangAdapter extends ArrayAdapter<DonHang> {
@@ -29,7 +31,7 @@ public class DonHangAdapter extends ArrayAdapter<DonHang> {
     private final ArrayList<DonHang> data;
     private final int resource;
 
-    private  DataBaseDonHang dbDonHang;
+    private DataBaseDonHang dbDonHang;
 
     public DonHangAdapter(@NonNull Context context, int resource, @NonNull ArrayList<DonHang> data,  DataBaseDonHang dbDonHang) {
         super(context, resource, data);

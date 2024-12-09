@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Model
 
 data class DonHang(
     var maSP: String,

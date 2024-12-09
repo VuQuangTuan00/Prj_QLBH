@@ -1,10 +1,11 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Database
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.Cursor
+import com.example.dangnhapdangki.Model.GioHang
 
 class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 

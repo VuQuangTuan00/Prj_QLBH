@@ -1,4 +1,4 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.prj_qlbh.R
 
 class DangNhap : AppCompatActivity() {
@@ -32,7 +30,7 @@ class DangNhap : AppCompatActivity() {
 
         }
         btnDangKi.setOnClickListener(){
-            val intent = Intent(this,DangKi::class.java)
+            val intent = Intent(this, DangKi::class.java)
             startActivity(intent);
         }
     }
@@ -51,7 +49,7 @@ class DangNhap : AppCompatActivity() {
             Toast.makeText(this,"vui lòng nhập tên người dùng",Toast.LENGTH_SHORT).show();
         }
         else{
-            val intent = Intent(this,TrangChu::class.java)
+            val intent = Intent(this, TrangChu::class.java)
             startActivity(intent);
             Toast.makeText(this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
         }

@@ -1,8 +1,7 @@
-package com.example.dangnhapdangki;
+package com.example.dangnhapdangki.Adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.dangnhapdangki.Activity.MainActivityGioHang;
+import com.example.dangnhapdangki.ChuyenDoiHinhAnh;
+import com.example.dangnhapdangki.Database.DataBaseGioHang;
+import com.example.dangnhapdangki.Model.GioHang;
 import com.example.prj_qlbh.R;
 
 import androidx.annotation.NonNull;
@@ -19,7 +22,6 @@ import androidx.annotation.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GioHangAdapter extends ArrayAdapter<GioHang> {
     private final Context context;
