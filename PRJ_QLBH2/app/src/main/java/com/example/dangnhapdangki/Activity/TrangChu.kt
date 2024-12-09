@@ -70,7 +70,18 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         binding.bugerNav?.setOnClickListener {
             binding.drawerLayout?.openDrawer(binding.navView!!)
         }
+        binding.btNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.cart -> {
+                    // Chuyển sang trang Cart
+                    val intent = Intent(this, MainActivityGioHang::class.java)
+                    startActivity(intent)
+                    true
+                }
 
+                else -> false
+            }
+        }
         binding.navView?.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navThoat -> {
