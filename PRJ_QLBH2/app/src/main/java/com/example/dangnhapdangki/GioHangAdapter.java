@@ -30,6 +30,7 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
 
     public GioHangAdapter(@NonNull Context context, int resource, ArrayList<GioHang> data, MainActivityGioHang mainActivityGioHang, String maKH) {
         super(context, resource, data);
+
         this.context = context;
         this.data = data;
         this.resource = resource;
@@ -37,7 +38,7 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
         this.maKH = maKH;
 
     }
-    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
