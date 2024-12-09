@@ -29,20 +29,26 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
-    private var adapterSanPham: AdapterSanPham? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setControl()
+        setEvent()
+    }
 
-        dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
-        dbDonViHelper = DonViDBHelper(this)
+    private fun setControl() {
+        binding = ActivityTrangChuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         dbSanPhamHelper = SanPhamDBHelper(this)
+        dbDonViHelper = DonViDBHelper(this)
+        dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
+//        dbSanPhamHelper.insertSampleProducts()
 
         // Lấy dữ liệu từ cơ sở dữ liệu
+        dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
         dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
         dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
-        dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
+
+
 
         // Kiểm tra dữ liệu và cấu hình RecyclerView nếu có dữ liệu
 
@@ -54,16 +60,10 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
         // Nếu cần hiển thị sản phẩm, bạn có thể bổ sung vào đây
         if (dsSP.isNotEmpty()) {
-             setupSanPhamRecyclerView()
+            setupSanPhamRecyclerView()
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
-        setEvent()
-    }
-
-    private fun setControl() {
-        binding = ActivityTrangChuBinding.inflate(layoutInflater)
-        setContentView(binding.root)
     }
 
     private fun setEvent() {
@@ -120,6 +120,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private fun setupSanPhamRecyclerView() {
         if (dsSP.isNotEmpty()) {
             val adapterSP = AdapterSanPham(dsSP,dsLoaiSP,dsDonViSP)
+            adapterSP.SuKienChuyenTrangChiTiet = this
             binding.rvSanPham.apply {
                 adapter = adapterSP
                 layoutManager = LinearLayoutManager(
@@ -134,8 +135,8 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     }
 
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
-        val intent = Intent(this, ChiTietSanPham::class.java)
-        intent.putExtra("sanPham", sanPham)
-        startActivity(intent)
+           val intent = Intent(this, ChiTietSanPham::class.java)
+           intent.putExtra("sanPham", sanPham)
+           startActivity(intent)
     }
 }

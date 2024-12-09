@@ -9,7 +9,7 @@
     tools:context="com.example.dangnhapdangki.AddProduct">
 
     <ImageView
-        android:id="@+id/imageUpdateBack"
+        android:id="@+id/img_back"
         android:layout_width="51dp"
         android:layout_height="49dp"
         android:layout_marginEnd="68dp"
@@ -34,6 +34,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/custum_edt_add_product"
         android:ems="10"
-        android:hint="ID sản phẩm"
+        android:hint="Tên sản phẩm"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
@@ -68,17 +69,17 @@
         android:id="@+id/edt_soLuong"
         android:layout_width="321dp"
         android:layout_height="44dp"
-        android:drawablePadding="10dp"
-        android:padding="10dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
+        android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Tên sản phẩm"
+        android:hint="Số Lượng"
         android:inputType="text"
+        android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
         app:layout_constraintEnd_toEndOf="@+id/edt_tenSanPham"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="@+id/edt_tenSanPham"
         app:layout_constraintTop_toBottomOf="@+id/edt_tenSanPham" />
 
@@ -86,40 +87,40 @@
         android:id="@+id/edt_gia"
         android:layout_width="321dp"
         android:layout_height="44dp"
-        android:drawablePadding="10dp"
-        android:padding="10dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Giá"
         android:inputType="text"
+        android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white_transparent"
         app:layout_constraintEnd_toEndOf="@+id/edt_soLuong"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/edt_soLuong"
         app:layout_constraintTop_toBottomOf="@+id/edt_soLuong" />
 
+
     <EditText
         android:id="@+id/edt_thongTin"
-        android:layout_width="318dp"
-        android:layout_height="197dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="321dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Chi tiết sản phẩm"
-        android:drawablePadding="10dp"
+        android:inputType="textMultiLine"
         android:padding="10dp"
         android:textColorHint="@color/white_transparent"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/edt_gia"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_gia"
-        app:layout_constraintTop_toBottomOf="@+id/edt_gia" />
+        app:layout_constraintEnd_toEndOf="@+id/sp_donViSP"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sp_donViSP"
+        app:layout_constraintTop_toBottomOf="@+id/sp_donViSP" />
 
     <Button
-        android:id="@+id/btnUpdate"
+        android:id="@+id/btn_suaSanPham"
         android:layout_width="210dp"
         android:layout_height="43dp"
         android:layout_marginTop="16dp"
@@ -128,8 +129,31 @@
         android:textColor="#4A2B29"
         app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/edt_thongTin"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="@+id/edt_thongTin"
         app:layout_constraintTop_toBottomOf="@+id/edt_thongTin" />
+
+    <Spinner
+        android:id="@+id/sp_loaiSP"
+        android:layout_width="321dp"
+        android:backgroundTint="#EFE3C8"
+        android:background="@drawable/custum_edt_add_product"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_gia"
+        app:layout_constraintStart_toStartOf="@+id/edt_gia"
+        app:layout_constraintTop_toBottomOf="@+id/edt_gia" />
+
+    <Spinner
+        android:id="@+id/sp_donViSP"
+        android:layout_width="321dp"
+        android:layout_height="44dp"
+        android:backgroundTint="#EFE3C8"
+        android:background="@drawable/custum_edt_add_product"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/sp_loaiSP"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sp_loaiSP"
+        app:layout_constraintTop_toBottomOf="@+id/sp_loaiSP" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

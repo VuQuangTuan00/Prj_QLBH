@@ -1,7 +1,9 @@
 package com.example.demo_recycleview.Adapter
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
+import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ItemSanphamBinding
 
 
@@ -20,8 +23,6 @@ class AdapterSanPham(
     RecyclerView.Adapter<AdapterSanPham.SanPhamViewHolder>() {
     private lateinit var binding: ItemSanphamBinding
     var SuKienChuyenTrangChiTiet: SuKienChuyenTrangChiTiet? = null
-
-
     inner class SanPhamViewHolder(val binding: ItemSanphamBinding) :
         RecyclerView.ViewHolder(binding.root)
 
