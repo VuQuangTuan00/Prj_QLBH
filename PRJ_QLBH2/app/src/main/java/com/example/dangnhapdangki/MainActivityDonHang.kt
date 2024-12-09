@@ -3,66 +3,95 @@ package com.example.dangnhapdangki
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.prj_qlbh.R
 
 class MainActivityDonHang : AppCompatActivity() {
     private lateinit var ivBackLSDH: ImageView
     private lateinit var lvDonHang: ListView
+    private lateinit var tvXoaTatCa: TextView
 
+    private var maKH: String = "001" // Mã khách hàng mặc định
     private val dsDonHang = ArrayList<DonHang>()
     private lateinit var donHangAdapter: DonHangAdapter
+    private lateinit var dbHelper: DataBaseDonHang
+
+
+
+
+    //Danh sách giỏ hàng
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main_don_hang)
-        setControl();
-        setEvent();
+
+        // Khởi tạo database helper
+        dbHelper = DataBaseDonHang(this)
+
+        setControl()
+        setEvent()
     }
 
     private fun setEvent() {
+
+
+        // Khởi tạo danh sách đơn hàng từ cơ sở dữ liệu
+
+
+        donHangAdapter = DonHangAdapter(this, R.layout.donhang_adapter, dsDonHang,dbHelper)
+        lvDonHang.adapter = donHangAdapter
+
+        loadData()
+
         ivBackLSDH.setOnClickListener {
             onBackPressed()
         }
-        khoiTao()
-        donHangAdapter = DonHangAdapter(this, R.layout.donhang_adapter, dsDonHang)
-        lvDonHang.adapter = donHangAdapter
+
+        tvXoaTatCa.setOnClickListener {
+            // Hiển thị hộp thoại xác nhận trước khi xóa
+            val dialog = AlertDialog.Builder(this)
+                .setTitle("Xác nhận xóa")
+                .setMessage("Bạn có chắc chắn muốn xóa tất cả đơn hàng?")
+                .setPositiveButton("Có") { _, _ ->
+                    // Nếu người dùng chọn "Có", thực hiện xóa tất cả đơn hàng
+                    dbHelper.deleteAllDonHang()
+                    loadData() // Tải lại dữ liệu sau khi xóa
+                    Toast.makeText(this, "Đã xóa tất cả đơn hàng!", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Không") { dialogInterface, _ ->
+                    // Nếu người dùng chọn "Không", đóng hộp thoại
+                    dialogInterface.dismiss()
+                }
+            dialog.show()
+        }
+
     }
 
     private fun setControl() {
-        ivBackLSDH = findViewById(R.id.ivBackLSDH);
-        lvDonHang = findViewById(R.id.lvDonHang);
+        ivBackLSDH = findViewById(R.id.ivBackLSDH)
+        lvDonHang = findViewById(R.id.lvDonHang)
+        tvXoaTatCa = findViewById(R.id.tvXoaTatCa)
     }
 
-    fun khoiTao() {
-        dsDonHang.add(
-            DonHang(
-                "SP001",
-                "Dầu ăn Simply đậu nành 5L",
-                "Dầu ăn",
-                "123 Đường ABC, Quận 1, TP.HCM",
-                "2024-11-10 14:00",
-                "Đã thanh toán (chuyển khoản)",
-                136000.0,
-                2
-            )
-        )
+    private fun loadData() {
+        // Xóa dữ liệu cũ trước khi thêm mới
+        dsDonHang.clear()
 
-        dsDonHang.add(
-            DonHang(
-                "SP001",
-                "Snack khoai tây",
-                "Snack",
-                "123 Đường ABC, Quận 1, TP.HCM",
-                "2024-11-10 14:00",
-                "Chưa thanh toán (tiền mặt)",
-                13000.0,
-                2
-            )
-        )
+        // Lấy danh sách đơn hàng từ database theo maKH
+        val donHangsFromDb = dbHelper.getDonHangByMaKH(maKH)
+        dsDonHang.addAll(donHangsFromDb)
+
+        // Thông báo cập nhật danh sách
+        donHangAdapter.notifyDataSetChanged()
+
 
     }
+
+
 }

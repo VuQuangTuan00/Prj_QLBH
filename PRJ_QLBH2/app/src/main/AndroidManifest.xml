@@ -39,10 +39,11 @@
             android:name="com.example.dangnhapdangki.MainActivityDonHang"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.SmallActivity"
+            android:name="com.example.dangnhapdangki.MainActivityDatHang"
             android:exported="false" />
+
         <activity
-            android:name="com.example.dangnhapdangki.DatHang"
+            android:name="com.example.dangnhapdangki.SmallActivity"
             android:exported="false" />
         <activity
             android:name="com.example.dangnhapdangki.TrangChu"

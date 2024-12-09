@@ -29,41 +29,51 @@
                 android:background="@drawable/back" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
+
                 android:text="Giỏ hàng"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/tvDonHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đơn hàng"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp" />
+
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/lvGioHang"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ListView>
+                android:layout_height="wrap_content"></ListView>
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_del_giohang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/btn_trong"
             android:drawableLeft="@drawable/icon_del_giohang"
-            android:text="  Xóa hết sản phẩm"
+            android:text="  Xóa sản phẩm"
             android:textColor="#fff"
-            android:textSize="12dp">
-        </Button>
+            android:textSize="12dp"></Button>
 
 
         <LinearLayout
@@ -92,6 +102,7 @@
                 >
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -100,7 +111,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-
+                    android:id="@+id/tvTienHang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="221.000đ"
@@ -143,6 +154,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvTongTien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="221.000đ"
@@ -168,6 +180,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvTongDonHang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100.000đ"
@@ -188,6 +201,7 @@
                 android:id="@+id/btnDatHang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/selector_btn_ndiem"
                 android:drawableLeft="@drawable/icon_napdiem"
                 android:paddingLeft="10dp"
