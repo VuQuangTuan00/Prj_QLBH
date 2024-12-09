@@ -39,7 +39,8 @@ class UpdateProduct : AppCompatActivity() {
         setEvent()
         setupSpinners()
     }
-    private fun setEvent(){
+
+    private fun setEvent() {
         binding.imgBack.setOnClickListener {
             onBackPressed()
         }
@@ -76,89 +77,97 @@ class UpdateProduct : AppCompatActivity() {
                 sanPham.soLuong_sp = soLuongSanPham
                 sanPham.idLoai_sp = loaiSanPham
                 sanPham.idDonVi_sp = donViSanPham
-                var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-                var hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh)
-                sanPham.img_sp = hinhSP
+                try {
+                    val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+                    val hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh)
+                    sanPham.img_sp = hinhSP
+                } catch (e: Exception) {
+                    e.printStackTrace() // Hoặc sử dụng log để ghi lại lỗi
+                }
+
 
                 // Thực hiện cập nhật vào cơ sở dữ liệu
-                val result = dbSanPhamHelper.updateProduct(sanPham)
-                if (result) {
-                    Toast.makeText(this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show()
+            val result = dbSanPhamHelper.updateProduct(sanPham)
+            if (result) {
+                Toast.makeText(this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show()
 
-                    // Trả dữ liệu sản phẩm đã chỉnh sửa về màn hình trước
-                    val returnIntent = Intent().apply {
-                        putExtra("updatedSanPham", sanPham)
-                    }
-                    setResult(RESULT_OK, returnIntent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "Cập nhật sản phẩm thất bại", Toast.LENGTH_SHORT).show()
+                // Trả dữ liệu sản phẩm đã chỉnh sửa về màn hình trước
+                val returnIntent = Intent().apply {
+                    putExtra("updatedSanPham", sanPham)
                 }
-            }
-        }
-        val sanPham = intent.getParcelableExtra<SanPham>("sanPham")
-        binding.edtTenSanPham.setText(sanPham?.ten_sp)
-        binding.edtGia.setText(sanPham?.gia_sp?.toString())
-        binding.edtThongTin.setText(sanPham?.thongTin)
-        val loaiIndex = dsLoaiSP.indexOfFirst { it.idLoai_sp == sanPham?.idLoai_sp?.idLoai_sp }
-        binding.spLoaiSP.setSelection(if (loaiIndex != -1) loaiIndex else 0)
-
-
-        val donViIndex = dsDonViSP.indexOfFirst { it.idDonVi_sp == sanPham?.idDonVi_sp?.idDonVi_sp }
-        binding.spDonViSP.setSelection(if (donViIndex != -1) donViIndex else 0)
-        binding.edtSoLuong.setText(sanPham?.soLuong_sp.toString())
-
-        var chuyenDoiHinhAnh:ChuyenDoiHinhAnh =ChuyenDoiHinhAnh()
-        val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(sanPham?.img_sp)
-        val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte)
-        binding.imgSanPham.setImageBitmap(hinhBitMap)
-    }
-    private fun setControl(){
-        binding = ActivityUpdateProductBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        dbDonViHelper = DonViDBHelper(this)
-        dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
-        dbSanPhamHelper = SanPhamDBHelper(this)
-        dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
-        dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
-    }
-    private fun setupSpinners() {
-        // Dữ liệu cho Spinner Loại Sản Phẩm
-        val loaiSanPhamAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dsLoaiSP.map { it.tenLoai_sp }
-        )
-        loaiSanPhamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spLoaiSP.adapter = loaiSanPhamAdapter
-
-        // Dữ liệu cho Spinner Đơn Vị
-        val donViAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dsDonViSP.map { it.tenDonVi_sp }
-        )
-        donViAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spDonViSP.adapter = donViAdapter
-    }
-
-    var byteArrayHinh: ByteArray = ByteArray(0)
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            val uri: Uri? = data.data
-            binding.imgSanPham.setImageURI(uri)
-            try {
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-                val stream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                byteArrayHinh = stream.toByteArray()
-
-            } catch (e: IOException) {
-                e.printStackTrace()
+                setResult(RESULT_OK, returnIntent)
+                finish()
+            } else {
+                Toast.makeText(this, "Cập nhật sản phẩm thất bại", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    val sanPham = intent.getParcelableExtra<SanPham>("sanPham")
+    binding.edtTenSanPham.setText(sanPham?.ten_sp)
+    binding.edtGia.setText(sanPham?.gia_sp?.toString())
+    binding.edtThongTin.setText(sanPham?.thongTin)
+    val loaiIndex = dsLoaiSP.indexOfFirst { it.idLoai_sp == sanPham?.idLoai_sp?.idLoai_sp }
+    binding.spLoaiSP.setSelection(if (loaiIndex != -1) loaiIndex else 0)
+
+
+    val donViIndex = dsDonViSP.indexOfFirst { it.idDonVi_sp == sanPham?.idDonVi_sp?.idDonVi_sp }
+    binding.spDonViSP.setSelection(if (donViIndex != -1) donViIndex else 0)
+    binding.edtSoLuong.setText(sanPham?.soLuong_sp.toString())
+
+    var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+    val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(sanPham?.img_sp)
+    val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte)
+    binding.imgSanPham.setImageBitmap(hinhBitMap)
+}
+
+private fun setControl() {
+    binding = ActivityUpdateProductBinding.inflate(layoutInflater)
+    setContentView(binding.root)
+
+    dbDonViHelper = DonViDBHelper(this)
+    dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
+    dbSanPhamHelper = SanPhamDBHelper(this)
+    dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
+    dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
+}
+
+private fun setupSpinners() {
+    // Dữ liệu cho Spinner Loại Sản Phẩm
+    val loaiSanPhamAdapter = ArrayAdapter(
+        this,
+        android.R.layout.simple_spinner_item,
+        dsLoaiSP.map { it.tenLoai_sp }
+    )
+    loaiSanPhamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    binding.spLoaiSP.adapter = loaiSanPhamAdapter
+
+    // Dữ liệu cho Spinner Đơn Vị
+    val donViAdapter = ArrayAdapter(
+        this,
+        android.R.layout.simple_spinner_item,
+        dsDonViSP.map { it.tenDonVi_sp }
+    )
+    donViAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    binding.spDonViSP.adapter = donViAdapter
+}
+
+var byteArrayHinh: ByteArray = ByteArray(0)
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+        val uri: Uri? = data.data
+        binding.imgSanPham.setImageURI(uri)
+        try {
+            val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            byteArrayHinh = stream.toByteArray()
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+}
 }
