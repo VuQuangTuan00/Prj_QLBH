@@ -1,11 +1,16 @@
 package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dangnhapdangki.ChuyenDoiHinhAnh
 import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
@@ -14,6 +19,8 @@ import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ActivityUpdateProductBinding
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 class UpdateProduct : AppCompatActivity() {
     private lateinit var binding: ActivityUpdateProductBinding
@@ -36,6 +43,12 @@ class UpdateProduct : AppCompatActivity() {
         binding.imgBack.setOnClickListener {
             onBackPressed()
         }
+
+        binding.imgSanPham.setOnClickListener(View.OnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, 1)
+        })
+
         binding.btnSuaSanPham.setOnClickListener {
             val tenSanPham = binding.edtTenSanPham.text.toString().trim()
             val giaSanPham = binding.edtGia.text.toString().toDoubleOrNull()
@@ -63,6 +76,9 @@ class UpdateProduct : AppCompatActivity() {
                 sanPham.soLuong_sp = soLuongSanPham
                 sanPham.idLoai_sp = loaiSanPham
                 sanPham.idDonVi_sp = donViSanPham
+                var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+                var hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh)
+                sanPham.img_sp = hinhSP
 
                 // Thực hiện cập nhật vào cơ sở dữ liệu
                 val result = dbSanPhamHelper.updateProduct(sanPham)
@@ -91,6 +107,11 @@ class UpdateProduct : AppCompatActivity() {
         val donViIndex = dsDonViSP.indexOfFirst { it.idDonVi_sp == sanPham?.idDonVi_sp?.idDonVi_sp }
         binding.spDonViSP.setSelection(if (donViIndex != -1) donViIndex else 0)
         binding.edtSoLuong.setText(sanPham?.soLuong_sp.toString())
+
+        var chuyenDoiHinhAnh:ChuyenDoiHinhAnh =ChuyenDoiHinhAnh()
+        val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(sanPham?.img_sp)
+        val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte)
+        binding.imgSanPham.setImageBitmap(hinhBitMap)
     }
     private fun setControl(){
         binding = ActivityUpdateProductBinding.inflate(layoutInflater)
@@ -120,5 +141,24 @@ class UpdateProduct : AppCompatActivity() {
         )
         donViAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spDonViSP.adapter = donViAdapter
+    }
+
+    var byteArrayHinh: ByteArray = ByteArray(0)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            val uri: Uri? = data.data
+            binding.imgSanPham.setImageURI(uri)
+            try {
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                byteArrayHinh = stream.toByteArray()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 }

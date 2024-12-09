@@ -126,6 +126,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                     // Xóa sản phẩm khỏi danh sách và cập nhật RecyclerView
                     dsSP.removeAt(position)
                     binding.rvSanPham.adapter?.notifyItemRemoved(position)
+
                 }
                 dialogInterface.dismiss()
             }

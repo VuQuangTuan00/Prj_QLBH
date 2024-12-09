@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class SanPham (
     val id_sanPham:Int,
-    val img_sp:String,
+    var img_sp:String,
     var ten_sp:String,
     var idLoai_sp:LoaiSanPham,
     var soLuong_sp:Int,
