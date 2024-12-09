@@ -91,11 +91,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
                     startActivity(intent)
                     true
                 }
-                R.id.navXoaSP -> {
-                    val intent = Intent(this, DelProduct::class.java)
-                    startActivity(intent)
-                    true
-                }
+
                 R.id.navSuaSP -> {
                     val intent = Intent(this, UpdateProduct::class.java)
                     startActivity(intent)

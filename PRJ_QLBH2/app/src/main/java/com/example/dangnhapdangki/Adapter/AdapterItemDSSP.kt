@@ -1,12 +1,14 @@
 package com.example.dangnhapdangki.Adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dangnhapdangki.ChuyenDoiHinhAnh
 import com.example.demo_recycleview.Adapter.AdapterSanPham
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
@@ -54,6 +56,16 @@ class AdapterItemDSSP(
         }
         holder.binding.btnMuaSp.setOnClickListener {
             SuKienChuyenTrangUpdate?.xoaSanPham(curDSSP)
+        }
+
+        var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+
+        try {
+            val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(curDSSP.img_sp)
+            val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte)
+            holder.binding.imgSanPham.setImageBitmap(hinhBitMap)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
     override fun getItemCount(): Int {
