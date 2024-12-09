@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:background="@color/white_transparent_30"
         >
-            <ImageView
+        <ImageView
             android:id="@+id/img_SanPham"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#583732"
-            android:text="Mua"
+            android:text="Xoá"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:cornerRadius="0dp"

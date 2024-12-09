@@ -1,38 +1,37 @@
-package com.example.demo_recycleview.Adapter
+package com.example.dangnhapdangki.Adapter
+
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.demo_recycleview.Adapter.AdapterSanPham
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
-import com.example.prj_qlbh.R
+import com.example.prj_qlbh.databinding.ActivityItemDsspBinding
 import com.example.prj_qlbh.databinding.ItemSanphamBinding
 
-
-class AdapterSanPham(
+class AdapterItemDSSP(
     var dsSanPham: ArrayList<SanPham>,
     var dsLoaiSP:ArrayList<LoaiSanPham>,
     var dsDonViSP:ArrayList<DonVi>,
 ) :
-    RecyclerView.Adapter<AdapterSanPham.SanPhamViewHolder>() {
-    private lateinit var binding: ItemSanphamBinding
-    var SuKienChuyenTrangChiTiet: SuKienChuyenTrangChiTiet? = null
-    inner class SanPhamViewHolder(val binding: ItemSanphamBinding) :
+    RecyclerView.Adapter<AdapterItemDSSP.DSSanPhamViewHolder>() {
+    private lateinit var binding: ActivityItemDsspBinding
+    var SuKienChuyenTrangUpdate: SuKienChuyenTrangUpdate? = null
+    inner class DSSanPhamViewHolder(val binding: ActivityItemDsspBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SanPhamViewHolder {
-        binding = ItemSanphamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SanPhamViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DSSanPhamViewHolder {
+        binding = ActivityItemDsspBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DSSanPhamViewHolder(binding)
     }
 
     @SuppressLint("SetTextI18n")
-        override fun onBindViewHolder(holder: SanPhamViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DSSanPhamViewHolder, position: Int) {
         val curDSSP =  dsSanPham[position]
         val curLoaiSP =  dsLoaiSP.find { it.idLoai_sp == curDSSP.idLoai_sp.idLoai_sp }
         val curDonVi =  dsDonViSP.find { it.idDonVi_sp == curDSSP.idDonVi_sp.idDonVi_sp }
@@ -51,7 +50,10 @@ class AdapterSanPham(
             holder.binding.tvLoaiSp.text = curDSSP.idLoai_sp.tenLoai_sp
         }
         holder.itemView.setOnClickListener {
-            SuKienChuyenTrangChiTiet?.chuyenTrang(it ,curDSSP)
+            SuKienChuyenTrangUpdate?.chuyenTrang(it ,curDSSP)
+        }
+        holder.binding.btnMuaSp.setOnClickListener {
+            SuKienChuyenTrangUpdate?.xoaSanPham(curDSSP)
         }
     }
     override fun getItemCount(): Int {
@@ -63,6 +65,7 @@ class AdapterSanPham(
     }
 }
 
-interface SuKienChuyenTrangChiTiet {
-    fun chuyenTrang(view: View? , sanPham:SanPham)
+interface SuKienChuyenTrangUpdate {
+    fun chuyenTrang(view: View?, sanPham: SanPham)
+    fun xoaSanPham(sanPham:SanPham)
 }

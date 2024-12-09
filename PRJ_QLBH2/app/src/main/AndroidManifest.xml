@@ -15,43 +15,44 @@
         android:theme="@style/Theme.Dangnhapdangki"
         tools:targetApi="31">
         <activity
-            android:name="com.example.dangnhapdangki.ChiTietSanPham"
+            android:name="com.example.dangnhapdangki.Activity.ChiTietSanPham"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.DanhSachSanPham"
+            android:name="com.example.dangnhapdangki.Activity.DanhSachSanPham"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.UpdateProduct"
+            android:name="com.example.dangnhapdangki.Activity.UpdateProduct"
             android:exported="false" />
         <activity
             android:name="com.example.dangnhapdangki.DelProduct"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.AddProduct"
+            android:name="com.example.dangnhapdangki.Activity.AddProduct"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.MainActivityNapDiem"
+            android:name="com.example.dangnhapdangki.Activity.MainActivityNapDiem"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.MainActivityGioHang"
+            android:name="com.example.dangnhapdangki.Activity.MainActivityGioHang"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.MainActivityDonHang"
+            android:name="com.example.dangnhapdangki.Activity.MainActivityDonHang"
             android:exported="false" />
+        <activity
+            android:name="com.example.dangnhapdangki.Activity.MainActivityDatHang"
+            android:exported="false" />
+
         <activity
             android:name="com.example.dangnhapdangki.SmallActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.DatHang"
-            android:exported="false" />
-        <activity
-            android:name="com.example.dangnhapdangki.TrangChu"
+            android:name="com.example.dangnhapdangki.Activity.TrangChu"
             android:exported="false" />
         <activity
             android:name="com.example.dangnhapdangki.DanhMucSanPham"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.DangNhap"
+            android:name="com.example.dangnhapdangki.Activity.DangNhap"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.dangnhapdangki.DangKi"
+            android:name="com.example.dangnhapdangki.Activity.DangKi"
             android:exported="false" />
     </application>
 

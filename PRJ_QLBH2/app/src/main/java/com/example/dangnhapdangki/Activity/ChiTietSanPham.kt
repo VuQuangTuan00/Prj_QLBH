@@ -1,16 +1,11 @@
-package com.example.dangnhapdangki
+package com.example.dangnhapdangki.Activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ActivityChiTietSanPhamBinding
-import com.example.prj_qlbh.databinding.ActivityTrangChuBinding
 
 class ChiTietSanPham : AppCompatActivity() {
     private lateinit var binding:ActivityChiTietSanPhamBinding

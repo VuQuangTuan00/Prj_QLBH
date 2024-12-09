@@ -1,34 +1,35 @@
-<!-- res/layout/activity_small.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff"
-    android:padding="16dp"
-    android:gravity="center">
+    android:background="@drawable/botron_thongbao"
+    android:layout_height="match_parent">
 
+    <!-- TextView để hiển thị kết quả -->
     <TextView
-        android:textAlignment="textStart"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chuyển khoản"
-        android:textSize="20dp"
-        android:textColor="#333333"
-        android:gravity="center"/>
-    <TextView
-        android:textAlignment="textStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tiền mặt"
-        android:textSize="20dp"
-        android:textColor="#333333"
-        android:gravity="center"/>
-
-    <Button
-        android:id="@+id/close_button"
+        android:textColor="#000"
+        android:id="@+id/tvOrderStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Đóng" />
-</LinearLayout>
+        android:text="Đang kiểm tra đơn hàng..."
+        android:textSize="18sp"
+        android:layout_centerInParent="true"/>
+
+    <!-- ProgressBar hiển thị khi đang chờ đợi -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvOrderStatus"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
+
+    <!-- Button để đóng Activity -->
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đóng"
+        android:layout_below="@id/progressBar"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

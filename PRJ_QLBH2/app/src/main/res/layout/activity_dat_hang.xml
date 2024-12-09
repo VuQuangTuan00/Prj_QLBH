@@ -291,7 +291,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/open_small_activity_tv"
+            android:id="@+id/tvPhuongThucThanhToan"
             android:gravity="center|left"
             android:padding="10dp"
             android:drawableRight="@drawable/icon_drowlist"

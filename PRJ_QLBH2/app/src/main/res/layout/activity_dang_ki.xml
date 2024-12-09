@@ -9,7 +9,7 @@
     android:gravity="center"
     android:background="@drawable/background"
     android:id="@+id/main"
-    tools:context="com.example.dangnhapdangki.DangNhap">
+    tools:context="com.example.dangnhapdangki.Activity.DangNhap">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

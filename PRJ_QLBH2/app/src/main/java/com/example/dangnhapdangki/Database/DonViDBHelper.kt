@@ -12,13 +12,14 @@ class DonViDBHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "bachhoa.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 2
         const val TABLE_DONVI = "DonVi"
         const val COLUMN_ID_DONVI = "idDonVi_sp"
         const val COLUMN_NAME = "tenDonVi_sp"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
+        Log.d("Caillll", "Database is being created")
         val createTableQuery = """
             CREATE TABLE IF NOT EXISTS $TABLE_DONVI (
                 $COLUMN_ID_DONVI INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +29,6 @@ class DonViDBHelper(context: Context) :
 
         try {
             db?.execSQL(createTableQuery)
-            addSampleData(db) // Thêm dữ liệu mẫu ngay khi tạo bảng
             Log.d("Don vi", "Table LoaiSanPham created successfully")
         } catch (e: Exception) {
             Log.e("DonViDBHelper", "Error creating table", e)
@@ -40,22 +40,6 @@ class DonViDBHelper(context: Context) :
         onCreate(db)
     }
 
-    private fun addSampleData(db: SQLiteDatabase?) {
-        val sampleData = listOf(
-            "Cái",
-            "Chiếc",
-            "Hộp",
-            "Kg",
-            "Lít"
-        )
-
-        sampleData.forEach { name ->
-            val values = ContentValues().apply {
-                put(COLUMN_NAME, name)
-            }
-            db?.insert(TABLE_DONVI, null, values)
-        }
-    }
 
     fun getAllDonVi(): List<DonVi> {
         val db = readableDatabase
