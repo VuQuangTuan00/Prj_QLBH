@@ -29,6 +29,7 @@ class DangNhap : AppCompatActivity() {
 
         btnDangNhap.setOnClickListener(){
             xuLyDangNhap();
+
         }
         btnDangKi.setOnClickListener(){
             val intent = Intent(this,DangKi::class.java)

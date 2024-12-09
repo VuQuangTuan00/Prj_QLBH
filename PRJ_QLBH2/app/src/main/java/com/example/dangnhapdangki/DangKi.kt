@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.prj_qlbh.R
@@ -28,8 +29,7 @@ class DangKi : AppCompatActivity() {
 
     private fun setEvent() {
         btnDangKi.setOnClickListener(){
-            val intent = Intent(this,DangNhap::class.java)
-            startActivity(intent);
+            xuLyDangKy();
         }
         tvDangNhap.setOnClickListener(){
             val intent = Intent(this,DangNhap::class.java)
@@ -45,6 +45,27 @@ class DangKi : AppCompatActivity() {
         btnDangKi = findViewById(R.id.btnDangKi)
     }
     private fun xuLyDangKy(){
+        var tenNguoiDung = edtTenNguoiDung.text.toString();
+        var matkhau = edtPassword.text.toString();
+        var xacminhmatkhau = edtPasswordComfirm.text.toString();
+
+        //kiểm tra tồn tại và đồng nhất mật khẩu
+        if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty() || !matkhau.equals(xacminhmatkhau))
+        {
+            if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty())
+            {
+                Toast.makeText(this,"Các trường dữ liệu không được bỏ trống !",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this,"mật khẩu và xác minh mật khẩu không trùng nhau !",Toast.LENGTH_SHORT).show()
+            }
+            return;
+        }
+        //nếu đúng
+        var intent = Intent(this,DangNhap::class.java);
+        startActivity(intent);
+        Toast.makeText(this,"Đăng kí thành công !",Toast.LENGTH_SHORT).show();
 
     }
 }
