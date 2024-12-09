@@ -95,6 +95,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtTen"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -125,6 +126,8 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:inputType="number"
+                            android:id="@+id/edtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -168,6 +171,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtTinhTP"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -198,6 +202,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtQuanHuyen"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -223,6 +228,7 @@
                             android:textSize="12dp" />
 
                         <EditText
+                            android:id="@+id/edtQuanXa"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_marginTop="7dp"
@@ -238,11 +244,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:paddingBottom="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="30dp">
 
                 <LinearLayout
 
@@ -267,7 +273,7 @@
                             android:textSize="12dp" />
 
                         <EditText
-
+                            android:id="@+id/edtSoDuong"
 
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
@@ -276,7 +282,6 @@
                             android:hint="Tòa nhà, số đường"
                             android:paddingLeft="10dp"
                             android:textSize="11dp">
-
 
 
                         </EditText>
@@ -291,72 +296,82 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/open_small_activity_tv"
-            android:gravity="center|left"
-            android:padding="10dp"
-            android:drawableRight="@drawable/icon_drowlist"
-            android:textColor="#fff"
-            android:textColorHint="#BCA4A4"
-            android:textSize="12dp"
-            android:hint="Phương thức thanh toán"
+            android:id="@+id/tvPhuongThucThanhToan"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginTop="50dp"
-            android:background="@drawable/spinner_background">
+            android:background="@drawable/spinner_background"
+            android:drawableRight="@drawable/icon_drowlist"
+            android:gravity="center|left"
+            android:hint="Phương thức thanh toán"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:textColorHint="#BCA4A4"
+            android:textSize="12dp"
+            android:visibility="visible">
 
         </TextView>
+
         <LinearLayout
-            android:layout_marginTop="20dp"
+
+            android:id="@+id/linearLayoutPhuongThuc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/botron_thongtin_diemnap"
+            android:orientation="vertical"
 
-            <LinearLayout
+            android:padding="10dp"
+            android:paddingRight="20dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvChuyenKhoan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bogoc_phuongthuc_ck"
+                android:padding="7dp"
+                android:text="Chuyển khoản"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvTienMat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bogoc_phuongthuc_ck"
+                android:padding="7dp"
+                android:text="Tiền mặt"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDiemCanThanhToan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="Số điểm cần phải thanh toán:  100,000"
+                android:textColor="#C39494"
+                android:textSize="15dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Điểm thanh toán hiện tại:"
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="100.000 "
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvDiemHienCo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Điểm thanh toán còn tại:  "
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="100.000"
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:text="Điểm hiện có:  100,000"
+                android:textColor="#fff"
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -365,8 +380,7 @@
             android:layout_weight="1"
             android:gravity="bottom"
             android:orientation="vertical"
-            android:paddingBottom="100dp">
-
+            android:paddingBottom="50dp">
 
 
             <Button
@@ -381,8 +395,6 @@
                 android:textSize="16dp"></Button>
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

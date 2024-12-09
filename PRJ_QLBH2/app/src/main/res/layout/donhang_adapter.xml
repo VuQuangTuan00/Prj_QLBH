@@ -7,6 +7,7 @@
     android:paddingTop="10dp">
 
     <LinearLayout
+        android:id="@+id/linearLayoutDonHang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
@@ -32,7 +33,7 @@
             android:orientation="horizontal">
             <!-- Product Image -->
             <ImageView
-                android:id="@+id/product_image"
+                android:id="@+id/iv_product"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
@@ -69,6 +70,7 @@
 
             <!-- Product Price and Quantity Controls -->
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|right"
@@ -114,17 +116,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_DiaChi"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="Họ và tên - SDT - 53 Võ Văn Ngân, Linh Đông"
                 android:textColor="#fff"
                 android:textSize="14sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:text="13-09-2024 13:30"
                 android:textAlignment="textEnd"
@@ -146,6 +150,7 @@
 
             <TextView
 
+                android:id="@+id/tvTrangThai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -164,6 +169,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvTongTien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="đ95.000"

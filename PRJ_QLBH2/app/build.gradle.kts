@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.prj_qlbh"
-        minSdk = 33
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +49,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Thư viện sqlLite
+    implementation("androidx.sqlite:sqlite:2.3.0")
+
 }

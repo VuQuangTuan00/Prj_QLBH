@@ -1,438 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#201520">
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="92dp"
-        android:text="Danh sách sản phẩm"
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#201520">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/s"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/search_bar_background"
-        android:drawableStart="@drawable/searchicon"
-        android:drawablePadding="8dp"
-        android:hint="Browse your favourite coffee..."
-        android:inputType="text"
-        android:padding="12dp"
-        android:textColorHint="#80E4DDCD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="401dp"
-        android:layout_height="61dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/menu_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="92dp"
+            android:text="Danh Sách Sản Phẩm"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/img_sanPham"
+            app:layout_constraintHorizontal_bias="0.559"
+            app:layout_constraintStart_toEndOf="@+id/backHome"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-            <!-- Add TextView buttons or Chip components for each category -->
+        <ImageView
+            android:id="@+id/backHome"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_24"
+            tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:layout_width="69dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="Rau củ, trái cây"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="53dp"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="thịt"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="66dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="Gạo các loại"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="71dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="Bia, nước có cồn"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="Snack"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="52dp"
-                android:layout_height="47dp"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:text="Sữa tươi"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-    <!--List item product -->
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="412dp"
-        android:layout_height="244dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
-
-        <LinearLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="231dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/chiTietSP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img4" />
-
-            <TextView
-                android:id="@+id/item_name1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Xoài cát hoài lộc"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="136.000đ/1kg"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua1"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:text="Mua" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/img_sanPham"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/s"
+            tools:ignore="MissingConstraints" />
 
-            <ImageView
-                android:id="@+id/item_chuoi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img3" />
-
-            <TextView
-                android:id="@+id/item_name2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Chuối sứ"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="23.000đ/1kg"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua2"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:text="Mua" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
+            android:layout_marginTop="64dp"
+            android:background="@drawable/search_bar_background"
+            android:drawableStart="@drawable/searchicon"
+            android:drawablePadding="8dp"
+            android:hint="Browse your favourite coffee..."
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginHorizontal="10dp"
+            android:textColorHint="#80E4DDCD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
-            <ImageView
-                android:id="@+id/item_saurieng"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img6" />
-
-            <TextView
-                android:id="@+id/item_name3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Sầu riêng thái"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="250.000đ/1kg"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua3"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:text="Mua" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="412dp"
-        android:layout_height="244dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLoaiSanPham"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
-            <ImageView
-                android:id="@+id/item_cai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:src="@drawable/img5" />
-
-            <TextView
-                android:id="@+id/item_name4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Cải thảo"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="26.000đ/1kg"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua4"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:text="Mua" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSanPham"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvLoaiSanPham" />
 
-            <ImageView
-                android:id="@+id/item_suatam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img3" />
-
-            <TextView
-                android:id="@+id/item_name5"
-                android:layout_width="107dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Sữa tắm thái dương"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="37.000đ"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua5"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:baselineAligned="false"
-                android:text="Mua" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/product_background"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/item_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img2" />
-
-            <TextView
-                android:id="@+id/item_name6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Rau muống"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/item_price6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="17.000đ/1kg"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btnMua6"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/btnmua_background"
-                android:text="Mua" />
-        </LinearLayout>
-    </LinearLayout>
-    <!-- thanh dieu khien -->
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView2"
-        android:layout_width="401dp"
-        android:layout_height="61dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/home_icon1"
-                android:layout_width="68dp"
-                android:layout_height="51dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="61dp"
-                android:drawableStart="@drawable/home_icon" />
-
-            <TextView
-                android:id="@+id/cart_icon2"
-                android:layout_width="68dp"
-                android:layout_height="51dp"
-                android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/cart" />
-
-            <TextView
-                android:id="@+id/favourite_icon3"
-                android:layout_width="68dp"
-                android:layout_height="51dp"
-                android:layout_marginEnd="39dp"
-                android:drawableStart="@drawable/favourite_icon" />
-
-            <TextView
-                android:id="@+id/notice_icon4"
-                android:layout_width="68dp"
-                android:layout_height="51dp"
-                android:layout_marginTop="1dp"
-                android:drawableStart="@drawable/notice_icon" />
-        </LinearLayout>
-    </HorizontalScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="#22151F"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvSanPham"
+            app:layout_constraintVertical_bias="1.0"
+            app:menu="@menu/bottom_nav" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
