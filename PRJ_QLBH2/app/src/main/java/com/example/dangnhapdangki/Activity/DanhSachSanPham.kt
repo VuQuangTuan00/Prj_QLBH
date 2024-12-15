@@ -3,6 +3,7 @@ package com.example.dangnhapdangki.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -28,6 +29,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
+    private lateinit var search:EditText
     companion object {
         const val REQUEST_CODE_UPDATE_PRODUCT = 1001
     }
@@ -38,12 +40,15 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         setControl()
         setEvent()
     }
+
     private fun setControl(){
         binding = ActivityDanhSachSanPhamBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dbSanPhamHelper = SanPhamDBHelper(this)
         dbDonViHelper = DonViDBHelper(this)
         dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
+
+        search = findViewById(R.id.searchEditText)
 
         // Lấy dữ liệu từ cơ sở dữ liệu
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
@@ -66,6 +71,8 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
+        // search
+
     }
     private fun setEvent(){
         binding.backHome.setOnClickListener {
