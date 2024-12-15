@@ -32,7 +32,6 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         setControl()
         setEvent()
     }
-
     private fun setControl() {
         binding = ActivityTrangChuBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -88,16 +87,6 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
                 }
                 R.id.navThemSP -> {
                     val intent = Intent(this, AddProduct::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.navXoaSP -> {
-                    val intent = Intent(this, DelProduct::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.navSuaSP -> {
-                    val intent = Intent(this, UpdateProduct::class.java)
                     startActivity(intent)
                     true
                 }
