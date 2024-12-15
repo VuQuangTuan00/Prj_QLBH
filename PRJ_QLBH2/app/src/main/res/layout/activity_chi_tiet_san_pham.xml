@@ -176,19 +176,19 @@
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/btn_themGioHang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thêm vào giỏ hàng" />
+
 
             <!-- Kết thúc nội dung -->
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/btn_themGioHang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:text="Thêm vào giỏ hàng" />
 </RelativeLayout>
