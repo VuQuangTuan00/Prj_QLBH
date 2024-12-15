@@ -106,7 +106,7 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         return db.delete(TABLE_NAME, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(maSP, maKH))
     }
 
-    fun getAllGioHang(maKH: String): List<GioHang> {
+    fun     getAllGioHang(maKH: String): List<GioHang> {
         val gioHangList = mutableListOf<GioHang>()
         val db = readableDatabase
         val cursor: Cursor = db.query(TABLE_NAME, null, "$COLUMN_MAKH = ?", arrayOf(maKH), null, null, null)

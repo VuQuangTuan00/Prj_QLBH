@@ -15,6 +15,11 @@ class DangNhap : AppCompatActivity() {
     private  lateinit var edtPassword: EditText
     private lateinit var btnDangKi: TextView
     private lateinit var btnDangNhap: Button
+
+    companion object {
+        var maKH: String = "001" //MaKhachHang
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,6 +31,7 @@ class DangNhap : AppCompatActivity() {
     private fun setEvent() {
 
         btnDangNhap.setOnClickListener(){
+
             xuLyDangNhap();
 
         }

@@ -12,8 +12,8 @@ import com.example.prj_qlbh.R
 
 
 class DangKi : AppCompatActivity() {
-    private lateinit var edtTenNguoiDung : EditText
-    private  lateinit var edtPassword: EditText
+    private lateinit var edtTenNguoiDung: EditText
+    private lateinit var edtPassword: EditText
     private lateinit var edtPasswordComfirm: EditText
     private lateinit var tvDangNhap: TextView
     private lateinit var btnDangKi: Button
@@ -27,10 +27,10 @@ class DangKi : AppCompatActivity() {
     }
 
     private fun setEvent() {
-        btnDangKi.setOnClickListener(){
+        btnDangKi.setOnClickListener() {
             xuLyDangKy();
         }
-        tvDangNhap.setOnClickListener(){
+        tvDangNhap.setOnClickListener() {
             val intent = Intent(this, DangNhap::class.java)
             startActivity(intent);
         }
@@ -43,28 +43,36 @@ class DangKi : AppCompatActivity() {
         tvDangNhap = findViewById(R.id.tvDangNhap)
         btnDangKi = findViewById(R.id.btnDangKi)
     }
-    private fun xuLyDangKy(){
+
+    private fun xuLyDangKy() {
         var tenNguoiDung = edtTenNguoiDung.text.toString();
         var matkhau = edtPassword.text.toString();
         var xacminhmatkhau = edtPasswordComfirm.text.toString();
 
-        //kiểm tra tồn tại và đồng nhất mật khẩu
-        if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty() || !matkhau.equals(xacminhmatkhau))
-        {
-            if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty())
-            {
-                Toast.makeText(this,"Các trường dữ liệu không được bỏ trống !",Toast.LENGTH_SHORT).show();
+
+        if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty() || matkhau != xacminhmatkhau) {
+            if (tenNguoiDung.isEmpty() || matkhau.isEmpty() || xacminhmatkhau.isEmpty()) {
+                Toast.makeText(this, "Các trường dữ liệu không được bỏ trống !", Toast.LENGTH_SHORT)
+                    .show()
+
+            } else if (matkhau != xacminhmatkhau) {
+                Toast.makeText(
+                    this,
+                    "Mật khẩu và xác minh mật khẩu không trùng nhau !",
+                    Toast.LENGTH_SHORT
+                ).show()
+
             }
-            else
-            {
-                Toast.makeText(this,"mật khẩu và xác minh mật khẩu không trùng nhau !",Toast.LENGTH_SHORT).show()
-            }
-            return;
+            return
         }
+
+// Kiểm tra ký tự đặc biệt trong tenNguoiDung
+
+
         //nếu đúng
         var intent = Intent(this, DangNhap::class.java);
         startActivity(intent);
-        Toast.makeText(this,"Đăng kí thành công !",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Đăng kí thành công !", Toast.LENGTH_SHORT).show();
 
     }
 }

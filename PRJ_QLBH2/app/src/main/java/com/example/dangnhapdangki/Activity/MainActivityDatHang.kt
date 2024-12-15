@@ -49,7 +49,7 @@ class MainActivityDatHang : AppCompatActivity() {
 
     private val dsGioHang = ArrayList<GioHang>()
 
-    private var maKH: String = "001" //MaKhachHang
+    private var maKH: String = DangNhap.maKH //MaKhachHang
 
     private lateinit var handler: Handler
     private lateinit var updateRunnable: Runnable

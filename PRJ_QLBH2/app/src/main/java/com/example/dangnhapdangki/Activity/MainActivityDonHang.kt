@@ -18,7 +18,7 @@ class MainActivityDonHang : AppCompatActivity() {
     private lateinit var lvDonHang: ListView
     private lateinit var tvXoaTatCa: TextView
 
-    private var maKH: String = "001" // Mã khách hàng mặc định
+    private var maKH: String = DangNhap.maKH // Mã khách hàng mặc định
     private val dsDonHang = ArrayList<DonHang>()
     private lateinit var donHangAdapter: DonHangAdapter
     private lateinit var dbHelper: DataBaseDonHang

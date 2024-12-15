@@ -50,4 +50,28 @@ class LoaiSanPhamDBHelper(context: Context) :
         db.close()
         return result
     }
+
+    fun getTenLoaiSanPhamById(idLoaiSp: Int): String? {
+        val db = readableDatabase
+        var tenLoaiSp: String? = null
+        val selection = "$COLUMN_ID_LOAI_SANPHAM = ?"
+        val selectionArgs = arrayOf(idLoaiSp.toString())
+
+        val cursor = db.query(
+            TABLE_LOAI_SANPHAM,         // Bảng cần truy vấn
+            arrayOf(COLUMN_NAME),       // Cột cần lấy
+            selection,                  // Điều kiện WHERE
+            selectionArgs,              // Tham số cho WHERE
+            null, null, null            // GroupBy, Having, OrderBy (không sử dụng)
+        )
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                tenLoaiSp = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+            }
+        }
+        db.close()
+        return tenLoaiSp
+    }
+
 }
