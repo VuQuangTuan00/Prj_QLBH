@@ -102,6 +102,7 @@
 
 
     <EditText
+        android:textColor="#fff"
         android:id="@+id/edt_thongTin"
         android:layout_width="321dp"
         android:layout_height="90dp"

@@ -2,6 +2,8 @@ package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +32,9 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
     private lateinit var adapterSP: AdapterSanPham
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateInterval = 5000L // Cập nhật mỗi 5 giây
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,5 +174,35 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
            val intent = Intent(this, ChiTietSanPham::class.java)
            intent.putExtra("sanPham", sanPham)
            startActivity(intent)
+    }
+
+
+    private fun updateSanPhamList() {
+        val dbHelper = SanPhamDBHelper(this)
+        val updatedList = dbHelper.getAllProducts()
+        if (updatedList.isNotEmpty()) {
+            dsSP.clear()
+            dsSP.addAll(updatedList)
+            binding.rvSanPham.adapter?.notifyDataSetChanged()
+        } else {
+            Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        handler.post(updateTask)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(updateTask)
+    }
+
+    private val updateTask = object : Runnable {
+        override fun run() {
+            updateSanPhamList()
+            handler.postDelayed(this, updateInterval)
+        }
     }
 }
