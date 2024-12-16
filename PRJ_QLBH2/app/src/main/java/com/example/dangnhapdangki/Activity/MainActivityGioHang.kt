@@ -28,7 +28,7 @@ class MainActivityGioHang : AppCompatActivity() {
     private lateinit var tvTongDonHang: TextView
     private lateinit var tvDonHang: TextView
 
-    private  var maKH: String = "001"
+    private  var maKH: String = DangNhap.maKH
 
     private val dbGioHang: DataBaseGioHang by lazy { DataBaseGioHang(this) }
     private val dsGioHang = ArrayList<GioHang>()
@@ -71,7 +71,7 @@ class MainActivityGioHang : AppCompatActivity() {
         dbGioHang.updateAllDaChonToZero(maKH)
 
         tingTongTien()
-        khoiTao() // Thêm dữ liệu vào danh sách
+        //khoiTao() // Thêm dữ liệu vào danh sách
         loadGioHang()
 
         btnDatHang.setOnClickListener {
@@ -123,6 +123,7 @@ class MainActivityGioHang : AppCompatActivity() {
         }
     }
 
+
     private fun khoiTao() {
 
         var stringBase64: StringBase64 = StringBase64()
@@ -158,6 +159,7 @@ class MainActivityGioHang : AppCompatActivity() {
             0,
             maKH
         )
+
 
         // Insert into the database
         dbGioHang.insertGioHang(gioHang1)

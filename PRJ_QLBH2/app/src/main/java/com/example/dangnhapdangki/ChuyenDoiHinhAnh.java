@@ -2,6 +2,7 @@ package com.example.dangnhapdangki;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 public class ChuyenDoiHinhAnh {
     public ChuyenDoiHinhAnh() {
@@ -9,10 +10,13 @@ public class ChuyenDoiHinhAnh {
 
     public String chuyenByteSangChuoi(byte[] byteArray) {
         if (byteArray == null || byteArray.length == 0) {
-            throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+            //throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+            return  null;
+
         }
         if (byteArray.length > 1048576) {  // 1MB
-            throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
+            //throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
+            return  null;
         }
 
         return android.util.Base64.encodeToString(byteArray, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP | android.util.Base64.URL_SAFE);
@@ -20,10 +24,12 @@ public class ChuyenDoiHinhAnh {
 
     public byte[] chuyenStringSangByte(String str) {
         if (str == null || str.isEmpty()) {
-            throw new IllegalArgumentException("Chuỗi Base64 không hợp lệ.");
+            //throw new IllegalArgumentException("Chuỗi Base64 không hợp lệ.");
+            return null;
         }
         if (str.length() > 1048576) {  // 1MB
-            throw new IllegalArgumentException("Chiều dài chuỗi Base64 vượt quá giới hạn cho phép.");
+            //throw new IllegalArgumentException("Chiều dài chuỗi Base64 vượt quá giới hạn cho phép.");
+            return null;
         }
 
         return android.util.Base64.decode(str, android.util.Base64.NO_PADDING | android.util.Base64.NO_WRAP | android.util.Base64.URL_SAFE);
@@ -31,10 +37,12 @@ public class ChuyenDoiHinhAnh {
 
     public Bitmap chuyenByteSangBitMap(byte[] byteArray) {
         if (byteArray == null || byteArray.length == 0) {
-            throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+            //throw new IllegalArgumentException("Dữ liệu byte array không hợp lệ.");
+            return null;
         }
         if (byteArray.length > 1048576) {  // 1MB
-            throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
+            //throw new IllegalArgumentException("Kích thước byte array vượt quá giới hạn cho phép.");
+            return null;
         }
 
         // Kiểm tra kích thước ảnh trước khi giải mã

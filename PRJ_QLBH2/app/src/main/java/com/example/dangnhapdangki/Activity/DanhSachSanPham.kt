@@ -3,6 +3,7 @@ package com.example.dangnhapdangki.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -14,6 +15,8 @@ import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
 import com.example.demo_recycleview.Adapter.AdapterLoaiSanPham
+import com.example.demo_recycleview.Adapter.AdapterSanPham
+import com.example.demo_recycleview.Adapter.OnLoaiSanPhamClickListener
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
@@ -28,6 +31,8 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
+    private lateinit var search:EditText
+    private lateinit var adapterSP: AdapterSanPham
     companion object {
         const val REQUEST_CODE_UPDATE_PRODUCT = 1001
     }
@@ -38,12 +43,15 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         setControl()
         setEvent()
     }
+
     private fun setControl(){
         binding = ActivityDanhSachSanPhamBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dbSanPhamHelper = SanPhamDBHelper(this)
         dbDonViHelper = DonViDBHelper(this)
         dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
+
+        search = findViewById(R.id.searchEditText)
 
         // Lấy dữ liệu từ cơ sở dữ liệu
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
@@ -66,6 +74,8 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
+        // search
+
     }
     private fun setEvent(){
         binding.backHome.setOnClickListener {
@@ -75,7 +85,13 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     }
     private fun setupLoaiSanPhamRecyclerView() {
         if (dsLoaiSP.isNotEmpty()) {
-            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP)
+            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP,object : OnLoaiSanPhamClickListener {
+                override fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham) {
+                    filterSanPhamByLoai(loaiSanPham)
+                }
+
+            })
+
             binding.rvLoaiSanPham.apply {
                 adapter = adapterLSP
                 layoutManager = LinearLayoutManager(
@@ -86,6 +102,16 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
             }
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun filterSanPhamByLoai(loaiSanPham: LoaiSanPham) {
+        if (::adapterSP.isInitialized) {
+            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp}
+            if (filteredList.isNotEmpty()) {
+                adapterSP.updateData(ArrayList(filteredList))
+            } else {
+                Toast.makeText(this, "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     private fun setupSanPhamRecyclerView() {
@@ -126,6 +152,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                     // Xóa sản phẩm khỏi danh sách và cập nhật RecyclerView
                     dsSP.removeAt(position)
                     binding.rvSanPham.adapter?.notifyItemRemoved(position)
+
                 }
                 dialogInterface.dismiss()
             }

@@ -13,8 +13,8 @@ import com.example.prj_qlbh.R
 
 
 class DangKi : AppCompatActivity() {
-    private lateinit var edtTenNguoiDung : EditText
-    private  lateinit var edtPassword: EditText
+    private lateinit var edtTenNguoiDung: EditText
+    private lateinit var edtPassword: EditText
     private lateinit var edtPasswordComfirm: EditText
     private lateinit var tvDangNhap: TextView
     private lateinit var btnDangKi: Button
@@ -29,10 +29,10 @@ class DangKi : AppCompatActivity() {
     }
 
     private fun setEvent() {
-        btnDangKi.setOnClickListener(){
+        btnDangKi.setOnClickListener() {
             xuLyDangKy();
         }
-        tvDangNhap.setOnClickListener(){
+        tvDangNhap.setOnClickListener() {
             val intent = Intent(this, DangNhap::class.java)
             startActivity(intent);
         }
@@ -46,7 +46,8 @@ class DangKi : AppCompatActivity() {
         btnDangKi = findViewById(R.id.btnDangKi)
 
     }
-    private fun xuLyDangKy(){
+
+    private fun xuLyDangKy() {
         var tenNguoiDung = edtTenNguoiDung.text.toString();
         var matkhau = edtPassword.text.toString();
         var xacminhmatkhau = edtPasswordComfirm.text.toString().trim();

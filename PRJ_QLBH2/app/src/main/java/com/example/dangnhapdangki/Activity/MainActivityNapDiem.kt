@@ -18,7 +18,7 @@ class MainActivityNapDiem : AppCompatActivity() {
     private lateinit var edtNapDiem: EditText
     private lateinit var dbNapDiem: DataBaseNapDiem
 
-    private  var maKH: String = "001" //MaKhachHang
+    private  var maKH: String = DangNhap.maKH
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

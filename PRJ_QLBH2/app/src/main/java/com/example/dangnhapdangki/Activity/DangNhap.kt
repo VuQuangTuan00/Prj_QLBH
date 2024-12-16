@@ -17,6 +17,9 @@ class DangNhap : AppCompatActivity() {
     private lateinit var btnDangKi: TextView
     private lateinit var btnDangNhap: Button
     private lateinit var databaseHelper: DataBaseUser
+    companion object {
+        var maKH: String = "001" //MaKhachHang
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
