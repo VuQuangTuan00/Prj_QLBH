@@ -81,8 +81,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLoaiSanPham"
-            android:layout_width="412dp"
-            android:layout_height="73dp"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +93,6 @@
             android:id="@+id/rvSanPham"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

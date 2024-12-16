@@ -9,39 +9,50 @@ import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.LayoutItemLoaispBinding
 
 class AdapterLoaiSanPham(
-    var dsLoaiSP: ArrayList<LoaiSanPham>
+    private val dsLoaiSP: ArrayList<LoaiSanPham>,
+    private val listener: OnLoaiSanPhamClickListener
 ) : RecyclerView.Adapter<AdapterLoaiSanPham.LoaiSanPhamViewHolder>() {
-    private lateinit var binding: LayoutItemLoaispBinding
-    private var selectedPosition = -1
-    private var lastSelectedPosition = -1
+
+    private var selectedPosition = -1 // Vị trí được chọn hiện tại
+
     inner class LoaiSanPhamViewHolder(val binding: LayoutItemLoaispBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(loaiSanPham: LoaiSanPham, position: Int) {
+            binding.tvLoaiSP.text = loaiSanPham.tenLoai_sp
+
+            // Đổi màu nền dựa trên trạng thái được chọn
+            if (selectedPosition == position) {
+                binding.tvLoaiSP.setBackgroundResource(R.drawable.brown_bg)
+            } else {
+                binding.tvLoaiSP.setBackgroundResource(R.drawable.editext_bg)
+            }
+
+            // Gắn sự kiện click
+            binding.root.setOnClickListener {
+                val previousPosition = selectedPosition
+                selectedPosition = position
+                notifyItemChanged(previousPosition) // Làm mới mục trước đó
+                notifyItemChanged(selectedPosition) // Làm mới mục hiện tại
+
+                listener.onLoaiSanPhamClick(loaiSanPham) // Gọi callback
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoaiSanPhamViewHolder {
-        binding = LayoutItemLoaispBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            LayoutItemLoaispBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoaiSanPhamViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return if (dsLoaiSP.isNotEmpty()) {
-            dsLoaiSP.size
-        } else {
-            0
-        }
-    }
+    override fun getItemCount(): Int = dsLoaiSP.size
 
-    override fun onBindViewHolder(holder: LoaiSanPhamViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        holder.binding.tvLoaiSP.text = dsLoaiSP[position].tenLoai_sp
-        holder.binding.root.setOnClickListener {
-            lastSelectedPosition = selectedPosition
-            selectedPosition = position
-            notifyItemChanged(lastSelectedPosition)
-            notifyItemChanged(selectedPosition)
-        }
-        if (selectedPosition == position){
-            holder.binding.tvLoaiSP.setBackgroundResource(R.drawable.brown_bg)
-        }else{
-            holder.binding.tvLoaiSP.setBackgroundResource(R.drawable.editext_bg)
-        }
+    override fun onBindViewHolder(holder: LoaiSanPhamViewHolder, position: Int) {
+        holder.bind(dsLoaiSP[position], position)
     }
+}
+
+interface OnLoaiSanPhamClickListener {
+    fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham)
 }

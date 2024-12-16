@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
 import com.example.demo_recycleview.Adapter.AdapterLoaiSanPham
 import com.example.demo_recycleview.Adapter.AdapterSanPham
+import com.example.demo_recycleview.Adapter.OnLoaiSanPhamClickListener
 import com.example.demo_recycleview.Adapter.SuKienChuyenTrangChiTiet
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
@@ -27,6 +29,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
+    private lateinit var adapterSP: AdapterSanPham
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,11 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     }
 
     private fun setEvent() {
+        binding.searchEditText.addTextChangedListener { text ->
+            val query = text.toString()
+            filterSanPham(query)
+        }
+
         binding.bugerNav?.setOnClickListener {
             binding.drawerLayout?.openDrawer(binding.navView!!)
         }
@@ -103,7 +111,13 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
     private fun setupLoaiSanPhamRecyclerView() {
         if (dsLoaiSP.isNotEmpty()) {
-            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP)
+            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP,object : OnLoaiSanPhamClickListener{
+                override fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham) {
+                    filterSanPhamByLoai(loaiSanPham)
+                }
+
+            })
+
             binding.rvLoaiSanPham.apply {
                 adapter = adapterLSP
                 layoutManager = LinearLayoutManager(
@@ -116,9 +130,27 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun filterSanPhamByLoai(loaiSanPham: LoaiSanPham) {
+        if (::adapterSP.isInitialized) {
+            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp}
+            if (filteredList.isNotEmpty()) {
+                adapterSP.updateData(ArrayList(filteredList))
+            } else {
+                Toast.makeText(this, "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun filterSanPham(query: String) {
+        val filteredList = dsSP.filter { it.ten_sp.contains(query, ignoreCase = true) }
+        if (filteredList.isNotEmpty()) {
+            adapterSP.updateData(ArrayList(filteredList))
+        } else {
+            Toast.makeText(this, "Không tìm thấy sản phẩm phù hợp!", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun setupSanPhamRecyclerView() {
         if (dsSP.isNotEmpty()) {
-            val adapterSP = AdapterSanPham(dsSP,dsLoaiSP,dsDonViSP)
+            adapterSP = AdapterSanPham(dsSP,dsLoaiSP,dsDonViSP)
             adapterSP.SuKienChuyenTrangChiTiet = this
             binding.rvSanPham.apply {
                 adapter = adapterSP

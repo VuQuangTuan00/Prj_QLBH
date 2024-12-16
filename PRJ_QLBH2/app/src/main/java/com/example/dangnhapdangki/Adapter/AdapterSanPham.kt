@@ -30,7 +30,10 @@ class AdapterSanPham(
         binding = ItemSanphamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SanPhamViewHolder(binding)
     }
-
+    fun updateData(newList: ArrayList<SanPham>) {
+        dsSanPham = newList // Gán danh sách mới
+        notifyDataSetChanged() // Thông báo cho RecyclerView rằng dữ liệu đã thay đổi
+    }
     @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: SanPhamViewHolder, position: Int) {
         val curDSSP =  dsSanPham[position]
