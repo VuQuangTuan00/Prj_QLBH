@@ -36,7 +36,7 @@
     <ImageView
         android:id="@+id/img_SanPham"
         android:layout_width="380dp"
-        android:layout_height="158dp"
+        android:layout_height="204dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,14 +48,13 @@
         android:id="@+id/ten_SanPham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:text="Dầu Ăn SIMPLY 1 LÍT -CÁI LÂN - MEIZAN- NEPTUNE"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_SanPham"
+        app:layout_constraintTop_toBottomOf="@+id/gia_SanPham"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -67,46 +66,45 @@
         android:textColor="@color/white"
         android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ten_SanPham"
+        app:layout_constraintTop_toBottomOf="@+id/img_SanPham"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/dauAn2View"
-        android:layout_width="163dp"
-        android:layout_height="152dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        android:layout_width="127dp"
+        android:layout_height="166dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gia_SanPham"
+        app:layout_constraintTop_toBottomOf="@+id/ten_SanPham"
         app:srcCompat="@drawable/ic_oil"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="231dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="250dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="13dp"
         android:text="Thông tin sản phẩm"
         android:textColor="@color/white"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dauAn2View"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/dauAn2View"
+        app:layout_constraintTop_toBottomOf="@+id/ten_SanPham"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/thongTin_SanPham"
-        android:layout_width="377dp"
-        android:layout_height="106dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="248dp"
+        android:layout_height="142dp"
         android:text="Loại dầu Dầu thực vật Dung tích 1 lít Thành phần Dầu Olein, dầu đậu nành, Este của polyglycerol với a-xít béo (475) hoặc sorbitan tristearat (492). Ưu điểm Được sản xuất từ nguyên liệu tự nhiên với công nghệ tinh chế hiện đại."
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toEndOf="@+id/dauAn2View"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:ignore="MissingConstraints" />
 
@@ -114,12 +112,13 @@
         android:id="@+id/btn_themGioHang"
         android:layout_width="172dp"
         android:layout_height="36dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="104dp"
         android:text="THÊM GIỎ HÀNG"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thongTin_SanPham"
+        app:layout_constraintTop_toBottomOf="@+id/dauAn2View"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

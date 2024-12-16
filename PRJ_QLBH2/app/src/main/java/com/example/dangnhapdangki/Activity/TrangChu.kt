@@ -27,6 +27,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setControl()

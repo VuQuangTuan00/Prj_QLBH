@@ -16,14 +16,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="113dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="92dp"
             android:text="Danh Sách Sản Phẩm"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/searchEditText"
             app:layout_constraintEnd_toStartOf="@+id/img_sanPham"
-            app:layout_constraintHorizontal_bias="0.559"
             app:layout_constraintStart_toEndOf="@+id/backHome"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
@@ -32,73 +29,78 @@
             android:id="@+id/backHome"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24"
             tools:ignore="MissingConstraints" />
 
+
         <ImageView
             android:id="@+id/img_sanPham"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/s"
             tools:ignore="MissingConstraints" />
 
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="411dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+
         <EditText
             android:id="@+id/searchEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_width="401dp"
+            android:layout_height="57dp"
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/search_bar_background"
             android:drawableStart="@drawable/searchicon"
             android:drawablePadding="8dp"
             android:hint="Browse your favourite coffee..."
             android:inputType="text"
             android:padding="12dp"
-            android:layout_marginHorizontal="10dp"
             android:textColorHint="#80E4DDCD"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="71dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLoaiSanPham"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_width="410dp"
+            android:layout_height="55dp"
             android:layout_marginVertical="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/rvSanPham"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSanPham"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="412dp"
+            android:layout_height="322dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvLoaiSanPham" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#22151F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvSanPham"
-            app:layout_constraintVertical_bias="1.0"
             app:menu="@menu/bottom_nav" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

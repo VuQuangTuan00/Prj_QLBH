@@ -87,32 +87,32 @@ class SanPhamDBHelper(context: Context) :
         db?.execSQL("DROP TABLE IF EXISTS $TABLE_DONVI")
         onCreate(db)
     }
-//    fun insertSampleProducts() {
-//        val db = writableDatabase
-//        val productData = listOf(
-//            ContentValues().apply {
-//                put(COLUMN_IMG_SP, "asasas") // Thay bằng ID ảnh trong drawable
-//                put(COLUMN_NAME, "Gạo")
-//                put(COLUMN_PRICE, 20000.0)
-//                put(COLUMN_QUANTITY, 10)
-//                put(COLUMN_IDLOAI_SP, 1) // Thực phẩm
-//                put(COLUMN_IDDONVI, 1)   // Kg
-//                put(COLUMN_THONGTIN, "Gạo thơm, chất lượng cao.")
-//            },
-//            ContentValues().apply {
-//                put(COLUMN_IMG_SP, "R.drawable.sample_image2") // Thay bằng ID ảnh trong drawable
-//                put(COLUMN_NAME, "Nước cam")
-//                put(COLUMN_PRICE, 15000.0)
-//                put(COLUMN_QUANTITY, 20)
-//                put(COLUMN_IDLOAI_SP, 2) // Đồ uống
-//                put(COLUMN_IDDONVI, 2)   // Lít
-//                put(COLUMN_THONGTIN, "Nước cam ép tươi nguyên chất.")
-//            }
-//        )
-//
-//        productData.forEach { db.insert(TABLE_SANPHAM, null, it) }
-//        db.close()
-//    }
+    fun insertSampleProducts() {
+        val db = writableDatabase
+        val productData = listOf(
+            ContentValues().apply {
+                put(COLUMN_IMG_SP, "ic_oil.png") // Thay bằng ID ảnh trong drawable
+                put(COLUMN_NAME, "Gạo")
+                put(COLUMN_PRICE, 20000.0)
+                put(COLUMN_QUANTITY, 10)
+                put(COLUMN_IDLOAI_SP, 1) // Thực phẩm
+                put(COLUMN_IDDONVI, 1)   // Kg
+                put(COLUMN_THONGTIN, "Gạo thơm, chất lượng cao.")
+            },
+            ContentValues().apply {
+                put(COLUMN_IMG_SP, "img_3.png") // Thay bằng ID ảnh trong drawable
+                put(COLUMN_NAME, "Nước cam")
+                put(COLUMN_PRICE, 15000.0)
+                put(COLUMN_QUANTITY, 20)
+                put(COLUMN_IDLOAI_SP, 2) // Đồ uống
+                put(COLUMN_IDDONVI, 2)   // Lít
+                put(COLUMN_THONGTIN, "Nước cam ép tươi nguyên chất.")
+            }
+        )
+
+        productData.forEach { db.insert(TABLE_SANPHAM, null, it) }
+        db.close()
+    }
 
     private fun addSampleData(db: SQLiteDatabase?) {
         val sampleDataDonVi = listOf(
@@ -292,6 +292,36 @@ class SanPhamDBHelper(context: Context) :
         db.close()
 
         return rowsUpdated > 0
+    }
+    // search
+    fun searchProducts(keyword: String): List<SanPham> {
+        val db = readableDatabase
+        val query = """
+        SELECT * FROM $TABLE_SANPHAM 
+        WHERE $COLUMN_NAME LIKE ? 
+        OR $COLUMN_THONGTIN LIKE ?
+    """
+        val cursor = db.rawQuery(query, arrayOf("%$keyword%", "%$keyword%"))
+        val products = mutableListOf<SanPham>()
+
+        cursor.use {
+            while (it.moveToNext()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
+                val name = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val img = it.getString(it.getColumnIndexOrThrow(COLUMN_IMG_SP))
+                val price = it.getDouble(it.getColumnIndexOrThrow(COLUMN_PRICE))
+                val soLuong = it.getInt(it.getColumnIndexOrThrow(COLUMN_QUANTITY))
+                val loaiSanPham = getLoaiSanPhamById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDLOAI_SP)))
+                val donVi = getDonViById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDDONVI)))
+                val thongTin = it.getString(it.getColumnIndexOrThrow(COLUMN_THONGTIN))
+
+                if (loaiSanPham != null && donVi != null) {
+                    products.add(SanPham(id, img, name, loaiSanPham, soLuong, donVi, price, thongTin))
+                }
+            }
+        }
+        db.close()
+        return products
     }
 }
 
