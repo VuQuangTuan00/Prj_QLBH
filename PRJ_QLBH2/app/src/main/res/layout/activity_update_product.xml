@@ -6,29 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#201520"
+    android:paddingHorizontal="20dp"
     tools:context="com.example.dangnhapdangki.Activity.AddProduct">
 
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="51dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginEnd="84dp"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
         app:layout_constraintVertical_bias="0.433"
-        app:srcCompat="@drawable/baseline_arrow_back_24"
-        />
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <ImageView
         android:id="@+id/img_sanPham"
-        android:layout_width="185dp"
+        android:layout_width="match_parent"
         android:layout_height="145dp"
         android:layout_marginTop="16dp"
         android:scaleType="center"
         android:src="@drawable/img"
-        android:background="@drawable/border_img"
         android:clipToOutline="true"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -49,7 +48,7 @@
 
     <EditText
         android:id="@+id/edt_tenSanPham"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:drawablePadding="10dp"
         android:padding="10dp"
@@ -67,7 +66,7 @@
 
     <EditText
         android:id="@+id/edt_soLuong"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
@@ -85,7 +84,7 @@
 
     <EditText
         android:id="@+id/edt_gia"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
@@ -104,7 +103,7 @@
     <EditText
         android:textColor="#fff"
         android:id="@+id/edt_thongTin"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/custum_edt_add_product"
@@ -122,8 +121,8 @@
 
     <Button
         android:id="@+id/btn_suaSanPham"
-        android:layout_width="210dp"
-        android:layout_height="43dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#EFE3C8"
         android:text="SỬA SẢN PHẨM"
@@ -136,7 +135,7 @@
 
     <Spinner
         android:id="@+id/sp_loaiSP"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:backgroundTint="#EFE3C8"
         android:background="@drawable/custum_edt_add_product"
         android:layout_height="44dp"
@@ -147,7 +146,7 @@
 
     <Spinner
         android:id="@+id/sp_donViSP"
-        android:layout_width="321dp"
+        android:layout_width="match_parent"
         android:layout_height="44dp"
         android:backgroundTint="#EFE3C8"
         android:background="@drawable/custum_edt_add_product"

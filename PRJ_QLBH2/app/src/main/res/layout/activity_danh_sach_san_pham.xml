@@ -49,17 +49,6 @@
             app:srcCompat="@drawable/s"
             tools:ignore="MissingConstraints" />
 
-        <ImageView
-            android:id="@+id/bannerImage"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/banner_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
-
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
@@ -82,11 +71,10 @@
             android:id="@+id/rvLoaiSanPham"
             android:layout_width="match_parent"
             android:layout_height="61dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSanPham"
