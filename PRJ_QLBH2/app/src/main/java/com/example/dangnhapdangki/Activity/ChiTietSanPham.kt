@@ -56,7 +56,6 @@ class ChiTietSanPham : AppCompatActivity() {
                 .setTitle("Xác nhận") // Tiêu đề
                 .setMessage("Bạn có chắc chắn muốn thêm sản phẩm này vào giỏ hàng?") // Nội dung thông báo
                 .setPositiveButton("Yes") { dialog, which ->
-                    // Xử lý khi người dùng chọn "Yes"
                     val tenLoaiSanPham = dbLoaiSanPham.getTenLoaiSanPhamById(sanPham?.idLoai_sp?.idLoai_sp ?: 0)
                     val gioHang1 = GioHang(
                         "" + sanPham?.id_sanPham,
@@ -69,14 +68,12 @@ class ChiTietSanPham : AppCompatActivity() {
                         DangNhap.maKH
                     )
                     dbGioHang.insertGioHang(gioHang1)
-                    // TODO: Gọi hàm thêm sản phẩm vào giỏ hàng tại đây
                     Toast.makeText(this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivityGioHang::class.java)
                     startActivity(intent) // Khởi chạy Intent
                 }
                 .setNegativeButton("No") { dialog, which ->
-                    // Xử lý khi người dùng chọn "No"
-                    dialog.dismiss() // Đóng hộp thoại
+                    dialog.dismiss()
                 }
                 .show()
         }
