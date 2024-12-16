@@ -7,98 +7,159 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Navigation view is commented out, add if needed -->
+    <!-- <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#201520">
+        android:layout_gravity="start"
+        app:headerLayout="@layout/layout_header"
+        app:menu="@menu/menu" /> -->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="113dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="92dp"
-            android:text="Home"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/img_sanPham"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/bugerNav"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+    <!-- ConstraintLayout to hold everything -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/bugerNav"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_format_list_bulleted_24"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:id="@+id/img_sanPham"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/s"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="64dp"
-            android:background="@drawable/search_bar_background"
-            android:drawableStart="@drawable/searchicon"
-            android:drawablePadding="8dp"
-            android:hint="Browse your favourite coffee..."
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColorHint="#80E4DDCD"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
-
-        <ImageView
-            android:id="@+id/bannerImage"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/banner_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchEditText" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvLoaiSanPham"
+        <!-- ScrollView to allow scrolling of content -->
+        <android.widget.ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btNavView">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSanPham"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvLoaiSanPham" />
+            <!-- Content inside the ScrollView -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#201520">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="113dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="92dp"
+                    android:text="Home"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp"
+                    app:layout_constraintEnd_toStartOf="@+id/img_sanPham"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/bugerNav"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/bugerNav"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_format_list_bulleted_24"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/img_sanPham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/s"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="64dp"
+                    android:background="@drawable/search_bar_background"
+                    android:drawableStart="@drawable/searchicon"
+                    android:drawablePadding="8dp"
+                    android:hint="Browse your favourite coffee..."
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColorHint="#80E4DDCD"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+
+                <ImageView
+                    android:id="@+id/bannerImage"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLoaiSanPham"
+                    android:layout_width="match_parent"
+                    android:layout_height="61dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSanPham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleSP" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTopSanPham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Top Sản Phẩm"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white_transparent_30"
+                    app:layout_constraintTop_toBottomOf="@+id/rvLoaiSanPham"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/titleSP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sản Phẩm Các Loại"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white_transparent_30"
+                    app:layout_constraintTop_toBottomOf="@+id/rvTopSanPham"
+                    tools:layout_editor_absoluteX="0dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </android.widget.ScrollView>
+
+        <!-- Bottom Navigation outside of the ScrollView, but inside the ConstraintLayout -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/btNavView"
             android:layout_width="match_parent"
@@ -110,14 +171,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvSanPham"
             app:layout_constraintVertical_bias="1.0"
-            app:menu="@menu/bottom_nav" />
+            app:menu="@menu/bottom_nav"
+            tools:ignore="NotSibling" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/layout_header"
-        app:menu="@menu/menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

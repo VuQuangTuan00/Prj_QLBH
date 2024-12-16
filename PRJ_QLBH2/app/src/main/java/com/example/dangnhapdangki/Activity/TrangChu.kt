@@ -26,6 +26,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
     private lateinit var binding: ActivityTrangChuBinding
     private lateinit var dsSP: ArrayList<SanPham>
+    private lateinit var dsTopSP: ArrayList<SanPham>
     private lateinit var dsLoaiSP: ArrayList<LoaiSanPham>
     private lateinit var dsDonViSP: ArrayList<DonVi>
     private lateinit var dbDonViHelper: DonViDBHelper
@@ -34,7 +35,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var adapterSP: AdapterSanPham
 
     private val handler = Handler(Looper.getMainLooper())
-    private val updateInterval = 5000L // Cập nhật mỗi 5 giây
+    private val updateInterval = 5000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +52,11 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
         // Lấy dữ liệu từ cơ sở dữ liệu
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
+        dsTopSP = ArrayList(dbSanPhamHelper.getAllTopProducts())
         dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
         dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
 
 
-
-        // Kiểm tra dữ liệu và cấu hình RecyclerView nếu có dữ liệu
 
         if (dsLoaiSP.isNotEmpty()) {
             setupLoaiSanPhamRecyclerView()
@@ -67,6 +67,12 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         // Nếu cần hiển thị sản phẩm, bạn có thể bổ sung vào đây
         if (dsSP.isNotEmpty()) {
             setupSanPhamRecyclerView()
+        } else {
+            Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
+        }
+
+        if (dsSP.isNotEmpty()) {
+            setupTopSanPhamRecyclerView()
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
@@ -170,6 +176,22 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         }
     }
 
+    private fun setupTopSanPhamRecyclerView() {
+        if (dsTopSP.isNotEmpty()) {
+            adapterSP = AdapterSanPham(dsTopSP,dsLoaiSP,dsDonViSP)
+            adapterSP.SuKienChuyenTrangChiTiet = this
+            binding.rvTopSanPham.apply {
+                adapter = adapterSP
+                layoutManager = LinearLayoutManager(
+                    this@TrangChu,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            }
+        } else {
+            Toast.makeText(this, "Không có Sản phẩm nào!", Toast.LENGTH_SHORT).show()
+        }
+    }
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
            val intent = Intent(this, ChiTietSanPham::class.java)
            intent.putExtra("sanPham", sanPham)

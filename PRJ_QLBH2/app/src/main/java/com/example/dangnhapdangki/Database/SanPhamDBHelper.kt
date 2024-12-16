@@ -169,36 +169,37 @@ class SanPhamDBHelper(context: Context) :
         db.close()
         return result != -1L
     }
-    fun addProduct(
-        img: Int,
-        name: String,
-        price: Double,
-        quantity: Int,
-        loaiSanPhamId: Int,
-        donViId: Int,
-        thongTin: String
-    ): Long {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put(COLUMN_IMG_SP, img)
-            put(COLUMN_NAME, name)
-            put(COLUMN_PRICE, price)
-            put(COLUMN_QUANTITY, quantity)
-            put(COLUMN_IDLOAI_SP, loaiSanPhamId)
-            put(COLUMN_IDDONVI, donViId)
-            put(COLUMN_THONGTIN, thongTin)
-        }
+    fun getAllTopProducts(): List<SanPham> {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_SANPHAM,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "$COLUMN_NAME DESC"
+        )
+        val products = mutableListOf<SanPham>()
 
-        val result = db.insert(TABLE_SANPHAM, null, values)
+        cursor.use {
+            while (it.moveToNext()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
+                val name = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val img = it.getString(it.getColumnIndexOrThrow(COLUMN_IMG_SP))
+                val price = it.getDouble(it.getColumnIndexOrThrow(COLUMN_PRICE))
+                val soLuong = it.getInt(it.getColumnIndexOrThrow(COLUMN_QUANTITY))
+                val loaiSanPham = getLoaiSanPhamById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDLOAI_SP)))
+                val donVi = getDonViById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDDONVI)))
+                val thongTin = it.getString(it.getColumnIndexOrThrow(COLUMN_THONGTIN))
+
+                if (loaiSanPham != null && donVi != null) {
+                    products.add(SanPham(id, img, name, loaiSanPham, soLuong, donVi, price, thongTin))
+                }
+            }
+        }
         db.close()
-
-        if (result != -1L) {
-            Log.d("SanPhamDBHelper", "Added new product: $name with ID: $result")
-        } else {
-            Log.e("SanPhamDBHelper", "Error inserting product: $name")
-        }
-
-        return result
+        return products
     }
 
     fun getAllProducts(): List<SanPham> {
