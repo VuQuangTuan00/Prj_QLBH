@@ -33,14 +33,17 @@ class ChiTietSanPham : AppCompatActivity() {
     }
 
     private fun setEvent() {
-        val sanPham = intent.getParcelableExtra<SanPham>("sanPham")
-        binding.tenSanPham.text = "Tên sản phẩm: " + sanPham?.ten_sp
-        binding.giaSanPham.text = "Giá: " + sanPham?.gia_sp.toString()
-        binding.thongTinSanPham.text = sanPham?.thongTin
+
+
+        binding.tenSanPham.text = "Tên sản phẩm: " + TrangChu.sanPhamBanHang?.ten_sp
+        binding.giaSanPham.text = "Giá: " + TrangChu.sanPhamBanHang?.gia_sp.toString()
+        binding.thongTinSanPham.text = TrangChu.sanPhamBanHang?.thongTin
+
         try {
             val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-            val hinhSP = chuyenDoiHinhAnh.chuyenStringSangByte(sanPham?.img_sp)
-            val hinhSPBM = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhSP)
+            val hinhSP =
+                chuyenDoiHinhAnh.chuyenStringSangByte(TrangChu.sanPhamBanHang?.img_sp, this)
+            val hinhSPBM = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhSP, this)
             binding.imgSanPham.setImageBitmap(hinhSPBM)
 
         } catch (e: Exception) {
@@ -56,14 +59,16 @@ class ChiTietSanPham : AppCompatActivity() {
                 .setTitle("Xác nhận") // Tiêu đề
                 .setMessage("Bạn có chắc chắn muốn thêm sản phẩm này vào giỏ hàng?") // Nội dung thông báo
                 .setPositiveButton("Yes") { dialog, which ->
-                    val tenLoaiSanPham = dbLoaiSanPham.getTenLoaiSanPhamById(sanPham?.idLoai_sp?.idLoai_sp ?: 0)
+                    val tenLoaiSanPham = dbLoaiSanPham.getTenLoaiSanPhamById(
+                        TrangChu.sanPhamBanHang?.idLoai_sp?.idLoai_sp ?: 0
+                    )
                     val gioHang1 = GioHang(
-                        "" + sanPham?.id_sanPham,
-                        sanPham?.ten_sp.toString(),
+                        "" + TrangChu.sanPhamBanHang?.id_sanPham,
+                        TrangChu.sanPhamBanHang?.ten_sp.toString(),
                         "" + tenLoaiSanPham,
                         136000 * 1.0,
                         1,
-                        "" + sanPham?.img_sp,
+                        "" + TrangChu.sanPhamBanHang?.img_sp,
                         0,
                         DangNhap.maKH
                     )

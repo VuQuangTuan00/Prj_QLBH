@@ -92,8 +92,8 @@ public class DonHangAdapter extends ArrayAdapter<DonHang> {
                 iv_product.setImageResource(R.drawable.img_null_sanpham);
             } else {
 //                StringBase64 stringBase64 = new StringBase64();
-                byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(donHang.getHinh());
-                Bitmap bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(bytes);
+                byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(donHang.getHinh(),context);
+                Bitmap bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(bytes,context);
                 iv_product.setImageBitmap(bitmap);
             }
         } catch (Exception e) {

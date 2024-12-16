@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dangnhapdangki.Activity.DanhSachSanPham.Companion
 import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
@@ -36,11 +37,18 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval = 5000L // Cập nhật mỗi 5 giây
 
+    companion object {
+        var sanPhamBanHang: SanPham =
+            SanPham(0, "", "", LoaiSanPham(0, ""), 0, DonVi(0, ""), 0.0, "")
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setControl()
         setEvent()
     }
+
     private fun setControl() {
         binding = ActivityTrangChuBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -53,7 +61,6 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
         dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
         dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
-
 
 
         // Kiểm tra dữ liệu và cấu hình RecyclerView nếu có dữ liệu
@@ -99,16 +106,19 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
                     finish()
                     true
                 }
+
                 R.id.navThemSP -> {
                     val intent = Intent(this, AddProduct::class.java)
                     startActivity(intent)
                     true
                 }
+
                 R.id.navDSSP -> {
                     val intent = Intent(this, DanhSachSanPham::class.java)
                     startActivity(intent)
                     true
                 }
+
                 else -> false
             }
         }
@@ -116,7 +126,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
     private fun setupLoaiSanPhamRecyclerView() {
         if (dsLoaiSP.isNotEmpty()) {
-            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP,object : OnLoaiSanPhamClickListener{
+            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP, object : OnLoaiSanPhamClickListener {
                 override fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham) {
                     filterSanPhamByLoai(loaiSanPham)
                 }
@@ -135,16 +145,22 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun filterSanPhamByLoai(loaiSanPham: LoaiSanPham) {
         if (::adapterSP.isInitialized) {
-            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp}
+            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp }
             if (filteredList.isNotEmpty()) {
                 adapterSP.updateData(ArrayList(filteredList))
             } else {
-                Toast.makeText(this, "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
+
     private fun filterSanPham(query: String) {
         val filteredList = dsSP.filter { it.ten_sp.contains(query, ignoreCase = true) }
         if (filteredList.isNotEmpty()) {
@@ -153,9 +169,10 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
             Toast.makeText(this, "Không tìm thấy sản phẩm phù hợp!", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun setupSanPhamRecyclerView() {
         if (dsSP.isNotEmpty()) {
-            adapterSP = AdapterSanPham(dsSP,dsLoaiSP,dsDonViSP)
+            adapterSP = AdapterSanPham(dsSP, dsLoaiSP, dsDonViSP)
             adapterSP.SuKienChuyenTrangChiTiet = this
             binding.rvSanPham.apply {
                 adapter = adapterSP
@@ -171,9 +188,18 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     }
 
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
-           val intent = Intent(this, ChiTietSanPham::class.java)
-           intent.putExtra("sanPham", sanPham)
-           startActivity(intent)
+        sanPhamBanHang = SanPham(
+            id_sanPham = sanPham.id_sanPham,
+            img_sp = sanPham.img_sp,
+            ten_sp = sanPham.ten_sp,
+            idLoai_sp = sanPham.idLoai_sp,
+            soLuong_sp = sanPham.soLuong_sp,
+            idDonVi_sp = sanPham.idDonVi_sp,
+            gia_sp = sanPham.gia_sp,
+            thongTin = sanPham.thongTin
+        )
+        val intent = Intent(this, ChiTietSanPham::class.java)
+        startActivity(intent)
     }
 
 

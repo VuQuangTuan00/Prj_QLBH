@@ -2,6 +2,8 @@ package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -35,7 +37,15 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     private lateinit var adapterSP: AdapterSanPham
     companion object {
         const val REQUEST_CODE_UPDATE_PRODUCT = 1001
+        var hinhSP= ""
+        var sanPhamBanHang :SanPham = SanPham(0,"","",LoaiSanPham(0,""),0, DonVi(0,""),0.0,"")
+        var sanPhamCapNhap :SanPham = SanPham(0,"","",LoaiSanPham(0,""),0, DonVi(0,""),0.0,"")
     }
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateInterval = 5000L // Cập nhật mỗi 5 giây
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -132,8 +142,22 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     }
 
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
+        sanPhamBanHang = SanPham(
+            id_sanPham = sanPham.id_sanPham,
+            img_sp = sanPham.img_sp,
+            ten_sp = sanPham.ten_sp,
+            idLoai_sp = sanPham.idLoai_sp,
+            soLuong_sp = sanPham.soLuong_sp,
+            idDonVi_sp = sanPham.idDonVi_sp,
+            gia_sp = sanPham.gia_sp,
+            thongTin = sanPham.thongTin
+        )
+        hinhSP = sanPham.img_sp
+
+        // Khởi tạo lại đối tượng với các giá trị mới
+
+
         val intent = Intent(this, UpdateProduct::class.java)
-        intent.putExtra("sanPham", sanPham)
         startActivityForResult(intent, REQUEST_CODE_UPDATE_PRODUCT)
     }
 
@@ -175,6 +199,35 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                     binding.rvSanPham.adapter?.notifyItemChanged(index)
                 }
             }
+        }
+    }
+
+    private fun updateSanPhamList() {
+        val dbHelper = SanPhamDBHelper(this)
+        val updatedList = dbHelper.getAllProducts()
+        if (updatedList.isNotEmpty()) {
+            dsSP.clear()
+            dsSP.addAll(updatedList)
+            binding.rvSanPham.adapter?.notifyDataSetChanged()
+        } else {
+            Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        handler.post(updateTask)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(updateTask)
+    }
+
+    private val updateTask = object : Runnable {
+        override fun run() {
+            updateSanPhamList()
+            handler.postDelayed(this, updateInterval)
         }
     }
 }

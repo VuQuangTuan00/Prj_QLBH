@@ -61,8 +61,9 @@ class AdapterItemDSSP(
         var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
 
         try {
-            val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(curDSSP.img_sp)
-            val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte)
+            val context = holder.itemView.context
+            val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(curDSSP.img_sp,context)
+            val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte,context)
             holder.binding.imgSanPham.setImageBitmap(hinhBitMap)
         } catch (e: Exception) {
             e.printStackTrace()

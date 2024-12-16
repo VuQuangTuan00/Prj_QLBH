@@ -48,8 +48,17 @@ class AddProduct : AppCompatActivity() {
         }
 
         binding.imgSanPham.setOnClickListener(View.OnClickListener {
+            //Kiểm tra hình ảnh không được quá lon
+//            var chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+//            var hinhByte: String = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh, this);
+//            if(hinhByte ==null){
+//                binding.imgSanPham.setImageBitmap(null)
+//            }
+
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, 1)
+
+
         })
 
         binding.btnThemSanPham.setOnClickListener {
@@ -68,7 +77,7 @@ class AddProduct : AppCompatActivity() {
             val donViID = dsDonViSP.firstOrNull { it.tenDonVi_sp == selectedDonVi }
 
             var chuyenDoiHinhAnh: ChuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-            var hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh)
+            var hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh,this)
 
             if (loaiSanPhamID != null && donViID != null) {
                 // Lưu sản phẩm mới
@@ -127,6 +136,8 @@ class AddProduct : AppCompatActivity() {
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 byteArrayHinh = stream.toByteArray()
+
+
 
             } catch (e: IOException) {
                 e.printStackTrace()

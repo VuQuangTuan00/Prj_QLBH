@@ -141,8 +141,8 @@ public class GioHangAdapter extends ArrayAdapter<GioHang> {
                 iv_product.setImageResource(R.drawable.img_null_sanpham);
             } else {
 //                StringBase64 stringBase64 = new StringBase64();
-                byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(gioHang.getHinh());
-                Bitmap bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(bytes);
+                byte[] bytes = chuyenDoiHinhAnh.chuyenStringSangByte(gioHang.getHinh(),context);
+                Bitmap bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(bytes,context);
                 iv_product.setImageBitmap(bitmap);
             }
         } catch (Exception e) {

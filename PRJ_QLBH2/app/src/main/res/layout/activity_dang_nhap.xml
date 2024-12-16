@@ -41,8 +41,8 @@
                 android:id="@+id/edtTenNguoiDung"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textSize="10dp"
-                android:fontFamily="@font/lobster"
+                android:textSize="15dp"
+
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
@@ -57,8 +57,8 @@
                 android:id="@+id/edtPassword"
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
-                android:textSize="10dp"
-                android:fontFamily="@font/lobster"
+                android:textSize="15dp"
+
                 android:padding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
