@@ -23,92 +23,85 @@ class AdapterSanPhamGrid(
     private val dsLoaiSP: ArrayList<LoaiSanPham>,
     private val dsDonViSP: ArrayList<DonVi>,
     private val context: Context
-) : BaseAdapter() {
+) {
 
-    var SuKienChuyenTrangChiTiet: SuKienChuyenTrangChiTiet? = null
+    fun populateLinearLayout(parentLayout: ViewGroup) {
+        parentLayout.removeAllViews() // Xóa các mục cũ
 
-    override fun getCount(): Int = dsSanPham.size
+        val inflater = LayoutInflater.from(context)
 
-    override fun getItem(position: Int): SanPham = dsSanPham[position]
+        for (sanPham in dsSanPham) {
+            val binding = ItemSanphamBinding.inflate(inflater, parentLayout, false)
 
-    override fun getItemId(position: Int): Long = position.toLong()
+            // Tìm loại sản phẩm và đơn vị
+            val loaiSP = dsLoaiSP.find { it.idLoai_sp == sanPham.idLoai_sp.idLoai_sp }
+            val donVi = dsDonViSP.find { it.idDonVi_sp == sanPham.idDonVi_sp.idDonVi_sp }
 
-    @SuppressLint("SetTextI18n")
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val binding: ItemSanphamBinding
-        val view: View
-
-        if (convertView == null) {
-            binding = ItemSanphamBinding.inflate(LayoutInflater.from(context), parent, false)
-            view = binding.root
-            view.tag = binding
-        } else {
-            view = convertView
-            binding = view.tag as ItemSanphamBinding
-        }
-
-        val curDSSP = dsSanPham[position]
-        val curLoaiSP = dsLoaiSP.find { it.idLoai_sp == curDSSP.idLoai_sp.idLoai_sp }
-        val curDonVi = dsDonViSP.find { it.idDonVi_sp == curDSSP.idDonVi_sp.idDonVi_sp }
-
-        val giaText = "${curDSSP.gia_sp}vnd / ${curDSSP.soLuong_sp}${curDSSP.idDonVi_sp.tenDonVi_sp}"
-        val spannable = SpannableString(giaText)
-
-        val indexSlash = giaText.indexOf("/")
-        if (indexSlash != -1) {
-            spannable.setSpan(
-                RelativeSizeSpan(0.5f),
-                indexSlash + 2,
-                giaText.length,
-                0
-            )
-        }
-
-        if (curLoaiSP != null && curDonVi != null) {
-            binding.tvTenSp.text = curDSSP.ten_sp
-            binding.tvGia.text = spannable
-            binding.tvLoaiSp.text = curDSSP.idLoai_sp.tenLoai_sp
-
-            val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-            try {
-                val hinhByte: ByteArray = chuyenDoiHinhAnh.chuyenStringSangByte(curDSSP.img_sp, context)
-                val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, context)
-                binding.imgSanPham.setImageBitmap(hinhBitMap)
-            } catch (e: Exception) {
-                Log.e("AdapterSanPhamGrid", "Lỗi chuyển đổi hình ảnh", e)
+            // Hiển thị thông tin sản phẩm
+            val giaText =
+                "${sanPham.gia_sp}vnd / ${sanPham.soLuong_sp}${sanPham.idDonVi_sp.tenDonVi_sp}"
+            val spannable = SpannableString(giaText)
+            val indexSlash = giaText.indexOf("/")
+            if (indexSlash != -1) {
+                spannable.setSpan(
+                    RelativeSizeSpan(0.5f),
+                    indexSlash + 2,
+                    giaText.length,
+                    0
+                )
             }
+
+            if (loaiSP != null && donVi != null) {
+                binding.tvTenSp.text = sanPham.ten_sp
+                binding.tvGia.text = spannable
+                binding.tvLoaiSp.text = sanPham.idLoai_sp.tenLoai_sp
+
+                val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+                try {
+                    val hinhByte = chuyenDoiHinhAnh.chuyenStringSangByte(sanPham.img_sp, context)
+                    val hinhBitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, context)
+                    binding.imgSanPham.setImageBitmap(hinhBitmap)
+                } catch (e: Exception) {
+                    Log.e("AdapterSanPhamGrid", "Lỗi chuyển đổi hình ảnh", e)
+                }
+            }
+
+            // Sự kiện khi click vào sản phẩm
+            binding.linearLayoutSanPham.setOnClickListener {
+                TrangChu.sanPhamBanHang = sanPham
+                val intent = Intent(context, ChiTietSanPham::class.java)
+                context.startActivity(intent)
+            }
+
+            // Thêm sản phẩm vào bố cục
+            parentLayout.addView(binding.root)
         }
 
+        // Kiểm tra số lượng sản phẩm lẻ và thêm View giả nếu cần
+        if (dsSanPham.size % 2 != 0) {
+            val binding = ItemSanphamBinding.inflate(inflater, parentLayout, false)
 
+            // Ẩn nội dung của View giả
+            binding.tvTenSp.visibility = View.INVISIBLE
+            binding.tvGia.visibility = View.INVISIBLE
+            binding.root.setBackgroundColor(android.graphics.Color.parseColor("#201520"))
+            binding.tvLoaiSp.visibility = View.INVISIBLE
+            binding.imgSanPham.visibility = View.INVISIBLE
+            binding.btnMuaSp.visibility = View.INVISIBLE
 
-        binding.linearLayoutSanPham.setOnClickListener{
-
-            TrangChu.sanPhamBanHang = SanPham(
-                id_sanPham = curDSSP.id_sanPham,
-                img_sp = curDSSP.img_sp,
-                ten_sp = curDSSP.ten_sp,
-                idLoai_sp = curDSSP.idLoai_sp,
-                soLuong_sp = curDSSP.soLuong_sp,
-                idDonVi_sp = curDSSP.idDonVi_sp,
-                gia_sp = curDSSP.gia_sp,
-                thongTin = curDSSP.thongTin
-            )
-            val intent = Intent(context, ChiTietSanPham::class.java)
-            context.startActivity(intent)
+            // Thêm View giả vào bố cục
+            parentLayout.addView(binding.root)
         }
 
-
-
-
-        return view
     }
 
-    fun updateData(newList: ArrayList<SanPham>) {
-        dsSanPham = newList
-        notifyDataSetChanged()
-    }
-}
 
-interface SuKienChuyenTrangChiTiet {
+    // Hàm cập nhật dữ liệu
+    fun updateData(newSanPhamList: ArrayList<SanPham>, parentLayout: ViewGroup) {
+        dsSanPham.clear() // Xóa dữ liệu cũ
+        dsSanPham.addAll(newSanPhamList) // Thêm dữ liệu mới
+        populateLinearLayout(parentLayout) // Vẽ lại layout với dữ liệu mới
+    }
+
 
 }

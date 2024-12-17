@@ -7,122 +7,140 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#201520"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-
-            android:paddingTop="10dp"
-
-            android:paddingBottom="10dp">
-
-            <ImageView
-                android:id="@+id/bugerNav"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:srcCompat="@drawable/baseline_format_list_bulleted_24"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Home"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                tools:ignore="MissingConstraints" />
-
-
-            <ImageView
-
-                android:id="@+id/img_sanPham"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:srcCompat="@drawable/s"
-                tools:ignore="MissingConstraints" />
-
-        </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search_bar_background"
-            android:drawableStart="@drawable/searchicon"
-            android:drawablePadding="8dp"
-            android:hint="Browse your favourite coffee..."
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColorHint="#80E4DDCD"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
-
-        <ImageView
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:id="@+id/bannerImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-
-            android:src="@drawable/banner_placeholder"
-
-            app:layout_constraintTop_toBottomOf="@id/searchEditText" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvLoaiSanPham"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
-
-
-        <GridView
-            android:id="@+id/gvSanPham"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="3"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center" />
+            android:fillViewport="true">
 
+            <LinearLayout
+                android:paddingBottom="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#201520"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+
+                    android:paddingTop="10dp"
+
+                    android:paddingBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/bugerNav"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/baseline_format_list_bulleted_24"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Home"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="30sp"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <ImageView
+
+                        android:id="@+id/img_sanPham"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/s"
+                        tools:ignore="MissingConstraints" />
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/search_bar_background"
+                    android:drawableStart="@drawable/searchicon"
+                    android:drawablePadding="8dp"
+                    android:hint="Browse your favourite coffee..."
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColorHint="#80E4DDCD"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+
+                <ImageView
+                    android:id="@+id/bannerImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+
+                    android:src="@drawable/banner_placeholder"
+
+                    app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLoaiSanPham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+
+
+
+
+                    <GridLayout
+
+                        android:layout_gravity="center"
+                        android:id="@+id/gridLayoutSanPham"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnCount="2"
+                        android:padding="10dp">
+                    </GridLayout>
+
+
+
+
+
+            </LinearLayout>
+        </ScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/btNavView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#22151F"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvSanPham"
-            app:layout_constraintVertical_bias="1.0"
-            app:menu="@menu/bottom_nav" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="#384338"
+            android:padding="10dp"
+            app:menu="@menu/bottom_nav"></com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:visibility="gone"
+        android:visibility="visible"
         app:headerLayout="@layout/layout_header"
         app:menu="@menu/menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,5 +1,6 @@
 package com.example.dangnhapdangki.Activity
 
+import AdapterSanPham
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -11,13 +12,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dangnhapdangki.Activity.TrangChu.Companion
 import com.example.dangnhapdangki.Adapter.AdapterItemDSSP
 import com.example.dangnhapdangki.Adapter.SuKienChuyenTrangUpdate
 import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
 import com.example.demo_recycleview.Adapter.AdapterLoaiSanPham
-import com.example.demo_recycleview.Adapter.AdapterSanPham
+
 import com.example.demo_recycleview.Adapter.OnLoaiSanPhamClickListener
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
@@ -35,6 +37,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
     private lateinit var search:EditText
     private lateinit var adapterSP: AdapterSanPham
+
     companion object {
         const val REQUEST_CODE_UPDATE_PRODUCT = 1001
         var hinhSP= ""
@@ -80,7 +83,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
 
         // Nếu cần hiển thị sản phẩm, bạn có thể bổ sung vào đây
         if (dsSP.isNotEmpty()) {
-            setupSanPhamRecyclerView()
+            setupSanPhamGridView()
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
@@ -115,29 +118,57 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         }
     }
     private fun filterSanPhamByLoai(loaiSanPham: LoaiSanPham) {
-        if (::adapterSP.isInitialized) {
-            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp}
-            if (filteredList.isNotEmpty()) {
-                adapterSP.updateData(ArrayList(filteredList))
-            } else {
-                Toast.makeText(this, "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}", Toast.LENGTH_SHORT).show()
+        if (::dbSanPhamHelper.isInitialized) {
+            // Lấy toàn bộ danh sách sản phẩm từ cơ sở dữ liệu
+            val dsSP = dbSanPhamHelper.getAllProducts()
+
+            // Lọc sản phẩm dựa trên loại sản phẩm
+            val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp }
+
+            if (::adapterSP.isInitialized) {
+                if (filteredList.isNotEmpty()) {
+                    // Cập nhật dữ liệu hiển thị
+                    adapterSP.updateData(ArrayList(filteredList), binding.gridLayoutSanPham)
+
+                } else {
+                    // Thông báo nếu không có sản phẩm thuộc loại
+                    Toast.makeText(
+                        this,
+                        "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
-    private fun setupSanPhamRecyclerView() {
+    private fun setupSanPhamGridView() {
+        val parentLayout = binding.gridLayoutSanPham
+
         if (dsSP.isNotEmpty()) {
-            val adapterSP = AdapterItemDSSP(dsSP,dsLoaiSP,dsDonViSP)
-            adapterSP.SuKienChuyenTrangUpdate = this
-            binding.rvSanPham.apply {
-                adapter = adapterSP
-                layoutManager = LinearLayoutManager(
-                    this@DanhSachSanPham,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
+            // Khởi tạo adapter và thêm vào LinearLayout
+            adapterSP = AdapterSanPham(dsSP, dsLoaiSP, dsDonViSP, this)
+            adapterSP.populateLinearLayout(parentLayout)
+
+            // Xử lý sự kiện click vào từng item nếu cần
+            for (i in 0 until parentLayout.childCount) {
+                val child = parentLayout.getChildAt(i)
+                child.setOnClickListener {
+                    val sanPham = dsSP[i]
+                    sanPhamBanHang = SanPham(
+                        id_sanPham = sanPham.id_sanPham,
+                        img_sp = sanPham.img_sp,
+                        ten_sp = sanPham.ten_sp,
+                        idLoai_sp = sanPham.idLoai_sp,
+                        soLuong_sp = sanPham.soLuong_sp,
+                        idDonVi_sp = sanPham.idDonVi_sp,
+                        gia_sp = sanPham.gia_sp,
+                        thongTin = sanPham.thongTin
+                    )
+                }
             }
         } else {
-            Toast.makeText(this, "Không có Sản phẩm nào!", Toast.LENGTH_SHORT).show()
+            // Thông báo nếu danh sách sản phẩm trống
+            Toast.makeText(this, "Không có sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -173,9 +204,10 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                     dbSanPhamHelper.deleteProduct(sanPham.id_sanPham)
                     Toast.makeText(this, "Sản phẩm đã được xóa", Toast.LENGTH_SHORT).show()
 
-                    // Xóa sản phẩm khỏi danh sách và cập nhật RecyclerView
-                    dsSP.removeAt(position)
-                    binding.rvSanPham.adapter?.notifyItemRemoved(position)
+                    val parentLayout = binding.gridLayoutSanPham
+                    dsSP.clear() // Xóa dữ liệu cũ
+                    dsSP.addAll(dbSanPhamHelper.getAllProducts()) // Thêm dữ liệu mới
+                    adapterSP.populateLinearLayout(parentLayout) //
 
                 }
                 dialogInterface.dismiss()
@@ -196,7 +228,10 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                 val index = dsSP.indexOfFirst { it.id_sanPham == updatedSanPham.id_sanPham }
                 if (index != -1) {
                     dsSP[index] = updatedSanPham
-                    binding.rvSanPham.adapter?.notifyItemChanged(index)
+                    val parentLayout = binding.gridLayoutSanPham
+                    dsSP.clear() // Xóa dữ liệu cũ
+                    dsSP.addAll(dbSanPhamHelper.getAllProducts()) // Thêm dữ liệu mới
+                    adapterSP.populateLinearLayout(parentLayout) //
                 }
             }
         }
@@ -208,7 +243,10 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         if (updatedList.isNotEmpty()) {
             dsSP.clear()
             dsSP.addAll(updatedList)
-            binding.rvSanPham.adapter?.notifyDataSetChanged()
+            val parentLayout = binding.gridLayoutSanPham
+            dsSP.clear() // Xóa dữ liệu cũ
+            dsSP.addAll(dbSanPhamHelper.getAllProducts()) // Thêm dữ liệu mới
+            adapterSP.populateLinearLayout(parentLayout) //
         } else {
             Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
         }
