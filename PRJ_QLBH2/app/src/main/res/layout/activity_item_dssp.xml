@@ -13,6 +13,7 @@
     android:layout_gravity="center_horizontal"
     tools:context="com.example.dangnhapdangki.Activity.TrangChu">
     <LinearLayout
+        android:id="@+id/linearLayoutSanPham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

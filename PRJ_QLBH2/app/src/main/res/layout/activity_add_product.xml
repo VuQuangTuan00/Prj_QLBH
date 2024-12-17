@@ -129,7 +129,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm vào giỏ hàng"
+        android:text="Thêm sản phẩm"
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_no_radius"
         app:layout_constraintEnd_toEndOf="@+id/edt_thongTin"

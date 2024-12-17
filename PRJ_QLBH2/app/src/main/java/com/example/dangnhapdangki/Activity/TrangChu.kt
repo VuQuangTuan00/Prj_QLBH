@@ -1,5 +1,6 @@
 package com.example.dangnhapdangki.Activity
 
+import AdapterSanPhamGrid
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -32,7 +33,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
-    private lateinit var adapterSP: AdapterSanPham
+    private lateinit var adapterSP: AdapterSanPhamGrid
 
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval = 5000L // Cập nhật mỗi 5 giây
@@ -73,7 +74,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
 
         // Nếu cần hiển thị sản phẩm, bạn có thể bổ sung vào đây
         if (dsSP.isNotEmpty()) {
-            setupSanPhamRecyclerView()
+            setupSanPhamGridView()
         } else {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
@@ -170,22 +171,27 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         }
     }
 
-    private fun setupSanPhamRecyclerView() {
+    private fun setupSanPhamGridView() {
         if (dsSP.isNotEmpty()) {
-            adapterSP = AdapterSanPham(dsSP, dsLoaiSP, dsDonViSP)
-            adapterSP.SuKienChuyenTrangChiTiet = this
-            binding.rvSanPham.apply {
-                adapter = adapterSP
-                layoutManager = LinearLayoutManager(
-                    this@TrangChu,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
+            // Khởi tạo adapter cho GridView
+            val adapterSPGrid = AdapterSanPhamGrid(dsSP, dsLoaiSP, dsDonViSP, this)
+
+            // Xử lý sự kiện chuyển trang khi click vào item trong GridView
+            // Gắn adapter vào GridView
+            binding.gvSanPham.adapter = adapterSPGrid
+
+            // Xử lý sự kiện click trực tiếp trên GridView (nếu cần)
+            binding.gvSanPham.setOnItemClickListener { _, _, position, _ ->
+                val sanPham = dsSP[position]
+               chuyenTrang(null,sanPham)
             }
         } else {
-            Toast.makeText(this, "Không có Sản phẩm nào!", Toast.LENGTH_SHORT).show()
+            // Thông báo nếu danh sách sản phẩm trống
+            Toast.makeText(this, "Không có sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
     override fun chuyenTrang(view: View?, sanPham: SanPham) {
         sanPhamBanHang = SanPham(
@@ -209,11 +215,13 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         if (updatedList.isNotEmpty()) {
             dsSP.clear()
             dsSP.addAll(updatedList)
-            binding.rvSanPham.adapter?.notifyDataSetChanged()
+            // Gọi notifyDataSetChanged của adapter
+            (binding.gvSanPham.adapter as? AdapterSanPham)?.notifyDataSetChanged()
         } else {
             Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     override fun onStart() {
         super.onStart()
