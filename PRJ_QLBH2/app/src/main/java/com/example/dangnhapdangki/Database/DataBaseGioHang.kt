@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.Cursor
 import com.example.dangnhapdangki.Model.GioHang
 
-class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DataBaseGioHang(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_NAME = "GioHangDB2"
@@ -69,7 +70,12 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             }
 
             // Cập nhật vào cơ sở dữ liệu
-            db.update(TABLE_NAME, values, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(gioHang.maSP, gioHang.maKH)).toLong()
+            db.update(
+                TABLE_NAME,
+                values,
+                "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?",
+                arrayOf(gioHang.maSP, gioHang.maKH)
+            ).toLong()
         } else {
             // Nếu sản phẩm chưa tồn tại, chèn mới
             val values = ContentValues().apply {
@@ -94,11 +100,16 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             put(COLUMN_TENSP, gioHang.tenSP)
             put(COLUMN_LOAISP, gioHang.loaiSP)
             put(COLUMN_GIA, gioHang.gia)
-            put(COLUMN_SOLUONG, gioHang.soLuong)
+            //put(COLUMN_SOLUONG, gioHang.soLuong)
             put(COLUMN_HINH, gioHang.hinh)
-            put(COLUMN_DACHON, gioHang.daChon)
+            //put(COLUMN_DACHON, gioHang.daChon)
         }
-        return db.update(TABLE_NAME, values, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(maSP, maKH))
+        return db.update(
+            TABLE_NAME,
+            values,
+            "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?",
+            arrayOf(maSP, maKH)
+        )
     }
 
     fun deleteGioHang(maSP: String, maKH: String): Int {
@@ -106,10 +117,11 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         return db.delete(TABLE_NAME, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(maSP, maKH))
     }
 
-    fun     getAllGioHang(maKH: String): List<GioHang> {
+    fun getAllGioHang(maKH: String): List<GioHang> {
         val gioHangList = mutableListOf<GioHang>()
         val db = readableDatabase
-        val cursor: Cursor = db.query(TABLE_NAME, null, "$COLUMN_MAKH = ?", arrayOf(maKH), null, null, null)
+        val cursor: Cursor =
+            db.query(TABLE_NAME, null, "$COLUMN_MAKH = ?", arrayOf(maKH), null, null, null)
 
         cursor.use {
             while (it.moveToNext()) {
@@ -132,7 +144,11 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
     fun deleteAllGioHang(maKH: String): Int {
         val db = writableDatabase
-        return db.delete(TABLE_NAME, "$COLUMN_MAKH = ?", arrayOf(maKH))  // Xóa tất cả các bản ghi của khách hàng
+        return db.delete(
+            TABLE_NAME,
+            "$COLUMN_MAKH = ?",
+            arrayOf(maKH)
+        )  // Xóa tất cả các bản ghi của khách hàng
     }
 
     fun updateSoLuong(maSP: String, maKH: String, soLuong: Int): Int {
@@ -140,7 +156,12 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val values = ContentValues().apply {
             put(COLUMN_SOLUONG, soLuong)
         }
-        return db.update(TABLE_NAME, values, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(maSP, maKH))
+        return db.update(
+            TABLE_NAME,
+            values,
+            "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?",
+            arrayOf(maSP, maKH)
+        )
     }
 
     fun updateDaChon(maSP: String, maKH: String, daChon: Int): Int {
@@ -148,7 +169,12 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val values = ContentValues().apply {
             put(COLUMN_DACHON, daChon)
         }
-        return db.update(TABLE_NAME, values, "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?", arrayOf(maSP, maKH))
+        return db.update(
+            TABLE_NAME,
+            values,
+            "$COLUMN_MASP = ? AND $COLUMN_MAKH = ?",
+            arrayOf(maSP, maKH)
+        )
     }
 
     fun updateAllDaChonToZero(maKH: String): Int {
@@ -156,7 +182,12 @@ class DataBaseGioHang(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val values = ContentValues().apply {
             put(COLUMN_DACHON, 0) // Đặt trạng thái "đã chọn" thành 0
         }
-        return db.update(TABLE_NAME, values, "$COLUMN_MAKH = ?", arrayOf(maKH)) // Cập nhật tất cả các sản phẩm của khách hàng
+        return db.update(
+            TABLE_NAME,
+            values,
+            "$COLUMN_MAKH = ?",
+            arrayOf(maKH)
+        ) // Cập nhật tất cả các sản phẩm của khách hàng
     }
 
     fun deleteGioHangDaChon(maKH: String): Int {

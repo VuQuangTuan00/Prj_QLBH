@@ -1,6 +1,7 @@
 package com.example.dangnhapdangki.Activity
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import com.example.dangnhapdangki.ChuyenDoiHinhAnh
 import com.example.dangnhapdangki.Database.DataBaseGioHang
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Model.GioHang
+import com.example.dangnhapdangki.StringBase64
 import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ActivityChiTietSanPhamBinding
@@ -41,13 +43,23 @@ class ChiTietSanPham : AppCompatActivity() {
 
         try {
             val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-            val hinhSP =
-                chuyenDoiHinhAnh.chuyenStringSangByte(TrangChu.sanPhamBanHang?.img_sp, this)
-            val hinhSPBM = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhSP, this)
-            binding.imgSanPham.setImageBitmap(hinhSPBM)
+
+            var stringBase64 = StringBase64()
+            if (TrangChu.sanPhamBanHang?.img_sp.isNullOrEmpty()) {
+                val hinhByte: ByteArray =
+                    chuyenDoiHinhAnh.chuyenStringSangByte(stringBase64.base64_anh2, this)
+                val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
+                binding.imgSanPham.setImageBitmap(hinhBitMap)
+            }
+            else{
+                val hinhByte: ByteArray =
+                    chuyenDoiHinhAnh.chuyenStringSangByte(TrangChu.sanPhamBanHang?.img_sp, this)
+                val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
+                binding.imgSanPham.setImageBitmap(hinhBitMap)
+            }
 
         } catch (e: Exception) {
-            e.printStackTrace() // Hoặc sử dụng log để ghi lại lỗi
+            //e.printStackTrace() // Hoặc sử dụng log để ghi lại lỗi
         }
         binding.imgBack.setOnClickListener {
             onBackPressed()
@@ -73,6 +85,7 @@ class ChiTietSanPham : AppCompatActivity() {
                         DangNhap.maKH
                     )
                     dbGioHang.insertGioHang(gioHang1)
+                    dbGioHang.updateGioHang(gioHang1.maSP,DangNhap.maKH,gioHang1)
                     Toast.makeText(this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivityGioHang::class.java)
                     startActivity(intent) // Khởi chạy Intent

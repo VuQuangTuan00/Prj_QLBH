@@ -15,6 +15,7 @@ import com.example.dangnhapdangki.Database.DataBaseGioHang
 import com.example.dangnhapdangki.Database.DonViDBHelper
 import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
 import com.example.dangnhapdangki.Database.SanPhamDBHelper
+import com.example.dangnhapdangki.StringBase64
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
@@ -127,10 +128,21 @@ class UpdateProduct : AppCompatActivity() {
         binding.edtSoLuong.setText(sanPham?.soLuong_sp.toString())
 
         var chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-        val hinhByte: ByteArray =
-            chuyenDoiHinhAnh.chuyenStringSangByte(DanhSachSanPham.hinhSP, this)
-        val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
-        binding.imgSanPham.setImageBitmap(hinhBitMap)
+        var stringBase64 = StringBase64()
+        if (DanhSachSanPham.hinhSP.isNullOrEmpty()) {
+            val hinhByte: ByteArray =
+                chuyenDoiHinhAnh.chuyenStringSangByte(stringBase64.base64_anh2, this)
+            val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
+            binding.imgSanPham.setImageBitmap(hinhBitMap)
+        }
+        else{
+            val hinhByte: ByteArray =
+                chuyenDoiHinhAnh.chuyenStringSangByte(DanhSachSanPham.hinhSP, this)
+            val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
+            binding.imgSanPham.setImageBitmap(hinhBitMap)
+        }
+
+
     }
 
     private fun setControl() {

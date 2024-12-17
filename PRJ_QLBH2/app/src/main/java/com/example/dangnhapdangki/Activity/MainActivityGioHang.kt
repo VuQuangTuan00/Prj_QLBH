@@ -14,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dangnhapdangki.Database.DataBaseGioHang
 import com.example.dangnhapdangki.Model.GioHang
 import com.example.dangnhapdangki.Adapter.GioHangAdapter
+import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
+import com.example.dangnhapdangki.Database.SanPhamDBHelper
 import com.example.dangnhapdangki.StringBase64
+import com.example.demo_recycleview.Model.LoaiSanPham
+import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.R
 
 
@@ -31,7 +35,10 @@ class MainActivityGioHang : AppCompatActivity() {
     private  var maKH: String = DangNhap.maKH
 
     private val dbGioHang: DataBaseGioHang by lazy { DataBaseGioHang(this) }
+    private val dbSanPham: SanPhamDBHelper by lazy { SanPhamDBHelper(this) }
+    private val dbLoaiSanPham: LoaiSanPhamDBHelper by lazy { LoaiSanPhamDBHelper(this) }
     private val dsGioHang = ArrayList<GioHang>()
+    private val dsSanPham = ArrayList<SanPham>()
     private lateinit var gioHangAdapter: GioHangAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +63,37 @@ class MainActivityGioHang : AppCompatActivity() {
 
     private fun setEvent() {
         // Khởi tạo adapter trước khi sử dụng
+
+        dsSanPham.clear()
+        dsSanPham.addAll(dbSanPham.getAllProducts())
+
+        for (sanPham in dsSanPham) {
+            val loaiSP = dbLoaiSanPham.getTenLoaiSanPhamById(sanPham.idLoai_sp.idLoai_sp ?: 0) ?: "Không xác định"
+
+            // Tạo đối tượng GioHang từ thông tin của SanPham
+            val gioHang = GioHang(
+                maSP = sanPham.id_sanPham.toString(), // Chuyển id_sanPham thành String
+                tenSP = sanPham.ten_sp,
+                loaiSP = loaiSP, // Nếu idLoai_sp là đối tượng, cần lấy giá trị cụ thể, ví dụ: idLoai_sp.tenLoai
+                gia = sanPham.gia_sp,
+                soLuong = sanPham.soLuong_sp,
+                hinh = sanPham.img_sp,
+                daChon = 0, // Giả sử sản phẩm này đã được chọn (1 = true, 0 = false)
+                maKH = DangNhap.maKH // Thay bằng mã khách hàng phù hợp
+            )
+
+            // Gọi hàm updateGioHang để cập nhật thông tin giỏ hàng
+            val result =dbGioHang.updateGioHang(
+                maSP = gioHang.maSP,
+                maKH = gioHang.maKH,
+                gioHang = gioHang
+            )
+
+
+
+        }
+
+
 
         gioHangAdapter = GioHangAdapter(
             this,
