@@ -37,16 +37,19 @@ class TrangChu : AppCompatActivity() {
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
-    private lateinit var adapterSP: AdapterSanPhamGrid
+    private lateinit var adapterLSP:AdapterLoaiSanPham
+
 
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval = 5000L // Cập nhật mỗi 5 giây
 
 
-
     companion object {
+        var tuKhoa: String = ""
+        var loaiSanPham = LoaiSanPham(-1, "")
 
-        var manHinh:String = "TrangChu"
+        lateinit var adapterSP: AdapterSanPhamGrid
+        var manHinh: String = "TrangChu"
         var sanPhamBanHang: SanPham =
             SanPham(0, "", "", LoaiSanPham(0, ""), 0, DonVi(0, ""), 0.0, "")
 
@@ -91,8 +94,10 @@ class TrangChu : AppCompatActivity() {
     private fun setEvent() {
         binding.searchEditText.addTextChangedListener { text ->
             val query = text.toString()
+            tuKhoa = text.toString()
             filterSanPham(query)
         }
+
 
         binding.bugerNav?.setOnClickListener {
             binding.drawerLayout?.openDrawer(binding.navView!!)
@@ -132,13 +137,24 @@ class TrangChu : AppCompatActivity() {
                 else -> false
             }
         }
+
+        binding.tvLoaiSPAll.setOnClickListener {
+            loaiSanPham = LoaiSanPham(-1, "")
+            adapterLSP.selectedPosition = -1
+            adapterLSP.tvLoaiSP.setBackgroundResource(R.drawable.editext_bg)
+            binding.tvLoaiSPAll.setBackgroundResource(R.drawable.brown_bg)
+            loadData()
+        }
     }
 
     private fun setupLoaiSanPhamRecyclerView() {
         if (dsLoaiSP.isNotEmpty()) {
-            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP, object : OnLoaiSanPhamClickListener {
+             adapterLSP = AdapterLoaiSanPham(dsLoaiSP, object : OnLoaiSanPhamClickListener {
                 override fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham) {
                     filterSanPhamByLoai(loaiSanPham)
+                    Companion.loaiSanPham =
+                        LoaiSanPham(loaiSanPham.idLoai_sp, loaiSanPham.tenLoai_sp)
+                    binding.tvLoaiSPAll.setBackgroundResource(R.drawable.editext_bg)
                 }
 
             })
@@ -164,23 +180,22 @@ class TrangChu : AppCompatActivity() {
             // Lọc sản phẩm dựa trên loại sản phẩm
             val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp }
 
-            if (::adapterSP.isInitialized) {
-                if (filteredList.isNotEmpty()) {
-                    // Cập nhật dữ liệu hiển thị
-                    adapterSP.updateData(ArrayList(filteredList), binding.gridLayoutSanPham)
 
-                } else {
-                    // Thông báo nếu không có sản phẩm thuộc loại
-                    Toast.makeText(
-                        this,
-                        "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            if (filteredList.isNotEmpty()) {
+                // Cập nhật dữ liệu hiển thị
+                adapterSP.updateData(ArrayList(filteredList), binding.gridLayoutSanPham)
+
+            } else {
+                // Thông báo nếu không có sản phẩm thuộc loại
+                Toast.makeText(
+                    this,
+                    "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+
         }
     }
-
 
 
     private fun filterSanPham(query: String) {
@@ -192,7 +207,7 @@ class TrangChu : AppCompatActivity() {
             adapterSP.populateLinearLayout(parentLayout)
         } else {
             parentLayout.removeAllViews() // Xóa toàn bộ nội dung trước đó
-            Toast.makeText(this, "Không tìm thấy sản phẩm phù hợp!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Không tìm thấy sản phẩm phù hợp!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -229,11 +244,20 @@ class TrangChu : AppCompatActivity() {
     }
 
 
-
-
-
-
     private fun updateSanPhamList() {
+
+        if (!tuKhoa.equals("")) {
+            filterSanPham(tuKhoa)
+        }
+        else if(adapterLSP.selectedPosition != -1){
+            filterSanPhamByLoai(loaiSanPham)
+        }
+        else {
+            loadData()
+        }
+
+    }
+    fun loadData() {
         val dbHelper = SanPhamDBHelper(this)
         val updatedList = dbHelper.getAllProducts()
 
@@ -250,8 +274,6 @@ class TrangChu : AppCompatActivity() {
             Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     override fun onStart() {
         super.onStart()

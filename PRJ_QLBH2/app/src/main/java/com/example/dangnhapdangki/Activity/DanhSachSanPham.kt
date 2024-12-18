@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dangnhapdangki.Activity.TrangChu.Companion
 import com.example.dangnhapdangki.Adapter.AdapterItemDSSP
@@ -28,21 +29,27 @@ import com.example.prj_qlbh.R
 import com.example.prj_qlbh.databinding.ActivityDanhSachSanPhamBinding
 
 class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
-    private lateinit var binding:ActivityDanhSachSanPhamBinding
+    private lateinit var binding: ActivityDanhSachSanPhamBinding
     private lateinit var dsSP: ArrayList<SanPham>
     private lateinit var dsLoaiSP: ArrayList<LoaiSanPham>
     private lateinit var dsDonViSP: ArrayList<DonVi>
     private lateinit var dbDonViHelper: DonViDBHelper
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
-    private lateinit var search:EditText
-    private lateinit var adapterSP: AdapterSanPham
+    private lateinit var search: EditText
+    private lateinit var adapterLSP:AdapterLoaiSanPham
+
 
     companion object {
+        var tuKhoa: String = ""
+        var loaiSanPham = LoaiSanPham(-1, "")
+        lateinit var adapterSP: AdapterSanPham
         const val REQUEST_CODE_UPDATE_PRODUCT = 1001
-        var hinhSP= ""
-        var sanPhamBanHang :SanPham = SanPham(0,"","",LoaiSanPham(0,""),0, DonVi(0,""),0.0,"")
-        var sanPhamCapNhap :SanPham = SanPham(0,"","",LoaiSanPham(0,""),0, DonVi(0,""),0.0,"")
+        var hinhSP = ""
+        var sanPhamBanHang: SanPham =
+            SanPham(0, "", "", LoaiSanPham(0, ""), 0, DonVi(0, ""), 0.0, "")
+        var sanPhamCapNhap: SanPham =
+            SanPham(0, "", "", LoaiSanPham(0, ""), 0, DonVi(0, ""), 0.0, "")
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -57,7 +64,8 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         setEvent()
     }
 
-    private fun setControl(){
+    private fun setControl() {
+
         binding = ActivityDanhSachSanPhamBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dbSanPhamHelper = SanPhamDBHelper(this)
@@ -70,7 +78,6 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
         dsDonViSP = ArrayList(dbDonViHelper.getAllDonVi())
         dsLoaiSP = ArrayList(dbLoaiSPHelper.getAllLoaiSanPham())
-
 
 
         // Kiểm tra dữ liệu và cấu hình RecyclerView nếu có dữ liệu
@@ -90,17 +97,37 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         // search
 
     }
-    private fun setEvent(){
+
+    private fun setEvent() {
         binding.backHome.setOnClickListener {
             onBackPressed()
         }
 
+        binding.tvLoaiSPAll.setOnClickListener {
+            loaiSanPham = LoaiSanPham(-1, "")
+            adapterLSP.selectedPosition = -1
+            adapterLSP.tvLoaiSP.setBackgroundResource(R.drawable.editext_bg)
+            binding.tvLoaiSPAll.setBackgroundResource(R.drawable.brown_bg)
+            loadData()
+        }
+
+        binding.searchEditText.addTextChangedListener { text ->
+            val query = text.toString()
+            tuKhoa = text.toString()
+            filterSanPham(query)
+
+        }
+
     }
+
     private fun setupLoaiSanPhamRecyclerView() {
         if (dsLoaiSP.isNotEmpty()) {
-            val adapterLSP = AdapterLoaiSanPham(dsLoaiSP,object : OnLoaiSanPhamClickListener {
+             adapterLSP = AdapterLoaiSanPham(dsLoaiSP, object : OnLoaiSanPhamClickListener {
                 override fun onLoaiSanPhamClick(loaiSanPham: LoaiSanPham) {
                     filterSanPhamByLoai(loaiSanPham)
+                    DanhSachSanPham.loaiSanPham =
+                        LoaiSanPham(loaiSanPham.idLoai_sp, loaiSanPham.tenLoai_sp)
+                    binding.tvLoaiSPAll.setBackgroundResource(R.drawable.editext_bg)
                 }
 
             })
@@ -117,6 +144,20 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun filterSanPham(query: String) {
+        val filteredList = dsSP.filter { it.ten_sp.contains(query, ignoreCase = true) }
+        val parentLayout = binding.gridLayoutSanPham
+
+        if (filteredList.isNotEmpty()) {
+            adapterSP = AdapterSanPham(ArrayList(filteredList), dsLoaiSP, dsDonViSP, this)
+            adapterSP.populateLinearLayout(parentLayout)
+        } else {
+            parentLayout.removeAllViews() // Xóa toàn bộ nội dung trước đó
+            //Toast.makeText(this, "Không tìm thấy sản phẩm phù hợp!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun filterSanPhamByLoai(loaiSanPham: LoaiSanPham) {
         if (::dbSanPhamHelper.isInitialized) {
             // Lấy toàn bộ danh sách sản phẩm từ cơ sở dữ liệu
@@ -125,22 +166,23 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
             // Lọc sản phẩm dựa trên loại sản phẩm
             val filteredList = dsSP.filter { it.idLoai_sp.idLoai_sp == loaiSanPham.idLoai_sp }
 
-            if (::adapterSP.isInitialized) {
-                if (filteredList.isNotEmpty()) {
-                    // Cập nhật dữ liệu hiển thị
-                    adapterSP.updateData(ArrayList(filteredList), binding.gridLayoutSanPham)
 
-                } else {
-                    // Thông báo nếu không có sản phẩm thuộc loại
-                    Toast.makeText(
-                        this,
-                        "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            if (filteredList.isNotEmpty()) {
+                // Cập nhật dữ liệu hiển thị
+                adapterSP.updateData(ArrayList(filteredList), binding.gridLayoutSanPham)
+
+            } else {
+                // Thông báo nếu không có sản phẩm thuộc loại
+                Toast.makeText(
+                    this,
+                    "Không có sản phẩm thuộc loại: ${loaiSanPham.tenLoai_sp}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+
         }
     }
+
     private fun setupSanPhamGridView() {
         val parentLayout = binding.gridLayoutSanPham
 
@@ -237,17 +279,33 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
         }
     }
 
-    private fun updateSanPhamList() {
+
+    fun loadData() {
+        if (!tuKhoa.equals("")) {
+            filterSanPham(tuKhoa)
+        }
+        else if(adapterLSP.selectedPosition != -1){
+            filterSanPhamByLoai(loaiSanPham)
+        }
+        else {
+            loadData2()
+        }
+    }
+
+    fun loadData2(){
         val dbHelper = SanPhamDBHelper(this)
         val updatedList = dbHelper.getAllProducts()
+
+        val parentLayout = binding.gridLayoutSanPham
         if (updatedList.isNotEmpty()) {
             dsSP.clear()
             dsSP.addAll(updatedList)
-            val parentLayout = binding.gridLayoutSanPham
-            dsSP.clear() // Xóa dữ liệu cũ
-            dsSP.addAll(dbSanPhamHelper.getAllProducts()) // Thêm dữ liệu mới
-            adapterSP.populateLinearLayout(parentLayout) //
+
+            // Cập nhật lại danh sách hiển thị
+           adapterSP = AdapterSanPham(dsSP, dsLoaiSP, dsDonViSP, this)
+           adapterSP.populateLinearLayout(parentLayout)
         } else {
+            parentLayout.removeAllViews() // Xóa toàn bộ nội dung
             Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -264,7 +322,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
 
     private val updateTask = object : Runnable {
         override fun run() {
-            updateSanPhamList()
+            loadData()
             handler.postDelayed(this, updateInterval)
         }
     }
