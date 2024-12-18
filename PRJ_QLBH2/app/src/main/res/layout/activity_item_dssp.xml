@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="120dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
     app:cardCornerRadius="10dp"
     android:paddingBottom="0dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@android:color/white"
-    android:layout_gravity="center_horizontal"
+    app:cardBackgroundColor="#00000000"
     tools:context="com.example.dangnhapdangki.Activity.TrangChu">
     <LinearLayout
+        android:id="@+id/linearLayoutSanPham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white_transparent_30"
+        android:background="#00000000"
         >
         <ImageView
             android:id="@+id/img_SanPham"
@@ -70,4 +70,4 @@
             app:cornerRadius="0dp"
             />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>

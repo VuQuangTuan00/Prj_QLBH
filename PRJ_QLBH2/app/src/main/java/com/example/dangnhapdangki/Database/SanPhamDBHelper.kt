@@ -323,5 +323,58 @@ class SanPhamDBHelper(context: Context) :
         db.close()
         return products
     }
+
+    fun searchProductsByCriteria(
+        id: Int? = null,
+        name: String? = null,
+        price: Double? = null,
+        description: String? = null
+    ): List<SanPham> {
+        val db = readableDatabase
+        val queryBuilder = StringBuilder("SELECT * FROM $TABLE_SANPHAM WHERE 1=1") // Luôn đúng để thêm các điều kiện
+        val args = mutableListOf<String>()
+
+        // Thêm điều kiện tìm kiếm dựa trên thông tin được cung cấp
+        id?.let {
+            queryBuilder.append(" AND $COLUMN_ID = ?")
+            args.add(it.toString())
+        }
+        name?.let {
+            queryBuilder.append(" AND $COLUMN_NAME LIKE ?")
+            args.add("%$it%")
+        }
+        price?.let {
+            queryBuilder.append(" AND $COLUMN_PRICE = ?")
+            args.add(it.toString())
+        }
+        description?.let {
+            queryBuilder.append(" AND $COLUMN_THONGTIN LIKE ?")
+            args.add("%$it%")
+        }
+
+        val query = queryBuilder.toString()
+        val cursor = db.rawQuery(query, args.toTypedArray())
+        val products = mutableListOf<SanPham>()
+
+        cursor.use {
+            while (it.moveToNext()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(COLUMN_ID))
+                val name = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val img = it.getString(it.getColumnIndexOrThrow(COLUMN_IMG_SP))
+                val price = it.getDouble(it.getColumnIndexOrThrow(COLUMN_PRICE))
+                val soLuong = it.getInt(it.getColumnIndexOrThrow(COLUMN_QUANTITY))
+                val loaiSanPham = getLoaiSanPhamById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDLOAI_SP)))
+                val donVi = getDonViById(it.getInt(it.getColumnIndexOrThrow(COLUMN_IDDONVI)))
+                val thongTin = it.getString(it.getColumnIndexOrThrow(COLUMN_THONGTIN))
+
+                if (loaiSanPham != null && donVi != null) {
+                    products.add(SanPham(id, img, name, loaiSanPham, soLuong, donVi, price, thongTin))
+                }
+            }
+        }
+        db.close()
+        return products
+    }
+
 }
 

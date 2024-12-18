@@ -9,30 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.example.dangnhapdangki.Activity.ChiTietSanPham
-import com.example.dangnhapdangki.Activity.DangNhap
-import com.example.dangnhapdangki.Activity.DanhSachSanPham
-import com.example.dangnhapdangki.Activity.MainActivityGioHang
 import com.example.dangnhapdangki.Activity.TrangChu
 import com.example.dangnhapdangki.Activity.TrangChu.Companion.sanPhamBanHang
-import com.example.dangnhapdangki.Activity.UpdateProduct
 import com.example.dangnhapdangki.ChuyenDoiHinhAnh
-import com.example.dangnhapdangki.Database.LoaiSanPhamDBHelper
-import com.example.dangnhapdangki.Database.SanPhamDBHelper
-import com.example.dangnhapdangki.Model.GioHang
 import com.example.demo_recycleview.Model.DonVi
 import com.example.demo_recycleview.Model.LoaiSanPham
 import com.example.demo_recycleview.Model.SanPham
 import com.example.prj_qlbh.databinding.ItemSanphamBinding
 
-class AdapterSanPham(
+class AdapterSanPhamGrid(
     private var dsSanPham: ArrayList<SanPham>,
     private val dsLoaiSP: ArrayList<LoaiSanPham>,
     private val dsDonViSP: ArrayList<DonVi>,
     private val context: Context
-
 ) {
 
     fun populateLinearLayout(parentLayout: ViewGroup) {
@@ -61,9 +51,6 @@ class AdapterSanPham(
                 )
             }
 
-            if (TrangChu.manHinh.equals("QuanTri")) {
-                binding.btnMuaSp.text = "Xóa sản phẩm"
-            }
             if (loaiSP != null && donVi != null) {
                 binding.tvTenSp.text = sanPham.ten_sp
                 binding.tvGia.text = spannable
@@ -81,30 +68,12 @@ class AdapterSanPham(
 
             // Sự kiện khi click vào sản phẩm
             binding.linearLayoutSanPham.setOnClickListener {
-                DanhSachSanPham.sanPhamBanHang = sanPham
-                DanhSachSanPham.hinhSP = sanPham.img_sp
-                val intent = Intent(context, UpdateProduct::class.java)
+                TrangChu.sanPhamBanHang = sanPham
+                val intent = Intent(context, ChiTietSanPham::class.java)
                 context.startActivity(intent)
             }
 
-            binding.btnMuaSp.setOnClickListener {
-                AlertDialog.Builder(context)
-                    .setTitle("Xác nhận")
-                    .setMessage("Bạn có chắc chắn muốn xóa sản phẩm này không?")
-                    .setPositiveButton("Yes") { dialog, which ->
-                        val dbSanPham: SanPhamDBHelper by lazy { SanPhamDBHelper(context) }
-                        dbSanPham.deleteProduct(sanPham.id_sanPham)
-                        dsSanPham.clear()
-                        dsSanPham.addAll(dbSanPham.getAllProducts())
-                        populateLinearLayout(parentLayout)
-                    }
-                    .setNegativeButton("No") { dialog, which ->
-                        dialog.dismiss()
-                    }
-                    .show()
-            }
-
-            // Thêm vào LinearLayout
+            // Thêm sản phẩm vào bố cục
             parentLayout.addView(binding.root)
         }
 
@@ -115,16 +84,15 @@ class AdapterSanPham(
             // Ẩn nội dung của View giả
             binding.tvTenSp.visibility = View.INVISIBLE
             binding.tvGia.visibility = View.INVISIBLE
+            binding.root.setBackgroundColor(android.graphics.Color.parseColor("#201520"))
             binding.tvLoaiSp.visibility = View.INVISIBLE
             binding.imgSanPham.visibility = View.INVISIBLE
             binding.btnMuaSp.visibility = View.INVISIBLE
-            binding.root.setBackgroundColor(android.graphics.Color.TRANSPARENT)
-
-
 
             // Thêm View giả vào bố cục
             parentLayout.addView(binding.root)
         }
+
     }
 
 
