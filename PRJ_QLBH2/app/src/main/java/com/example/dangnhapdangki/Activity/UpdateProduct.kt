@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.dangnhapdangki.ChuyenDoiHinhAnh
 import com.example.dangnhapdangki.Database.DataBaseGioHang
 import com.example.dangnhapdangki.Database.DonViDBHelper
@@ -107,6 +108,20 @@ class UpdateProduct : AppCompatActivity() {
                     // Trả dữ liệu sản phẩm đã chỉnh sửa về màn hình trước
                     var kq: Boolean = dbSanPhamDBHelper.updateProduct(sanPham)
                     if (kq == true) {
+                        DanhSachSanPham.tvALLSanPham.visibility = View.VISIBLE
+                        DanhSachSanPham.adapterLSP.selectedPosition = -1
+                        try {
+                            DanhSachSanPham.adapterLSP.tvLoaiSP.setBackgroundResource(R.drawable.editext_bg)
+                        } catch (e: Exception) {
+
+                        }
+
+                        DanhSachSanPham.tuKhoa = ""
+                        DanhSachSanPham.searchSanPham.setText("")
+
+                        DanhSachSanPham.loaiSanPham = LoaiSanPham(-1, "")
+                        DanhSachSanPham.tvALLSanPham.setBackgroundResource(R.drawable.brown_bg)
+
                         Toast.makeText(this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT)
                             .show()
                     } else {
@@ -149,8 +164,6 @@ class UpdateProduct : AppCompatActivity() {
             val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
             binding.imgSanPham.setImageBitmap(hinhBitMap)
         }
-
-
 
 
     }

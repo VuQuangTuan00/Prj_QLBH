@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -37,10 +38,13 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
     private lateinit var dbLoaiSPHelper: LoaiSanPhamDBHelper
     private lateinit var dbSanPhamHelper: SanPhamDBHelper
     private lateinit var search: EditText
-    private lateinit var adapterLSP:AdapterLoaiSanPham
+
 
 
     companion object {
+        lateinit var searchSanPham:EditText
+        lateinit var tvALLSanPham:TextView
+        lateinit var adapterLSP:AdapterLoaiSanPham
         var tuKhoa: String = ""
         var loaiSanPham = LoaiSanPham(-1, "")
         lateinit var adapterSP: AdapterSanPham
@@ -103,6 +107,8 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
             onBackPressed()
         }
 
+        tvALLSanPham = binding.tvLoaiSPAll
+        searchSanPham = binding.searchEditText
         binding.tvLoaiSPAll.visibility = View.GONE
         binding.tvLoaiSPAll.setOnClickListener {
             loaiSanPham = LoaiSanPham(-1, "")
