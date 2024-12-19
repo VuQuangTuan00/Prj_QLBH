@@ -103,6 +103,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
             onBackPressed()
         }
 
+        binding.tvLoaiSPAll.visibility = View.GONE
         binding.tvLoaiSPAll.setOnClickListener {
             loaiSanPham = LoaiSanPham(-1, "")
             adapterLSP.selectedPosition = -1
@@ -128,6 +129,7 @@ class DanhSachSanPham : AppCompatActivity(), SuKienChuyenTrangUpdate {
                     DanhSachSanPham.loaiSanPham =
                         LoaiSanPham(loaiSanPham.idLoai_sp, loaiSanPham.tenLoai_sp)
                     binding.tvLoaiSPAll.setBackgroundResource(R.drawable.editext_bg)
+                    binding.tvLoaiSPAll.visibility = View.VISIBLE
                 }
 
             })

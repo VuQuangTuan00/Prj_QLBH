@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dangnhapdangki.Activity.DanhSachSanPham.Companion
@@ -98,6 +99,7 @@ class TrangChu : AppCompatActivity() {
             filterSanPham(query)
         }
 
+        binding.tvLoaiSPAll.visibility = View.GONE
 
         binding.bugerNav?.setOnClickListener {
             binding.drawerLayout?.openDrawer(binding.navView!!)
@@ -155,6 +157,7 @@ class TrangChu : AppCompatActivity() {
                     Companion.loaiSanPham =
                         LoaiSanPham(loaiSanPham.idLoai_sp, loaiSanPham.tenLoai_sp)
                     binding.tvLoaiSPAll.setBackgroundResource(R.drawable.editext_bg)
+                    binding.tvLoaiSPAll.visibility = View.VISIBLE
                 }
 
             })

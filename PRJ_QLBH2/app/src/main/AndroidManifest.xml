@@ -29,9 +29,6 @@
             android:name="com.example.dangnhapdangki.Activity.UpdateProduct"
             android:exported="false" />
         <activity
-            android:name="com.example.dangnhapdangki.DelProduct"
-            android:exported="false" />
-        <activity
             android:name="com.example.dangnhapdangki.Activity.AddProduct"
             android:exported="false" />
         <activity
@@ -51,9 +48,6 @@
             android:exported="false" />
         <activity
             android:name="com.example.dangnhapdangki.Activity.TrangChu"
-            android:exported="false" />
-        <activity
-            android:name="com.example.dangnhapdangki.DanhMucSanPham"
             android:exported="false" />
         <activity
             android:name="com.example.dangnhapdangki.Activity.DangNhap"

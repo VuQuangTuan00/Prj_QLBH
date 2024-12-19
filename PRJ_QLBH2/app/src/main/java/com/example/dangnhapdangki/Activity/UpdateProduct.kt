@@ -82,9 +82,18 @@ class UpdateProduct : AppCompatActivity() {
                 sanPham.idLoai_sp = loaiSanPham
                 sanPham.idDonVi_sp = donViSanPham
                 try {
-                    val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
-                    val hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh, this)
-                    sanPham.img_sp = hinhSP
+                    if (byteArrayHinh.isNotEmpty()) {
+                        val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+                        val hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(byteArrayHinh, this)
+                        sanPham.img_sp = hinhSP
+                    } else {
+                        val chuyenDoiHinhAnh = ChuyenDoiHinhAnh()
+                        val hinhByte: ByteArray =
+                            chuyenDoiHinhAnh.chuyenStringSangByte(DanhSachSanPham.hinhSP, this)
+                        val hinhSP = chuyenDoiHinhAnh.chuyenByteSangChuoi(hinhByte, this)
+                        sanPham.img_sp = hinhSP
+                    }
+
                 } catch (e: Exception) {
                     e.printStackTrace() // Hoặc sử dụng log để ghi lại lỗi
                 }
@@ -134,13 +143,14 @@ class UpdateProduct : AppCompatActivity() {
                 chuyenDoiHinhAnh.chuyenStringSangByte(stringBase64.base64_anh2, this)
             val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
             binding.imgSanPham.setImageBitmap(hinhBitMap)
-        }
-        else{
+        } else {
             val hinhByte: ByteArray =
                 chuyenDoiHinhAnh.chuyenStringSangByte(DanhSachSanPham.hinhSP, this)
             val hinhBitMap: Bitmap = chuyenDoiHinhAnh.chuyenByteSangBitMap(hinhByte, this)
             binding.imgSanPham.setImageBitmap(hinhBitMap)
         }
+
+
 
 
     }
@@ -174,6 +184,53 @@ class UpdateProduct : AppCompatActivity() {
         )
         donViAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spDonViSP.adapter = donViAdapter
+
+        // Lấy adapter từ Spinner
+        val adapter = binding.spLoaiSP.adapter
+
+        // Lấy giá trị cần tìm
+        val tenLoaiSPHienTai = DanhSachSanPham.sanPhamBanHang?.idLoai_sp?.tenLoai_sp
+
+        // Duyệt qua các item trong adapter
+        var viTriLoaiSP = -1
+        for (i in 0 until adapter.count) {
+            val item = adapter.getItem(i).toString() // Lấy item tại vị trí i
+            if (item == tenLoaiSPHienTai) {
+                viTriLoaiSP = i
+                break // Thoát vòng lặp nếu tìm thấy
+            }
+        }
+
+        // Kiểm tra nếu tìm thấy giá trị
+        if (viTriLoaiSP >= 0) {
+            // Đặt Spinner vào đúng vị trí
+            binding.spLoaiSP.setSelection(viTriLoaiSP)
+        }
+
+
+        // Lấy adapter từ Spinner
+        val adapterDonVi = binding.spDonViSP.adapter
+
+// Lấy giá trị cần tìm
+        val tenDonViHienTai = DanhSachSanPham.sanPhamBanHang?.idDonVi_sp?.tenDonVi_sp
+
+// Duyệt qua các item trong adapter
+        var viTriDonViSP = -1
+        for (i in 0 until adapterDonVi.count) {
+            val item = adapterDonVi.getItem(i).toString() // Lấy item tại vị trí i
+            if (item == tenDonViHienTai) {
+                viTriDonViSP = i
+                break // Thoát vòng lặp nếu tìm thấy
+            }
+        }
+
+        // Kiểm tra nếu tìm thấy giá trị
+        if (viTriDonViSP >= 0) {
+            // Đặt Spinner vào đúng vị trí
+            binding.spDonViSP.setSelection(viTriDonViSP)
+        }
+
+
     }
 
     var byteArrayHinh: ByteArray = ByteArray(0)
