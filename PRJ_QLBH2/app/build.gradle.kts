@@ -36,7 +36,6 @@ android {
     }
     buildFeatures{
         viewBinding = true
-        dataBinding = true
     }
 }
 
@@ -48,12 +47,11 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation ("com.github.bumptech.glide:glide:4.15.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //Thư viện sqlLite
     implementation("androidx.sqlite:sqlite:2.3.0")
 
 }

@@ -87,6 +87,31 @@ class SanPhamDBHelper(context: Context) :
         db?.execSQL("DROP TABLE IF EXISTS $TABLE_DONVI")
         onCreate(db)
     }
+
+    fun getProductStatistics(): Map<String, Float> {
+        val db = readableDatabase
+        val query = """
+        SELECT $COLUMN_IDLOAI_SP, SUM($COLUMN_QUANTITY) as totalQuantity 
+        FROM $TABLE_SANPHAM
+        GROUP BY $COLUMN_IDLOAI_SP
+    """
+        val statistics = mutableMapOf<String, Float>()
+        val cursor = db.rawQuery(query, null)
+
+        cursor.use {
+            while (it.moveToNext()) {
+                val idLoaiSp = it.getInt(it.getColumnIndexOrThrow(COLUMN_IDLOAI_SP))
+                val totalQuantity = it.getFloat(it.getColumnIndexOrThrow("totalQuantity"))
+
+                val loaiSanPham = getLoaiSanPhamById(idLoaiSp)
+                if (loaiSanPham != null) {
+                    statistics[loaiSanPham.tenLoai_sp] = totalQuantity
+                }
+            }
+        }
+        db.close()
+        return statistics
+    }
     fun insertSampleProducts() {
         val db = writableDatabase
         val productData = listOf(

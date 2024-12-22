@@ -48,7 +48,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         dbSanPhamHelper = SanPhamDBHelper(this)
         dbDonViHelper = DonViDBHelper(this)
         dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
-//        dbSanPhamHelper.insertSampleProducts()
+        dbSanPhamHelper.insertSampleProducts()
 
         // Lấy dữ liệu từ cơ sở dữ liệu
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
@@ -112,6 +112,11 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
                 }
                 R.id.navDSSP -> {
                     val intent = Intent(this, DanhSachSanPham::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navThongKe -> {
+                    val intent = Intent(this, ThongKe::class.java)
                     startActivity(intent)
                     true
                 }
@@ -207,7 +212,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
             dsSP.addAll(updatedList)
             binding.rvSanPham.adapter?.notifyDataSetChanged()
         } else {
-            Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Danh sách sản phẩm trống!", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Dangnhapdangki"
         tools:targetApi="31">
         <activity
+            android:name="com.example.dangnhapdangki.Activity.ThongKe"
+            android:exported="false" />
+        <activity
             android:name="com.example.dangnhapdangki.Activity.SearchActivity"
             android:exported="false" />
         <activity
