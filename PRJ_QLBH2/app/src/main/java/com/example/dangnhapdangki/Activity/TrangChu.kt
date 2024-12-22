@@ -115,11 +115,11 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
                     startActivity(intent)
                     true
                 }
-                R.id.navThongKe -> {
-                    val intent = Intent(this, ThongKe::class.java)
-                    startActivity(intent)
-                    true
-                }
+//                R.id.navThongKe -> {
+//                    val intent = Intent(this, ThongKe::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
                 else -> false
             }
         }
