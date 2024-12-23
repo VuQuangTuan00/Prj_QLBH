@@ -48,7 +48,6 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
         dbSanPhamHelper = SanPhamDBHelper(this)
         dbDonViHelper = DonViDBHelper(this)
         dbLoaiSPHelper = LoaiSanPhamDBHelper(this)
-        dbSanPhamHelper.insertSampleProducts()
 
         // Lấy dữ liệu từ cơ sở dữ liệu
         dsSP = ArrayList(dbSanPhamHelper.getAllProducts())
@@ -77,6 +76,7 @@ class TrangChu : AppCompatActivity(), SuKienChuyenTrangChiTiet {
             Toast.makeText(this, "Không có loại sản phẩm nào!", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun setEvent() {
         binding.searchEditText.addTextChangedListener { text ->

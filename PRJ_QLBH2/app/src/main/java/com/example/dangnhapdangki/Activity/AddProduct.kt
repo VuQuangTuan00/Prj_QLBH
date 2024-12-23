@@ -53,7 +53,7 @@ class AddProduct : AppCompatActivity() {
         })
 
         binding.btnThemSanPham.setOnClickListener {
-            val intent = Intent(this, TrangChu::class.java)
+            val intent = Intent(this, DanhSachSanPham::class.java)
             startActivity(intent)
             val tenSanPham = binding.edtTenSanPham.text.toString()
             val soLuong = binding.edtSoLuong.text.toString().toIntOrNull() ?: 0

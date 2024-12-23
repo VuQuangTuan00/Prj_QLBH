@@ -166,7 +166,8 @@ class SanPhamDBHelper(context: Context) :
             "Chiếc",
             "Hộp",
             "Kg",
-            "Lít"
+            "Lít",
+            "Gam"
         )
 
         sampleDataDonVi.forEach { name ->
@@ -182,9 +183,13 @@ class SanPhamDBHelper(context: Context) :
         }
 
         val sampleDataLoaiSanPham = listOf(
-            "Điện thoại",
-            "Laptop",
-            "Tủ lạnh"
+            "Hoa quả",
+            "Trái cây",
+            "Nước uống có cồn",
+            "Thịt tươi sống",
+            "Cá",
+            "Bánh kẹo",
+            "Các loại thực phẩm khác"
         )
 
         sampleDataLoaiSanPham.forEach { name ->

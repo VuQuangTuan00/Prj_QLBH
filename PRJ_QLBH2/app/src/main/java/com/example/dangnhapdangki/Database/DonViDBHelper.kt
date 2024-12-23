@@ -26,7 +26,6 @@ class DonViDBHelper(context: Context) :
                 $COLUMN_NAME TEXT NOT NULL UNIQUE
             )
         """.trimIndent()
-
         try {
             db?.execSQL(createTableQuery)
             Log.d("Don vi", "Table LoaiSanPham created successfully")
