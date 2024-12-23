@@ -36,7 +36,6 @@ android {
     }
     buildFeatures{
         viewBinding = true
-        dataBinding = true
     }
 }
 
@@ -53,8 +52,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //Thư viện sqlLite
     implementation("androidx.sqlite:sqlite:2.3.0")
 
 }

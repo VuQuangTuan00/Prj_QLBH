@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-
-
     <!-- ConstraintLayout to hold everything -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
