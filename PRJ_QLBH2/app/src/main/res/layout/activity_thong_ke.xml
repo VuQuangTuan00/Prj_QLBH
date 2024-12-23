@@ -1,18 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.dangnhapdangki.Activity.ThongKe">
 
-    <com.github.mikephil.charting.charts.BarChart
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/barchart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/lobster"
+        android:textColor="@color/purple"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="THỐNG KÊ SỐ LIỆU"
+        />
+    <!-- PieChart -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
+    <!-- Tiêu đề PieChart -->
+    <TextView
+        android:id="@+id/pieChartTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thống kê sản phẩm"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- BarChart -->
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+
+    <!-- Tiêu đề BarChart -->
+    <TextView
+        android:id="@+id/barChartTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thống kê sản phẩm theo loại"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"/>
+
+</LinearLayout>

@@ -88,7 +88,7 @@ class SanPhamDBHelper(context: Context) :
         onCreate(db)
     }
 
-    fun getProductStatistics(): Map<String, Float> {
+    fun getCategoryProductStatistics(): Map<String, Float> {
         val db = readableDatabase
         val query = """
         SELECT $COLUMN_IDLOAI_SP, SUM($COLUMN_QUANTITY) as totalQuantity 
@@ -107,6 +107,27 @@ class SanPhamDBHelper(context: Context) :
                 if (loaiSanPham != null) {
                     statistics[loaiSanPham.tenLoai_sp] = totalQuantity
                 }
+            }
+        }
+        db.close()
+        return statistics
+    }
+
+    fun getProductStatistics(): Map<String, Int> {
+        val db = readableDatabase
+        val query = """
+        SELECT $COLUMN_NAME, SUM($COLUMN_QUANTITY) AS totalQuantity
+        FROM $TABLE_SANPHAM
+        GROUP BY $COLUMN_NAME
+    """
+        val statistics = mutableMapOf<String, Int>()
+        val cursor = db.rawQuery(query, null)
+
+        cursor.use {
+            while (it.moveToNext()) {
+                val productName = it.getString(it.getColumnIndexOrThrow(COLUMN_NAME))
+                val totalQuantity = it.getInt(it.getColumnIndexOrThrow("totalQuantity"))
+                statistics[productName] = totalQuantity
             }
         }
         db.close()

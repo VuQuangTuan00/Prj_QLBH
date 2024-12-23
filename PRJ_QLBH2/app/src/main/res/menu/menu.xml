@@ -9,7 +9,10 @@
         android:id="@+id/navDSSP"
         android:icon="@drawable/baseline_assignment_24"
         android:title="Danh Sach Sản Phẩm" />
-
+    <item
+        android:id="@+id/navThongKe"
+        android:icon="@drawable/baseline_bar_chart_24"
+        android:title="Danh Sach Sản Phẩm" />
     <item
         android:id="@+id/navThoat"
         android:icon="@drawable/xoa"

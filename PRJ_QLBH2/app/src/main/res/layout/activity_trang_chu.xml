@@ -7,15 +7,6 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-    <!-- Navigation view is commented out, add if needed -->
-     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/layout_header"
-        app:menu="@menu/menu" />
-
     <!-- ConstraintLayout to hold everything -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -175,5 +166,11 @@
             tools:ignore="NotSibling" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/layout_header"
+        app:menu="@menu/menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
